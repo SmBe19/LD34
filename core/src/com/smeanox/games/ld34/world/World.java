@@ -26,7 +26,7 @@ public class World implements Updatable, Renderable {
 
 	public World(Camera camera){
 		this.camera = camera;
-		groundParts = new ArrayList<GroundPart>();
+		setGroundParts(new ArrayList<GroundPart>());
 		updatables = new ArrayList<Updatable>();
 		renderables = new ArrayList<List<Renderable> >();
 
@@ -51,7 +51,7 @@ public class World implements Updatable, Renderable {
 
 		float lastPos = 0;
 		while (true){
-			for (GroundPart groundPart : groundParts) {
+			for (GroundPart groundPart : getGroundParts()) {
 				lastPos = Math.max(lastPos, groundPart.getX() + groundPart.getWidth());
 			}
 
@@ -65,7 +65,7 @@ public class World implements Updatable, Renderable {
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
 				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
 				newGroundPart.generate();
-				groundParts.add(newGroundPart);
+				getGroundParts().add(newGroundPart);
 			} else {
 				break;
 			}
@@ -75,12 +75,19 @@ public class World implements Updatable, Renderable {
 	private void clearWorldPart(){
 		float leftBorder = camera.position.x - Consts.WIDTH;
 
-		for(GroundPart groundPart : new ArrayList<GroundPart>(groundParts)){
+		for(GroundPart groundPart : new ArrayList<GroundPart>(getGroundParts())){
 			if(groundPart.getX() + groundPart.getWidth() < leftBorder){
 				groundPart.destroy();
-				groundParts.remove(groundPart);
+				getGroundParts().remove(groundPart);
 			}
 		}
+	}
+
+	public GroundPart getGroundPart(float x){
+		for (GroundPart gp : getGroundParts()){
+			if (gp.getX() > x) return gp;
+		}
+		return null;
 	}
 
 	public void addRenderable(int layer, Renderable renderable){
@@ -125,5 +132,13 @@ public class World implements Updatable, Renderable {
 
 	public PhysicSimulation getPhysics() {
 		return physics;
+	}
+
+	public List<GroundPart> getGroundParts() {
+		return groundParts;
+	}
+
+	public void setGroundParts(List<GroundPart> groundParts) {
+		this.groundParts = groundParts;
 	}
 }

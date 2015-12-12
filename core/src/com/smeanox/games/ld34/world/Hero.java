@@ -211,4 +211,22 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		return true;
 	}
+
+	public class PlantParticle extends ParticleSystem.Particle {
+
+		public PlantParticle(float time, float x, float y, float vx, float vy) {
+			super(time, x, y, vx, vy);
+		}
+
+
+
+		@Override
+		public void onCollision(Collidable collidable) {
+			super.onCollision(collidable);
+			if (collidable instanceof GroundPart) {
+				world.getGroundPart(getX())
+				PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), getY(), height);
+			}
+		}
+	}
 }

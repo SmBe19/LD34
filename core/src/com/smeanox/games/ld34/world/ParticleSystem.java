@@ -53,7 +53,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloXRand = startVeloXRand;
 		this.startVeloYRand = startVeloYRand;
 
-		particles = new ArrayList<Particle>();
+		setParticles(new ArrayList<Particle>());
 		nextParticles = new ArrayDeque<Float>();
 
 		world.getUpdatables().add(this);
@@ -92,7 +92,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void destroy(){
-		for(Particle particle : particles){
+		for(Particle particle : getParticles()){
 			particle.destroy();
 		}
 		world.getUpdatables().remove(this);
@@ -116,8 +116,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void update(float delta) {
-		for(int i = particles.size()-1; i >= 0; i--){
-			particles.get(i).update(delta);
+		for(int i = getParticles().size()-1; i >= 0; i--){
+			getParticles().get(i).update(delta);
 		}
 		if(generating) {
 			passedTime += delta;
@@ -149,8 +149,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		spriteBatch.setColor(color);
-		for(int i = particles.size()-1; i >= 0; i--) {
-			particles.get(i).render(delta, spriteBatch);
+		for(int i = getParticles().size()-1; i >= 0; i--) {
+			getParticles().get(i).render(delta, spriteBatch);
 		}
 		spriteBatch.setColor(Color.WHITE);
 	}
@@ -259,6 +259,14 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.color = color;
 	}
 
+	public List<Particle> getParticles() {
+		return particles;
+	}
+
+	public void setParticles(List<Particle> particles) {
+		this.particles = particles;
+	}
+
 	public class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
 		private float time;
 		private int collisions;
@@ -274,7 +282,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			this.collisions = 10;
 
-			particles.add(this);
+			getParticles().add(this);
 		}
 
 		@Override
@@ -317,7 +325,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		@Override
 		public void destroy(){
 			world.getPhysics().removeRigidbody(this);
-			particles.remove(this);
+			getParticles().remove(this);
 		}
 	}
 }
