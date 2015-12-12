@@ -53,6 +53,11 @@ public class Consts {
 	public static final int VINE_TEXTURE_WIDTH = 16;
 	public static final float VINE_GROW_RATE = 75;
 	public static final float VINE_TEX_ZOOM = 4;
+
+	public static final int THORN_TEX_WIDTH = 32;
+	public static final int THORN_TEX_HEIGHT = 32;
+	public static final int THORN_TEX_ZOOM = 4;
+
 	public static final float HERO_TEX_ZOOM = 4;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM / 2;
 }
