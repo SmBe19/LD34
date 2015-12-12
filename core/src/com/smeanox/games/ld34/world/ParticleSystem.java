@@ -25,14 +25,17 @@ public class ParticleSystem implements Updatable, Renderable {
 	private float zoom;
 	private Deque<Float> nextParticles;
 	private Color color;
-	float passedTime;
-	boolean generating;
-	float timeout, autoDisable;
+	private float passedTime;
+	private boolean generating;
+	private float timeout, autoDisable;
+	private String tag;
 
-	public ParticleSystem(World world, int layer, Texture texture, Color color, float zoom, float lifeTime, float lifeTimeRand, float rate,
+	public ParticleSystem(World world, String tag, int layer, Texture texture, Color color, float zoom,
+	                      float lifeTime, float lifeTimeRand, float rate,
 	                      float rateRand, float startX, float startY, float startXRand, float startYRand,
 	                      float startVeloX, float startVeloY, float startVeloXRand, float startVeloYRand) {
 		this.world = world;
+		this.tag = tag;
 		this.layer = layer;
 		this.texture = texture;
 		this.color = color;
@@ -273,6 +276,13 @@ public class ParticleSystem implements Updatable, Renderable {
 		@Override
 		public Rectangle getCollisionBox() {
 			return new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+		}
+
+		@Override
+		public void onCollision(Collidable collidable) {
+			if(collidable instanceof Building){
+				destroy();
+			}
 		}
 
 		@Override
