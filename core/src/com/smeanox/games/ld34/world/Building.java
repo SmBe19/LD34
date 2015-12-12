@@ -49,7 +49,7 @@ public class Building implements Renderable, Collidable, Destroyable {
 
 
 	public float getWidth(){
-		return hSegments * Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_ZOOM;
+		return hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM;
 	}
 
 

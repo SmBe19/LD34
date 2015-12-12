@@ -102,7 +102,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
-		plantSystem = new ParticleSystem(world, "plant", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
+		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
 	}
 
 	@Override
@@ -255,12 +255,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				GroundPart gp = (GroundPart) collidable;
 				float height = -1;
 				for (Building b : gp.getBuildings()){
-					if (b.getX() > getX() && getX() < b.getX() +  b.getWidth()){
+					if (b.getX() < getX() && getX() < b.getX() +  b.getWidth()){
 						height = b.getHeight();
 					}
 				}
 				if (height > 0) {
 					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
+					destroy();
 				}else{
 
 					System.out.println("No building");

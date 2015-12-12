@@ -44,7 +44,7 @@ public class PhysicSimulation implements Updatable {
 			rigidbody.doPhysics(delta);
 		}
 		for (Rigidbody rigidbody : new ArrayList<Rigidbody>(rigidbodies)) {
-			for (Collidable collidable : collidables) {
+			for (Collidable collidable : new ArrayList<Collidable>(collidables)) {
 				if (collidable == rigidbody || !rigidbody.collidesWith(collidable)) {
 					continue;
 				}
