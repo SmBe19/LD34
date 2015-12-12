@@ -152,6 +152,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private void spawnAttackSystem(){
 		attackSystem.setStartX(x + 14 * Consts.HERO_TEX_ZOOM);
 		attackSystem.setStartY(y + 13 * Consts.HERO_TEX_ZOOM);
+		attackSystem.setGenerating(false);
 		attackSystem.setAutoDisable(0.1f);
 		attackSystem.setTimeout(0.5f);
 	}
@@ -159,6 +160,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private void spawnBloodInDaFaceSystem(){
 		bloodInDaFaceSystem.setStartX(x + 17 * Consts.HERO_TEX_ZOOM);
 		bloodInDaFaceSystem.setStartY(y + 13 * Consts.HERO_TEX_ZOOM);
+		bloodInDaFaceSystem.setGenerating(false);
 		bloodInDaFaceSystem.setAutoDisable(0.1f);
 		bloodInDaFaceSystem.setTimeout(0.5f);
 	}
@@ -166,6 +168,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private void spawnPlantSystem(){
 		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM + Consts.HERO_VELO);
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
+		plantSystem.setGenerating(false);
 		plantSystem.setAutoDisable(0.1f);
 		plantSystem.setTimeout(0.32f);
 	}

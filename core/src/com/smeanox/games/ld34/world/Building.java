@@ -11,7 +11,7 @@ import com.smeanox.games.ld34.Consts;
 /**
  * Comment
  */
-public class Building implements Renderable, Collidable {
+public class Building implements Renderable, Collidable, Destroyable {
 
 	private int vSegments, hSegments;
 	private TextureRegion[][] regions;
@@ -63,5 +63,11 @@ public class Building implements Renderable, Collidable {
 
 	@Override
 	public void onCollision(Collidable collidable) {
+	}
+
+	@Override
+	public void destroy() {
+		world.getRenderables(Consts.LAYER_BUILDING).remove(this);
+		world.getPhysics().removeCollidable(this);
 	}
 }
