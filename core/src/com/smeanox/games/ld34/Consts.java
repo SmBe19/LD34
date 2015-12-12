@@ -12,7 +12,7 @@ public class Consts {
 	public static float HEIGHT = DEV_HEIGHT;
 
 	public static final int GROUND_HEIGHT = -150;
-	public static final int GROUND_THICKNESS = 100;
+	public static final int GROUND_THICKNESS = 500;
 	public static final float GRAVITY = -9.81f;
 	public static final float FRICTION = 0.8f;
 	public static final float BOUNCINESS_MIN_Y = 4;
@@ -51,7 +51,7 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
-	public static final float VINE_GROW_RATE = 50;
+	public static final float VINE_GROW_RATE = 75;
 	public static final float VINE_TEX_ZOOM = 4;
 	public static final float HERO_TEX_ZOOM = 4;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM / 2;

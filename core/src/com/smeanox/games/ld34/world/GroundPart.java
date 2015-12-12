@@ -45,6 +45,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		while (lastBuilding + Consts.BUILDING_MIN_DIST + Consts.BUILDING_MIN_WIDTH < width){
 			lastBuilding += MathUtils.random(Consts.BUILDING_MIN_DIST, Consts.BUILDING_MAX_DIST);
 
+			buildings.add(new Building(world, lastBuilding, Consts.GROUND_HEIGHT, 8, 16));
 		}
 	}
 

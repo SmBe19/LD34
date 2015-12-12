@@ -102,6 +102,14 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.timeout = timeout;
 	}
 
+	public float getOneParticleTimeout() {
+		return oneParticleTimeout;
+	}
+
+	public void setOneParticleTimeout(float oneParticleTimeout) {
+		this.oneParticleTimeout = oneParticleTimeout;
+	}
+
 	@Override
 	public void destroy(){
 		for(Particle particle : getParticles()){

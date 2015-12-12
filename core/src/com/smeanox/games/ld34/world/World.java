@@ -67,7 +67,6 @@ public class World implements Updatable, Renderable {
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
 				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
 				newGroundPart.generate();
-				newGroundPart.getBuildings().add(new Building(this, newPos, Consts.GROUND_HEIGHT, 8, 16));
 				getGroundParts().add(newGroundPart);
 			} else {
 				break;
@@ -109,7 +108,7 @@ public class World implements Updatable, Renderable {
 		generateWorldPart();
 
 		snowSystem.setStartX(hero.getX());
-		snowSystem.setStartY(hero.getY());
+		snowSystem.setStartY(hero.getY() + 500);
 	}
 
 	@Override

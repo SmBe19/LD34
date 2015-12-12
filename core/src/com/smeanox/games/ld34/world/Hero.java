@@ -92,7 +92,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
 			}
 		}
-		climbing = new Animation(0.15f, regions);
+		climbing = new Animation(0.3f, regions);
 		climbing.setPlayMode(Animation.PlayMode.LOOP);
 
 		activeAnimation = walk;
@@ -102,7 +102,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
-		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
+		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, Consts.HERO_VELO * 0.5f, 1, 1);
 	}
 
 	@Override
@@ -194,8 +194,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM + Consts.HERO_VELO);
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setGenerating(false);
-		plantSystem.setAutoDisable(0.1f);
-		plantSystem.setTimeout(0.32f);
+		plantSystem.setOneParticleTimeout(0.32f);
 	}
 
 	public float getY() {
@@ -268,7 +267,6 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				}
 				if (height > 0) {
 					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
-					destroy();
 				}
 				destroy();
 
