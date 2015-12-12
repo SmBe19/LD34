@@ -7,4 +7,10 @@ public class PlantFactory {
 	public Plant getRandomPlant(World world, float x0, float y0, float targetHeight){
 		return new Vine(world, x0, y0, targetHeight);
 	}
+    public static PlantFactory getInstance(){
+        return new PlantFactory();
+    }
+    public static Plant justGimmeTheFrikkinNoicePlantPlox(World world, float x0, float y0, float targetHeight){
+        return new Vine(world, x0, y0, targetHeight);
+    }
 }
