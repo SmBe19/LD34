@@ -21,7 +21,7 @@ public class Consts {
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 150;
-	public static final float HERO_CLIMB_VELO = 50f;
+	public static final float HERO_CLIMB_VELO = 60f;
 	public static final float HERO_START_LIVES = 100f;
 	public static final float HERO_JUMP_VELO = 10f;
 	public static final float BUILDING_TOP_MARGIN = 10f;
@@ -38,14 +38,14 @@ public class Consts {
 
 	public static final int GROUNDPART_MIN_DIST = 0;
 	public static final int GROUNDPART_MAX_DIST = 250;
-	public static final int GROUNDPART_MIN_WIDTH = 500;
+	public static final int GROUNDPART_MIN_WIDTH = 900;
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
 	public static final int GROUNDPART_END_MIN_WIDTH = 25;
 	public static final int GROUNDPART_END_MAX_WIDTH = 200;
 	public static final int BUILDING_MIN_DIST = 25;
 	public static final int BUILDING_MAX_DIST = 250;
 	public static final int BUILDING_MIN_WIDTH = 3;
-	public static final int BUILDING_MAX_WIDTH = 16;
+	public static final int BUILDING_MAX_WIDTH = 9;
 	public static final int BUILDING_MIN_HEIGHT = 2;
 	public static final int BUILDING_MAX_HEIGHT = 14;
 
@@ -58,7 +58,7 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
-	public static final float VINE_GROW_RATE = 300;
+	public static final float VINE_GROW_RATE = 60;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
