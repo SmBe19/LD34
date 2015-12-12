@@ -68,7 +68,7 @@ public class PhysicSimulation implements Updatable {
 				}
 
 				Rectangle collisionBoxX = new Rectangle(collisionBox.getX(),
-						collisionBox.getY() + collisionBox.getHeight() / 4 + diffY, collisionBox.getWidth(),
+						collisionBox.getY() + collisionBox.getHeight() / 4 - diffY, collisionBox.getWidth(),
 						collisionBox.getHeight() / 2);
 
 				if (collisionBoxCollidable.overlaps(collisionBoxX)) {
