@@ -37,7 +37,6 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	}
 
 	public void generate(){
-
 	}
 
 	@Override

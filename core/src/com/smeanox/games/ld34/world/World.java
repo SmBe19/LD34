@@ -39,7 +39,7 @@ public class World implements Updatable, Renderable {
 
 		totalTime = 0;
 
-		new GroundPart(this, 0, 10000);
+		generateWorldPart();
 		new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
 
 		new Vine(this, 600, Consts.GROUND_HEIGHT, 1000);
@@ -57,7 +57,11 @@ public class World implements Updatable, Renderable {
 
 			if (lastPos < rightBorder + Consts.WIDTH) {
 				float newPos, newWidth;
-				newPos = lastPos + MathUtils.random(Consts.GROUNDPART_MIN_DIST, Consts.GROUNDPART_MAX_DIST);
+				if(lastPos == 0) {
+					newPos = 0;
+				} else {
+					newPos = lastPos + MathUtils.random(Consts.GROUNDPART_MIN_DIST, Consts.GROUNDPART_MAX_DIST);
+				}
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
 				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
 				newGroundPart.generate();

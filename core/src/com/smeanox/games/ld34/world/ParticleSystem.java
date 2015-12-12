@@ -261,6 +261,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	public class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
 		private float time;
+		private int collisions;
 
 		public Particle(float time, float x, float y, float vx, float vy) {
 			world.getPhysics().addRigidbody(this);
@@ -270,6 +271,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			this.y = y;
 			this.vx = vx;
 			this.vy = vy;
+
+			this.collisions = 10;
 
 			particles.add(this);
 		}
@@ -281,7 +284,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public void onCollision(Collidable collidable) {
-			if(collidable instanceof Building){
+			if(collidable instanceof GroundPart) {
+				return;
+			}
+			collisions--;
+			if(collisions < 0){
 				destroy();
 			}
 		}

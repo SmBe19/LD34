@@ -19,6 +19,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private World world;
 	private Texture texture;
 	private Animation activeAnimation, walk, axeSwing, throwPlant, fall;
+	private boolean alive;
 
 	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem;
 
@@ -29,6 +30,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_HERO, this);
 		world.getPhysics().addRigidbody(this);
+
+		alive = true;
 
 		texture = Textures.get().hero;
 
@@ -115,6 +118,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			vx = 0;
 			walkSystem.setGenerating(false);
 		}
+
+		if(y < -Consts.HEIGHT * 10){
+			alive = false;
+		}
 	}
 
 	@Override
@@ -181,6 +188,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		return x;
 	}
 
+	public boolean isAlive() {
+		return alive;
+	}
+
 	@Override
 	public Rectangle getCollisionBox() {
 		return new Rectangle(x, y, Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM, Consts.HERO_TEX_HEIGHT * Consts.HERO_TEX_ZOOM);
@@ -196,7 +207,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			return false;
 		}
 		if(collidable instanceof Vine){
-			return true;
+			return false;
 		}
 		return true;
 	}
