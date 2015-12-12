@@ -62,9 +62,12 @@ public class World implements Updatable, Renderable {
 				if(lastPos == 0) {
 					newPos = 0;
 				} else {
-					newPos = lastPos + MathUtils.random(Consts.GROUNDPART_MIN_DIST, Consts.GROUNDPART_MAX_DIST);
+					float maxGap = getGroundParts().get(getGroundParts().size() - 1).getMaxGap();
+					System.out.println(maxGap);
+					newPos = lastPos +  maxGap ;//Math.min(maxGap, MathUtils.random(Consts.GROUNDPART_MIN_DIST, maxGap));
 				}
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
+				System.out.println("Generating new world part from " + newPos + " to " + (newPos + newWidth));
 				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
 				newGroundPart.generate();
 				getGroundParts().add(newGroundPart);

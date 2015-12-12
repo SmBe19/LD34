@@ -22,6 +22,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	private List<Building> buildings;
 
 	private Texture ground;
+	private float maxGap = 0;
 
 	public GroundPart(World world, int x, int width) {
 		this.world = world;
@@ -37,16 +38,24 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		world.getPhysics().addCollidable(this);
 	}
 
+
 	public void generate(){
 		PlantFactory plantFactory = new PlantFactory();
 
+		plants.add(new Thorn(world, x, Consts.GROUND_HEIGHT));
+
 		float lastBuilding = 0;
 
-		while (lastBuilding + Consts.BUILDING_MIN_DIST + Consts.BUILDING_MIN_WIDTH < width){
+		while (lastBuilding + Consts.BUILDING_MAX_DIST + 2*Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM < width){
 			lastBuilding += MathUtils.random(Consts.BUILDING_MIN_DIST, Consts.BUILDING_MAX_DIST);
 
-			buildings.add(new Building(world, lastBuilding, Consts.GROUND_HEIGHT, 8, 16));
+			int bwidth = MathUtils.random(Consts.BUILDING_MIN_WIDTH, Consts.BUILDING_MAX_WIDTH);
+			buildings.add(new Building(world, getX() + lastBuilding, Consts.GROUND_HEIGHT, MathUtils.random(Consts.BUILDING_MIN_HEIGHT, Consts.BUILDING_MAX_HEIGHT), bwidth));
+			lastBuilding += buildings.get(buildings.size() - 1).getWidth();
 		}
+		int bwidth = MathUtils.random(Consts.BUILDING_MIN_WIDTH, Consts.BUILDING_MAX_WIDTH);
+		buildings.add(new Building(world, width - bwidth * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM + getX(), Consts.GROUND_HEIGHT, MathUtils.random(Consts.BUILDING_MIN_HEIGHT, Consts.BUILDING_MAX_HEIGHT), bwidth));
+		maxGap = Consts.HERO_VELO  * (float)Math.sqrt( 2 * buildings.get(buildings.size() - 1).getHeight() / -Consts.GRAVITY) + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM;
 	}
 
 	@Override
@@ -59,6 +68,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		return true;
 	}
 
+	
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		int i = 0;
@@ -97,5 +107,9 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	public List<Building> getBuildings() {
 		return buildings;
+	}
+
+	public float getMaxGap() {
+		return maxGap;
 	}
 }

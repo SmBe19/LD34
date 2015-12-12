@@ -308,7 +308,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 					}
 				}
 				if (height > 0) {
-					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
+					gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
 				}
 				destroy();
 

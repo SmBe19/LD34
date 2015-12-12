@@ -41,6 +41,7 @@ public class Building implements Renderable, Collidable, Destroyable {
 				regions[y][x] = region;
 			}
 		}
+		System.out.println("Created building from " + x0 + " to " + (getWidth() + getX()) );
 	}
 
 	public float getHeight(){
