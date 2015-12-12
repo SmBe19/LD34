@@ -34,8 +34,8 @@ public class Building implements Renderable, Collidable {
 
 		for (int y = 0; y < vSegments; y++) {
 			for (int x = 0; x < hSegments; x++) {
-				int ix = MathUtils.random.nextInt(8);
-				TextureRegion region = new TextureRegion(walls, Consts.BUILDING_TEX_WIDTH * ix, 0,
+				int ix = MathUtils.randomBoolean(0.5f)?MathUtils.random.nextInt(8) : 7;
+				TextureRegion region = new TextureRegion(walls, Consts.BUILDING_TEX_WIDTH * ix, 0, 
 						Consts.BUILDING_TEX_WIDTH, Consts.BUILDING_TEX_HEIGHT);
 				regions[y][x] = region;
 			}

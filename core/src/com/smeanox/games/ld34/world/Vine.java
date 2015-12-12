@@ -32,7 +32,7 @@ public class Vine extends Plant {
 		}
 		regions = new TextureRegion[MathUtils.ceil(targetHeight/(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM))];
 		for (int i=0; i<MathUtils.ceil(targetHeight/(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM)); i++) {
-			int ix = MathUtils.random.nextInt(8) * 0;
+			int ix = MathUtils.random.nextInt(4);
 			regions[i] = new TextureRegion(vineTexture, 0, ix * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 		}
 		base = new TextureRegion(vineTexture, 0, 4 * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);

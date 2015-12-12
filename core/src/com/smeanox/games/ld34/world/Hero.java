@@ -193,7 +193,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			return false;
 		}
 		if(collidable instanceof Vine){
-			return false;
+			return true;
 		}
 		return true;
 	}
