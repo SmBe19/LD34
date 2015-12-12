@@ -58,8 +58,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		if(this.particleFactory == null){
 			this.particleFactory = new ParticleFactory() {
 				@Override
-				public Particle createParticle(float time, float x, float y, float vx, float vy) {
-					return new Particle(ParticleSystem.this, time, x, y, vx, vy);
+				public Particle createParticle(ParticleSystem system, float time, float x, float y, float vx, float vy) {
+					return new Particle(system, time, x, y, vx, vy);
 				}
 			};
 		}
@@ -141,8 +141,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			while (nextParticles.getFirst() < passedTime) {
 				nextParticles.removeFirst();
-				particleFactory.createParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
-						getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+				addOneParticle();
 			}
 		} else {
 			timeout -= delta;
@@ -151,6 +150,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 				timeout = Float.POSITIVE_INFINITY;
 			}
 		}
+	}
+
+	public void addOneParticle(){
+		particleFactory.createParticle(this, getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+				getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
 	}
 
 	@Override
@@ -279,7 +283,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public interface ParticleFactory {
-		Particle createParticle(float time, float x, float y, float vx, float vy);
+		Particle createParticle(ParticleSystem system, float time, float x, float y, float vx, float vy);
 	}
 
 	public static class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{

@@ -20,6 +20,7 @@ public class Consts {
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 5;
+	public static final float HERO_CLIMB_VELO = 2;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;

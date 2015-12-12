@@ -18,7 +18,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	private World world;
 	private Texture texture;
-	private Animation activeAnimation, walk, axeSwing, throwPlant, fall;
+	private Animation activeAnimation, walk, axeSwing, throwPlant, fall, climbing;
 	private boolean alive;
 
 	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem;
@@ -85,6 +85,16 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		fall = new Animation(0.15f, regions);
 		fall.setPlayMode(Animation.PlayMode.LOOP);
 
+		// climbing
+		regions = new Array<TextureRegion>();
+		for(int y = 3; y < 4; y++){
+			for(int x = 0; x < 4; x++){
+				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH*x, Consts.HERO_TEX_HEIGHT*y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
+			}
+		}
+		climbing = new Animation(0.15f, regions);
+		climbing.setPlayMode(Animation.PlayMode.LOOP);
+
 		activeAnimation = walk;
 	}
 
@@ -99,13 +109,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	public void update(float delta){
 		if(isFalling()){
 			if(activeAnimation != fall){
-				activeAnimation = fall;
-				animationTime = 0;
+				setAnimation(fall);
 			}
 		} else {
-			if (activeAnimation != walk && (activeAnimation.isAnimationFinished(animationTime) || activeAnimation == fall)) {
-				activeAnimation = walk;
-				animationTime = 0;
+			if (activeAnimation != walk && activeAnimation != climbing && (activeAnimation.isAnimationFinished(animationTime) || activeAnimation == fall)) {
+				setAnimation(walk);
 			}
 		}
 
@@ -115,6 +123,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			walkSystem.setStartX(x);
 			walkSystem.setStartY(y);
 		} else {
+			if(activeAnimation == climbing){
+				vy = Consts.HERO_CLIMB_VELO;
+			}
 			vx = 0;
 			walkSystem.setGenerating(false);
 		}
@@ -135,8 +146,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if(activeAnimation != walk){
 			return;
 		}
-		activeAnimation = axeSwing;
-		animationTime = 0;
+		setAnimation(axeSwing);
 
 		if(MathUtils.randomBoolean(0.5f)){
 			spawnAttackSystem();
@@ -147,13 +157,21 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	public void plant(){
+		if(activeAnimation == climbing){
+			setAnimation(walk);
+			return;
+		}
 		if(activeAnimation != walk){
 			return;
 		}
-		activeAnimation = throwPlant;
-		animationTime = 0;
+		setAnimation(throwPlant);
 
 		spawnPlantSystem();
+	}
+
+	private void setAnimation(Animation animation){
+		activeAnimation = animation;
+		animationTime = 0;
 	}
 
 	private void spawnAttackSystem(){
@@ -199,6 +217,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	@Override
 	public void onCollision(Collidable collidable) {
+		if(collidable instanceof Vine){
+			setAnimation(climbing);
+		}
 	}
 
 	@Override
@@ -221,7 +242,6 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	public class PlantParticle extends ParticleSystem.Particle {
-
 
 		public PlantParticle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
 			super(particleSystem, time, x, y, vx, vy);
