@@ -68,6 +68,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		return true;
 	}
 
+	
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		int i = 0;
