@@ -15,8 +15,8 @@ public abstract class Rigidbody implements Collidable {
 
 	public void doPhysics(float delta){
 		vy += Consts.GRAVITY * delta;
-		x += vx;
-		y += vy;
+		x += vx * delta;
+		y += vy * delta;
 		if(vy < 0) {
 			fallingFor += delta;
 		} else {

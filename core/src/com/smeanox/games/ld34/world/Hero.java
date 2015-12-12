@@ -206,7 +206,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void spawnPlantSystem() {
-		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM + Consts.HERO_VELO);
+		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setGenerating(false);
 		plantSystem.setOneParticleTimeout(0.32f);

@@ -14,16 +14,16 @@ public class Consts {
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
-	public static final float GRAVITY = -9.81f;
+	public static final float GRAVITY = -400;
 	public static final float FRICTION = 0.8f;
-	public static final float BOUNCINESS_MIN_Y = 4;
-	public static final float BOUNCINESS_MIN_X = 1;
+	public static final float BOUNCINESS_MIN_Y = 40;
+	public static final float BOUNCINESS_MIN_X = 10;
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
-	public static final float HERO_VELO = 5;
-	public static final float HERO_CLIMB_VELO = 1.2f;
+	public static final float HERO_VELO = 300;
+	public static final float HERO_CLIMB_VELO = 75f;
 	public static final float HERO_START_LIVES = 100f;
-	public static final float HERO_JUMP_VELO = 5f;
+	public static final float HERO_JUMP_VELO = 300f;
 	public static final float BUILDING_TOP_MARGIN = 10f;
 	public static final float PLANT_TOP_MARGIN = 10f;
 
