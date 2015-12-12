@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
 			game.setScreen(new GameScreen(game));
 		}
 
-		camera.position.set(MathUtils.roundPositive(world.getHero().getX()),
+		camera.position.set(MathUtils.roundPositive(world.getHero().getX() + Consts.CAMERA_OFFSET_X),
 				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
 		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
 
