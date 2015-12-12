@@ -1,9 +1,11 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.smeanox.games.ld34.Consts;
@@ -18,6 +20,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private Texture texture;
 	private Animation activeAnimation, walk, axeSwing, throwPlant, fall;
 
+	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem;
+
 	private float animationTime;
 
 	public Hero(World world) {
@@ -31,6 +35,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		x = y = vx = vy = 0;
 
 		initAnimations();
+
+		initParticles();
 	}
 
 	private void initAnimations(){
@@ -79,6 +85,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		activeAnimation = walk;
 	}
 
+	private void initParticles(){
+		bloodInDaFaceSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.005f, 0.001f, 0, 0, 2, 2, -1, 2, 7, 7);
+		attackSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.5f, 0.05f, 0, 0, 2, 2, -5, 2, 2, 2);
+		walkSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
+		plantSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 0.8f, 1f, 0.1f, 0.1f, 0.01f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
+	}
+
 	@Override
 	public void update(float delta){
 		if(isFalling()){
@@ -95,8 +108,12 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 		if(activeAnimation == walk || activeAnimation == fall) {
 			vx = Consts.HERO_VELO;
+			walkSystem.setGenerating(!isFalling());
+			walkSystem.setStartX(x);
+			walkSystem.setStartY(y);
 		} else {
 			vx = 0;
+			walkSystem.setGenerating(false);
 		}
 	}
 
@@ -113,6 +130,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		activeAnimation = axeSwing;
 		animationTime = 0;
+
+		if(MathUtils.randomBoolean(0.5f)){
+			spawnAttackSystem();
+		}
+		if(MathUtils.randomBoolean(10.01f)){
+			spawnBloodInDaFaceSystem();
+		}
 	}
 
 	public void plant(){
@@ -121,6 +145,29 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		activeAnimation = throwPlant;
 		animationTime = 0;
+
+		spawnPlantSystem();
+	}
+
+	private void spawnAttackSystem(){
+		attackSystem.setStartX(x + 14 * Consts.HERO_TEX_ZOOM);
+		attackSystem.setStartY(y + 13 * Consts.HERO_TEX_ZOOM);
+		attackSystem.setAutoDisable(0.1f);
+		attackSystem.setTimeout(0.5f);
+	}
+
+	private void spawnBloodInDaFaceSystem(){
+		bloodInDaFaceSystem.setStartX(x + 17 * Consts.HERO_TEX_ZOOM);
+		bloodInDaFaceSystem.setStartY(y + 13 * Consts.HERO_TEX_ZOOM);
+		bloodInDaFaceSystem.setAutoDisable(0.1f);
+		bloodInDaFaceSystem.setTimeout(0.5f);
+	}
+
+	private void spawnPlantSystem(){
+		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM + Consts.HERO_VELO);
+		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
+		plantSystem.setAutoDisable(0.1f);
+		plantSystem.setTimeout(0.32f);
 	}
 
 	public float getY() {
@@ -134,5 +181,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	@Override
 	public Rectangle getCollisionBox() {
 		return new Rectangle(x, y, Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM, Consts.HERO_TEX_HEIGHT * Consts.HERO_TEX_ZOOM);
+	}
+
+	@Override
+	public boolean collidesWith(Collidable collidable) {
+		if(collidable instanceof Building){
+			return false;
+		}
+		return true;
 	}
 }

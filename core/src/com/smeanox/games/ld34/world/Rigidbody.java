@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
 
 /**
@@ -10,6 +11,8 @@ public abstract class Rigidbody implements Collidable {
 	protected float x, y, vx, vy;
 	protected float fallingFor;
 
+	public abstract boolean collidesWith(Collidable collidable);
+
 	public void doPhysics(float delta){
 		vy += Consts.GRAVITY * delta;
 		x += vx;
@@ -19,13 +22,22 @@ public abstract class Rigidbody implements Collidable {
 
 	public void collisionY(float diff){
 		y -= diff;
-		vy = 0;
+		if(Math.abs(vy) > Consts.BOUNCINESS_MIN_Y){
+			vy *= -Consts.BOUNCINESS;
+		} else {
+			vy = 0;
+		}
 		fallingFor = 0;
+		vx *= Consts.FRICTION;
 	}
 
 	public void collisionX(float diff){
 		x -= diff;
-		vx = 0;
+		if(Math.abs(vx) > Consts.BOUNCINESS_MIN_X){
+			vx *= -Consts.BOUNCINESS;
+		} else {
+			vx = 0;
+		}
 	}
 
 	public float getX() {

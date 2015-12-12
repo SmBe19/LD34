@@ -2,11 +2,9 @@ package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
-import com.smeanox.games.ld34.Consts;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -24,18 +22,21 @@ public class ParticleSystem implements Updatable, Renderable {
 	private List<Particle> particles;
 
 	private float lifeTime, lifeTimeRand, rate, rateRand, startX, startY, startXRand, startYRand, startVeloX, startVeloY, startVeloXRand, startVeloYRand;
+	private float zoom;
 	private Deque<Float> nextParticles;
 	private Color color;
 	float passedTime;
 	boolean generating;
+	float timeout, autoDisable;
 
-	public ParticleSystem(World world, int layer, Texture texture, Color color, float lifeTime, float lifeTimeRand, float rate,
+	public ParticleSystem(World world, int layer, Texture texture, Color color, float zoom, float lifeTime, float lifeTimeRand, float rate,
 	                      float rateRand, float startX, float startY, float startXRand, float startYRand,
 	                      float startVeloX, float startVeloY, float startVeloXRand, float startVeloYRand) {
 		this.world = world;
 		this.layer = layer;
 		this.texture = texture;
 		this.color = color;
+		this.zoom = zoom;
 		this.lifeTime = lifeTime;
 		this.lifeTimeRand = lifeTimeRand;
 		this.rate = rate;
@@ -57,6 +58,8 @@ public class ParticleSystem implements Updatable, Renderable {
 
 		passedTime = 0;
 		generating = false;
+		autoDisable = Float.POSITIVE_INFINITY;
+		timeout = Float.POSITIVE_INFINITY;
 		fillNextParticles();
 	}
 
@@ -79,6 +82,22 @@ public class ParticleSystem implements Updatable, Renderable {
 		this.generating = generating;
 	}
 
+	public float getAutoDisable() {
+		return autoDisable;
+	}
+
+	public void setAutoDisable(float autoDisable) {
+		this.autoDisable = autoDisable;
+	}
+
+	public float getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(float timeout) {
+		this.timeout = timeout;
+	}
+
 	public void destroy(){
 		for(Particle particle : particles){
 			particle.destroy();
@@ -88,7 +107,7 @@ public class ParticleSystem implements Updatable, Renderable {
 	}
 
 	private float getRand(float mid, float rand){
-		return mid + MathUtils.random(-rand, rand);
+		return mid + MathUtils.randomTriangular(-rand, rand);
 	}
 
 	@Override
@@ -98,12 +117,23 @@ public class ParticleSystem implements Updatable, Renderable {
 		}
 		passedTime += delta;
 		if(generating) {
+			autoDisable -= delta;
+			if(autoDisable < 0){
+				generating = false;
+				autoDisable = Float.POSITIVE_INFINITY;
+			}
 			fillNextParticles();
 
 			while (nextParticles.getFirst() < passedTime) {
 				nextParticles.removeFirst();
 				addParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand), getRand(startY, startYRand),
 						getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+			}
+		} else {
+			timeout -= delta;
+			if(timeout < 0){
+				generating = true;
+				timeout = Float.POSITIVE_INFINITY;
 			}
 		}
 	}
@@ -121,7 +151,111 @@ public class ParticleSystem implements Updatable, Renderable {
 		spriteBatch.setColor(Color.WHITE);
 	}
 
-	private class Particle extends Rigidbody implements Updatable, Renderable{
+	public float getStartVeloYRand() {
+		return startVeloYRand;
+	}
+
+	public void setStartVeloYRand(float startVeloYRand) {
+		this.startVeloYRand = startVeloYRand;
+	}
+
+	public float getLifeTime() {
+		return lifeTime;
+	}
+
+	public void setLifeTime(float lifeTime) {
+		this.lifeTime = lifeTime;
+	}
+
+	public float getLifeTimeRand() {
+		return lifeTimeRand;
+	}
+
+	public void setLifeTimeRand(float lifeTimeRand) {
+		this.lifeTimeRand = lifeTimeRand;
+	}
+
+	public float getRate() {
+		return rate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
+
+	public float getRateRand() {
+		return rateRand;
+	}
+
+	public void setRateRand(float rateRand) {
+		this.rateRand = rateRand;
+	}
+
+	public float getStartX() {
+		return startX;
+	}
+
+	public void setStartX(float startX) {
+		this.startX = startX;
+	}
+
+	public float getStartY() {
+		return startY;
+	}
+
+	public void setStartY(float startY) {
+		this.startY = startY;
+	}
+
+	public float getStartXRand() {
+		return startXRand;
+	}
+
+	public void setStartXRand(float startXRand) {
+		this.startXRand = startXRand;
+	}
+
+	public float getStartYRand() {
+		return startYRand;
+	}
+
+	public void setStartYRand(float startYRand) {
+		this.startYRand = startYRand;
+	}
+
+	public float getStartVeloX() {
+		return startVeloX;
+	}
+
+	public void setStartVeloX(float startVeloX) {
+		this.startVeloX = startVeloX;
+	}
+
+	public float getStartVeloY() {
+		return startVeloY;
+	}
+
+	public void setStartVeloY(float startVeloY) {
+		this.startVeloY = startVeloY;
+	}
+
+	public float getStartVeloXRand() {
+		return startVeloXRand;
+	}
+
+	public void setStartVeloXRand(float startVeloXRand) {
+		this.startVeloXRand = startVeloXRand;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public class Particle extends Rigidbody implements Updatable, Renderable{
 		private float time;
 
 		public Particle(float time, float x, float y, float vx, float vy) {
@@ -142,6 +276,11 @@ public class ParticleSystem implements Updatable, Renderable {
 		}
 
 		@Override
+		public boolean collidesWith(Collidable collidable) {
+			return true;
+		}
+
+		@Override
 		public void update(float delta) {
 			time -= delta;
 			if(time < 0){
@@ -151,7 +290,7 @@ public class ParticleSystem implements Updatable, Renderable {
 
 		@Override
 		public void render(float delta, SpriteBatch spriteBatch) {
-			spriteBatch.draw(texture, x, y, texture.getWidth(), texture.getHeight());
+			spriteBatch.draw(texture, x, y, texture.getWidth() * zoom, texture.getHeight() * zoom);
 		}
 
 		public void destroy(){

@@ -14,6 +14,10 @@ public class Consts {
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 100;
 	public static final float GRAVITY = -9.81f;
+	public static final float FRICTION = 0.8f;
+	public static final float BOUNCINESS_MIN_Y = 4;
+	public static final float BOUNCINESS_MIN_X = 1;
+	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 5;
 
