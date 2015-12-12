@@ -15,6 +15,7 @@ import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;
 import com.smeanox.games.ld34.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -105,7 +106,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void update(float delta){
-		for(Updatable updatable : world.getUpdatables()){
+		for(Updatable updatable : new ArrayList<Updatable>(world.getUpdatables())){
 			updatable.update(delta);
 		}
 	}
