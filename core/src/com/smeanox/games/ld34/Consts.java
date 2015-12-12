@@ -20,7 +20,7 @@ public class Consts {
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 5;
-	public static final float HERO_CLIMB_VELO = 2;
+	public static final float HERO_CLIMB_VELO = 0.8f;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
@@ -51,7 +51,7 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
-	public static final float VINE_GROW_RATE = 25;
+	public static final float VINE_GROW_RATE = 50;
 	public static final float VINE_TEX_ZOOM = 4;
 	public static final float HERO_TEX_ZOOM = 4;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM / 2;

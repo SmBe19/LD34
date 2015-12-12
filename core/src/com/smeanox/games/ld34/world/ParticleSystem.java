@@ -28,7 +28,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	private Color color;
 	private float passedTime;
 	private boolean generating;
-	private float timeout, autoDisable;
+	private float timeout, autoDisable, oneParticleTimeout;
 	private String tag;
 
 	public ParticleSystem(World world, String tag, ParticleFactory particleFactory, int layer,
@@ -74,6 +74,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		generating = false;
 		autoDisable = Float.POSITIVE_INFINITY;
 		timeout = Float.POSITIVE_INFINITY;
+		oneParticleTimeout = Float.POSITIVE_INFINITY;
 		fillNextParticles();
 	}
 
@@ -145,6 +146,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			}
 		} else {
 			timeout -= delta;
+			oneParticleTimeout -= delta;
+			if(oneParticleTimeout < 0){
+				oneParticleTimeout = Float.POSITIVE_INFINITY;
+				addOneParticle();
+			}
 			if(timeout < 0){
 				generating = true;
 				timeout = Float.POSITIVE_INFINITY;
