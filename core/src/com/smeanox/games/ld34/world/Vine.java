@@ -63,4 +63,8 @@ public class Vine extends Plant {
 		return new Rectangle(x0 - Consts.VINE_TEXTURE_WIDTH/2, y0, Consts.VINE_TEXTURE_WIDTH, height);
 	}
 
+	@Override
+	public void onCollision(Collidable collidable) {
+	}
+
 }

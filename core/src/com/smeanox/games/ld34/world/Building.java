@@ -60,4 +60,8 @@ public class Building implements Renderable, Collidable {
 		return new Rectangle(x0, y0, hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
 				vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
 	}
+
+	@Override
+	public void onCollision(Collidable collidable) {
+	}
 }

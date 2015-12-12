@@ -33,6 +33,10 @@ public class GroundPart implements Renderable, Collidable {
 	}
 
 	@Override
+	public void onCollision(Collidable collidable) {
+	}
+
+	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		int i = 0;
 		while(i * ground.getWidth() < width){
