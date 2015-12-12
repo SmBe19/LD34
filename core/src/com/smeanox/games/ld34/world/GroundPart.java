@@ -6,13 +6,19 @@ import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Comment
  */
-public class GroundPart implements Renderable, Collidable {
+public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	private World world;
 	private int x, width;
+
+	private List<Plant> plants;
+	private List<Building> buildings;
 
 	private Texture ground;
 
@@ -21,10 +27,17 @@ public class GroundPart implements Renderable, Collidable {
 		this.x = x;
 		this.width = width;
 
+		plants = new ArrayList<Plant>();
+		buildings = new ArrayList<Building>();
+
 		ground = Textures.get().ground;
 
 		world.addRenderable(Consts.LAYER_GROUND, this);
 		world.getPhysics().addCollidable(this);
+	}
+
+	public void generate(){
+
 	}
 
 	@Override
@@ -45,5 +58,26 @@ public class GroundPart implements Renderable, Collidable {
 					ground.getWidth(), Consts.GROUND_TEX_HEIGHT);
 			i++;
 		}
+	}
+
+	@Override
+	public void destroy() {
+		world.getRenderables(Consts.LAYER_GROUND).remove(this);
+		world.getPhysics().removeCollidable(this);
+
+		for(Plant plant : new ArrayList<Plant>(plants)){
+			plant.destroy();
+		}
+		for(Building building : new ArrayList<Building>(buildings)){
+			building.destroy();
+		}
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 }

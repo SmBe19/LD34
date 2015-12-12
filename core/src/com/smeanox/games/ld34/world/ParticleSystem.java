@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Comment
  */
-public class ParticleSystem implements Updatable, Renderable {
+public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	private World world;
 	private int layer;
@@ -90,6 +90,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		this.timeout = timeout;
 	}
 
+	@Override
 	public void destroy(){
 		for(Particle particle : particles){
 			particle.destroy();
@@ -258,7 +259,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		this.color = color;
 	}
 
-	public class Particle extends Rigidbody implements Updatable, Renderable{
+	public class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
 		private float time;
 
 		public Particle(float time, float x, float y, float vx, float vy) {
@@ -306,6 +307,7 @@ public class ParticleSystem implements Updatable, Renderable {
 			spriteBatch.draw(texture, x, y, texture.getWidth() * zoom, texture.getHeight() * zoom);
 		}
 
+		@Override
 		public void destroy(){
 			world.getPhysics().removeRigidbody(this);
 			particles.remove(this);

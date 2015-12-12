@@ -48,7 +48,7 @@ public class GameScreen implements Screen {
 
 		spriteBatch = new SpriteBatch();
 
-		world = new World();
+		world = new World(camera);
 
 		background = Textures.get().background;
 

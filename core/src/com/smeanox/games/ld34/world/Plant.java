@@ -5,7 +5,7 @@ import com.smeanox.games.ld34.Consts;
 /**
  * Comment
  */
-public abstract class Plant implements Updatable, Renderable, Collidable {
+public abstract class Plant implements Updatable, Renderable, Collidable, Destroyable {
 
 	protected World world;
 
@@ -25,5 +25,12 @@ public abstract class Plant implements Updatable, Renderable, Collidable {
 	@Override
 	public final void update(float delta) {
 		grow(delta);
+	}
+
+	@Override
+	public void destroy() {
+		world.getUpdatables().remove(this);
+		world.getRenderables(Consts.LAYER_PLANT).remove(this);
+		world.getPhysics().removeCollidable(this);
 	}
 }

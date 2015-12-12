@@ -1,7 +1,9 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
 
@@ -13,16 +15,18 @@ import java.util.List;
  */
 public class World implements Updatable, Renderable {
 	private Hero hero;
-	private List<Plant> plants;
-	private List<Building> buildings;
+	private List<GroundPart> groundParts;
 	private PhysicSimulation physics;
+	private Camera camera;
 
 	private float totalTime;
 
 	private List<Updatable> updatables;
 	private List<List<Renderable> > renderables;
 
-	public World(){
+	public World(Camera camera){
+		this.camera = camera;
+		groundParts = new ArrayList<GroundPart>();
 		updatables = new ArrayList<Updatable>();
 		renderables = new ArrayList<List<Renderable> >();
 
@@ -32,8 +36,6 @@ public class World implements Updatable, Renderable {
 		addRenderable(Consts.LAYER_WORLD, this);
 
 		hero = new Hero(this);
-		plants = new ArrayList<Plant>();
-		buildings = new ArrayList<Building>();
 
 		totalTime = 0;
 
@@ -44,12 +46,37 @@ public class World implements Updatable, Renderable {
 		new ParticleSystem(this, "snow", Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 1f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
 	}
 
-	private void generateWorldPart(){
+	public void generateWorldPart(){
+		float rightBorder = camera.position.x + Consts.WIDTH / 2;
 
+		float lastPos = 0;
+		while (true){
+			for (GroundPart groundPart : groundParts) {
+				lastPos = Math.max(lastPos, groundPart.getX() + groundPart.getWidth());
+			}
+
+			if (lastPos < rightBorder + Consts.WIDTH) {
+				float newPos, newWidth;
+				newPos = lastPos + MathUtils.random(Consts.GROUNDPART_MIN_DIST, Consts.GROUNDPART_MAX_DIST);
+				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
+				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
+				newGroundPart.generate();
+				groundParts.add(newGroundPart);
+			} else {
+				break;
+			}
+		}
 	}
 
 	private void clearWorldPart(){
+		float leftBorder = camera.position.x - Consts.WIDTH;
 
+		for(GroundPart groundPart : new ArrayList<GroundPart>(groundParts)){
+			if(groundPart.getX() + groundPart.getWidth() < leftBorder){
+				groundPart.destroy();
+				groundParts.remove(groundPart);
+			}
+		}
 	}
 
 	public void addRenderable(int layer, Renderable renderable){
@@ -63,6 +90,9 @@ public class World implements Updatable, Renderable {
 	public void update(float delta){
 		totalTime += delta;
 		physics.update(delta);
+
+		clearWorldPart();
+		generateWorldPart();
 	}
 
 	@Override
@@ -71,10 +101,6 @@ public class World implements Updatable, Renderable {
 
 	public Hero getHero() {
 		return hero;
-	}
-
-	public List<Plant> getPlants() {
-		return plants;
 	}
 
 	public List<Updatable> getUpdatables() {

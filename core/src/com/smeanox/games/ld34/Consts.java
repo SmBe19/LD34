@@ -30,6 +30,11 @@ public class Consts {
 	public static final int LAYER_PLANT = 3;
 	public static final int LAYER_HERO = 10;
 
+	public static final int GROUNDPART_MIN_DIST = 100;
+	public static final int GROUNDPART_MAX_DIST = 500;
+	public static final int GROUNDPART_MIN_WIDTH = 100;
+	public static final int GROUNDPART_MAX_WIDTH = 10000;
+
 	public static final int GROUND_TEX_OFFSET_Y = 50;
 	public static final int GROUND_TEX_HEIGHT = 100;
 	public static final int HERO_TEX_WIDTH = 24;
