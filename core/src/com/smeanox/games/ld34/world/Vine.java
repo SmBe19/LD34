@@ -28,10 +28,10 @@ public class Vine extends Plant {
 		for (int i=0; i<4; i++) {
 			growRegions[i] = new TextureRegion(vineTexture, Consts.VINE_TEXTURE_WIDTH, i * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 		}
-		regions = new TextureRegion[MathUtils.ceil(targetHeight/Consts.VINE_STEP)];
-		for (int i=0; i<MathUtils.ceil(targetHeight/(float)Consts.VINE_STEP); i++) {
-			int ix = MathUtils.random.nextInt(8);
-			regions[i] = new TextureRegion(vineTexture, 0, i * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
+		regions = new TextureRegion[MathUtils.ceil(targetHeight/(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM))];
+		for (int i=0; i<MathUtils.ceil(targetHeight/(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM)); i++) {
+			int ix = MathUtils.random.nextInt(8) * 0;
+			regions[i] = new TextureRegion(vineTexture, 0, ix * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 		}
 	}
 	
@@ -47,20 +47,21 @@ public class Vine extends Plant {
 	}
 	
 	public void render(float delta, SpriteBatch batch) {
-		for (int y = 0; y < height; y += Consts.VINE_STEP) {
+		System.out.println(height);
+		for (int y = 0; y < height; y += Consts.VINE_STEP * Consts.VINE_TEX_ZOOM) {
 			//last section
 			if( y + Consts.VINE_STEP > height) {
-				int progress = (int)(4f*(height - y)/Consts.VINE_STEP);
-				batch.draw(growRegions[progress], x0 - Consts.VINE_TEXTURE_WIDTH/2, y0 + y);
+				int progress = (int)(4f*(height - y)/(Consts.VINE_STEP * Consts.VINE_TEX_ZOOM));
+				batch.draw(growRegions[progress], x0 - Consts.VINE_TEXTURE_WIDTH/2, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 			} else {
-				batch.draw(regions[y/Consts.VINE_STEP], x0 - Consts.VINE_TEXTURE_WIDTH, y0 + y);
+				batch.draw(regions[y/(int)(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM)], x0 - Consts.VINE_TEXTURE_WIDTH, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 			}
 		}
 
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x0 - Consts.VINE_TEXTURE_WIDTH/2, y0, Consts.VINE_TEXTURE_WIDTH, height);
+		return new Rectangle(x0 - Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM / 2, y0, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, height);
 	}
 
 	@Override

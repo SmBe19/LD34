@@ -36,10 +36,11 @@ public class Consts {
 	public static final int HERO_TEX_HEIGHT = 24;
 	public static final int BUILDING_TEX_WIDTH = 32;
 	public static final int BUILDING_TEX_HEIGHT = 32;
-	public static final int VINE_STEP = 4;
-	public static final int VINE_TEXTURE_HEIGHT = 8;
+	public static final int VINE_STEP = 8;
+	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
-	public static final float VINE_GROW_RATE = 64;
+	public static final float VINE_GROW_RATE = 100;
+	public static final float VINE_TEX_ZOOM = 4;
 	public static final float HERO_TEX_ZOOM = 4;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM / 2;
 }

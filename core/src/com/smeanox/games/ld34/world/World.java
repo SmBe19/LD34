@@ -40,7 +40,7 @@ public class World implements Updatable, Renderable {
 		new GroundPart(this, 0, 10000);
 		new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
 
-		new Vine(this, 600, Consts.GROUND_HEIGHT, 100);
+		new Vine(this, 600, Consts.GROUND_HEIGHT, 1000);
 		new ParticleSystem(this, "snow", Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 1f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
 	}
 
