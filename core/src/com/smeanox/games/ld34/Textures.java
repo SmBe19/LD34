@@ -14,6 +14,7 @@ public class Textures {
 	public Texture hero;
 	public Texture background;
 	public Texture ground;
+	public Texture walls;
 
 	private Textures(){
 		manager = new AssetManager();
@@ -31,6 +32,7 @@ public class Textures {
 		manager.load("textures/hero.png", Texture.class);
 		manager.load("textures/background.png", Texture.class);
 		manager.load("textures/ground.png", Texture.class);
+		manager.load("textures/walls.png", Texture.class);
 	}
 
 	public boolean update(){
@@ -48,6 +50,7 @@ public class Textures {
 		hero = manager.get("textures/hero.png", Texture.class);
 		background = manager.get("textures/background.png", Texture.class);
 		ground = manager.get("textures/ground.png", Texture.class);
+		walls = manager.get("textures/walls.png", Texture.class);
 	}
 
 	public void clear(){

@@ -14,6 +14,7 @@ public class LD34 extends Game {
 
 	@Override
 	public void create() {
+		Gdx.graphics.setVSync(true);
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}

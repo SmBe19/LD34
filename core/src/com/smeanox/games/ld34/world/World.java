@@ -35,6 +35,7 @@ public class World implements Updatable, Renderable {
 		totalTime = 0;
 
 		new GroundPart(this, 0, 5000);
+		new Building(this, 1000, 0, 5,5);
 	}
 
 	@Override
