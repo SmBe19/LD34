@@ -20,6 +20,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	private int layer;
 	private Texture texture;
 	private List<Particle> particles;
+	private ParticleFactory particleFactory;
 
 	private float lifeTime, lifeTimeRand, rate, rateRand, startX, startY, startXRand, startYRand, startVeloX, startVeloY, startVeloXRand, startVeloYRand;
 	private float zoom;
@@ -30,12 +31,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	private float timeout, autoDisable;
 	private String tag;
 
-	public ParticleSystem(World world, String tag, int layer, Texture texture, Color color, float zoom,
-	                      float lifeTime, float lifeTimeRand, float rate,
+	public ParticleSystem(World world, String tag, ParticleFactory particleFactory, int layer,
+	                      Texture texture, Color color, float zoom, float lifeTime, float lifeTimeRand, float rate,
 	                      float rateRand, float startX, float startY, float startXRand, float startYRand,
 	                      float startVeloX, float startVeloY, float startVeloXRand, float startVeloYRand) {
 		this.world = world;
 		this.tag = tag;
+		this.particleFactory = particleFactory;
 		this.layer = layer;
 		this.texture = texture;
 		this.color = color;
@@ -53,7 +55,16 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloXRand = startVeloXRand;
 		this.startVeloYRand = startVeloYRand;
 
-		setParticles(new ArrayList<Particle>());
+		if(this.particleFactory == null){
+			this.particleFactory = new ParticleFactory() {
+				@Override
+				public Particle createParticle(float time, float x, float y, float vx, float vy) {
+					return new Particle(ParticleSystem.this, time, x, y, vx, vy);
+				}
+			};
+		}
+
+		particles = new ArrayList<Particle>();
 		nextParticles = new ArrayDeque<Float>();
 
 		world.getUpdatables().add(this);
@@ -130,8 +141,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			while (nextParticles.getFirst() < passedTime) {
 				nextParticles.removeFirst();
-				addParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand), getRand(startY, startYRand),
-						getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+				particleFactory.createParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+						getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
 			}
 		} else {
 			timeout -= delta;
@@ -140,10 +151,6 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 				timeout = Float.POSITIVE_INFINITY;
 			}
 		}
-	}
-
-	public void addParticle(float time, float x, float y, float vx, float vy){
-		new Particle(time, x, y, vx, vy);
 	}
 
 	@Override
@@ -259,20 +266,29 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.color = color;
 	}
 
+	public ParticleFactory getParticleFactory() {
+		return particleFactory;
+	}
+
+	public void setParticleFactory(ParticleFactory particleFactory) {
+		this.particleFactory = particleFactory;
+	}
+
 	public List<Particle> getParticles() {
 		return particles;
 	}
 
-	public void setParticles(List<Particle> particles) {
-		this.particles = particles;
+	public interface ParticleFactory {
+		Particle createParticle(float time, float x, float y, float vx, float vy);
 	}
 
-	public class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
+	public static class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
 		private float time;
 		private int collisions;
+		private ParticleSystem particleSystem;
 
-		public Particle(float time, float x, float y, float vx, float vy) {
-			world.getPhysics().addRigidbody(this);
+		public Particle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
+			particleSystem.world.getPhysics().addRigidbody(this);
 
 			this.time = time;
 			this.x = x;
@@ -282,12 +298,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			this.collisions = 10;
 
-			getParticles().add(this);
+			particleSystem.getParticles().add(this);
+			this.particleSystem = particleSystem;
 		}
 
 		@Override
 		public Rectangle getCollisionBox() {
-			return new Rectangle(x, y, texture.getWidth() * zoom, texture.getHeight() * zoom);
+			return new Rectangle(x, y, particleSystem.texture.getWidth() * particleSystem.zoom, particleSystem.texture.getHeight() * particleSystem.zoom);
 		}
 
 		@Override
@@ -303,7 +320,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public boolean collidesWith(Collidable collidable) {
-			if(collidable instanceof Building && !"snow".equals(tag)){
+			if(collidable instanceof Building && !"snow".equals(particleSystem.tag)){
 				return false;
 			}
 			return true;
@@ -319,13 +336,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public void render(float delta, SpriteBatch spriteBatch) {
-			spriteBatch.draw(texture, x, y, texture.getWidth() * zoom, texture.getHeight() * zoom);
+			spriteBatch.draw(particleSystem.texture, x, y, particleSystem.texture.getWidth() * particleSystem.zoom, particleSystem.texture.getHeight() * particleSystem.zoom);
 		}
 
 		@Override
 		public void destroy(){
-			world.getPhysics().removeRigidbody(this);
-			getParticles().remove(this);
+			particleSystem.world.getPhysics().removeRigidbody(this);
+			particleSystem.getParticles().remove(this);
 		}
 	}
 }

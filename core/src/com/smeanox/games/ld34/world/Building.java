@@ -42,6 +42,10 @@ public class Building implements Renderable, Collidable, Destroyable {
 		}
 	}
 
+	public float getHeight(){
+		return vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM;
+	}
+
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		for (int y = 0; y < vSegments; y++) {
