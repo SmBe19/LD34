@@ -66,17 +66,6 @@ public class ParticleSystem implements Updatable, Renderable {
 		fillNextParticles();
 	}
 
-	private void fillNextParticles(){
-		float last = 0;
-		if(!nextParticles.isEmpty()){
-			last = nextParticles.getLast();
-		}
-		while(nextParticles.isEmpty() || nextParticles.getLast() < passedTime + 5){
-			last += getRand(rate, rateRand);
-			nextParticles.addLast(last);
-		}
-	}
-
 	public boolean isGenerating() {
 		return generating;
 	}
@@ -113,13 +102,24 @@ public class ParticleSystem implements Updatable, Renderable {
 		return mid + MathUtils.randomTriangular(-rand, rand);
 	}
 
+	private void fillNextParticles(){
+		float last = passedTime;
+		if(!nextParticles.isEmpty()){
+			last = nextParticles.getLast();
+		}
+		while(nextParticles.isEmpty() || last < passedTime + 5){
+			last += getRand(rate, rateRand);
+			nextParticles.addLast(last);
+		}
+	}
+
 	@Override
 	public void update(float delta) {
 		for(int i = particles.size()-1; i >= 0; i--){
 			particles.get(i).update(delta);
 		}
-		passedTime += delta;
 		if(generating) {
+			passedTime += delta;
 			autoDisable -= delta;
 			if(autoDisable < 0){
 				generating = false;
@@ -275,7 +275,7 @@ public class ParticleSystem implements Updatable, Renderable {
 
 		@Override
 		public Rectangle getCollisionBox() {
-			return new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+			return new Rectangle(x, y, texture.getWidth() * zoom, texture.getHeight() * zoom);
 		}
 
 		@Override
@@ -287,6 +287,9 @@ public class ParticleSystem implements Updatable, Renderable {
 
 		@Override
 		public boolean collidesWith(Collidable collidable) {
+			if(collidable instanceof Building && !"snow".equals(tag)){
+				return false;
+			}
 			return true;
 		}
 

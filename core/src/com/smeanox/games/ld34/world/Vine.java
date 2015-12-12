@@ -47,7 +47,7 @@ public class Vine extends Plant {
 	}
 	
 	public void render(float delta, SpriteBatch batch) {
-		System.out.println(height);
+		//System.out.println(height);
 		for (int y = 0; y < height; y += Consts.VINE_STEP * Consts.VINE_TEX_ZOOM) {
 			//last section
 			if( y + Consts.VINE_STEP > height) {

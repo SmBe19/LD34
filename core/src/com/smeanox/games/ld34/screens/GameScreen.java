@@ -72,7 +72,6 @@ public class GameScreen implements Screen {
 
 		camera.position.set(MathUtils.roundPositive(world.getHero().getX()),
 				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
-		//camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(world.getHero().getY() - Consts.GROUND_HEIGHT), 0);
 		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
 
 		camera.update();
@@ -81,9 +80,12 @@ public class GameScreen implements Screen {
 		spriteBatch.setProjectionMatrix(backgroundCamera.combined);
 
 		spriteBatch.begin();
-		for (int i = -1; i < 2; i++) {
-			spriteBatch.draw(background, i * (background.getWidth() * Consts.HEIGHT * 2 / background.getHeight()),
-					-Consts.HEIGHT, background.getWidth() * Consts.HEIGHT * 2 / background.getHeight(), Consts.HEIGHT * 2);
+
+		float bgWidth = background.getWidth() * Consts.HEIGHT * 2 / background.getHeight();
+		int start = MathUtils.floor((backgroundCamera.position.x - Consts.WIDTH / 2) / bgWidth);
+		int end = MathUtils.ceil((backgroundCamera.position.x + Consts.WIDTH / 2) / bgWidth);
+		for (int i = start; i < end; i++) {
+			spriteBatch.draw(background, i * bgWidth, -Consts.HEIGHT, bgWidth, Consts.HEIGHT * 2);
 		}
 		spriteBatch.end();
 

@@ -44,29 +44,16 @@ public class PhysicSimulation implements Updatable {
 			rigidbody.doPhysics(delta);
 		}
 		for (Rigidbody rigidbody : new ArrayList<Rigidbody>(rigidbodies)) {
-			Rectangle collisionBox = rigidbody.getCollisionBox();
-			Rectangle collisionBoxX = new Rectangle(collisionBox.getX(),
-					collisionBox.getY() + collisionBox.getHeight() / 4, collisionBox.getWidth(),
-					collisionBox.getHeight() / 2);
-			Rectangle collisionBoxY = new Rectangle(collisionBox.getX() + collisionBox.getWidth() / 4,
-					collisionBox.getY(), collisionBox.getWidth() / 2, collisionBox.getHeight());
 			for (Collidable collidable : collidables) {
 				if (collidable == rigidbody || !rigidbody.collidesWith(collidable)) {
 					continue;
 				}
+				Rectangle collisionBox = rigidbody.getCollisionBox();
+				Rectangle collisionBoxY = new Rectangle(collisionBox.getX() + collisionBox.getWidth() / 4,
+						collisionBox.getY(), collisionBox.getWidth() / 2, collisionBox.getHeight());
+
 				Rectangle collisionBoxCollidable = collidable.getCollisionBox();
 				boolean collision = false;
-				if (collisionBoxCollidable.overlaps(collisionBoxX)) {
-					float diff = 0;
-					if (collisionBoxX.getX() + collisionBoxX.getWidth() / 2
-							< collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth() / 2){
-						diff = (collisionBoxX.getX() + collisionBoxX.getWidth()) - collisionBoxCollidable.getX();
-					} else {
-						diff = collisionBoxX.getX() - (collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth());
-					}
-					rigidbody.collisionX(diff);
-					collision = true;
-				}
 				if (collisionBoxCollidable.overlaps(collisionBoxY)) {
 					float diff = 0;
 					if (collisionBoxY.getY() + collisionBoxY.getHeight() / 2
@@ -76,6 +63,23 @@ public class PhysicSimulation implements Updatable {
 						diff = collisionBoxY.getY() - (collisionBoxCollidable.getY() + collisionBoxCollidable.getHeight());
 					}
 					rigidbody.collisionY(diff);
+					collision = true;
+				}
+
+				collisionBox = rigidbody.getCollisionBox();
+				Rectangle collisionBoxX = new Rectangle(collisionBox.getX(),
+						collisionBox.getY() + collisionBox.getHeight() / 4, collisionBox.getWidth(),
+						collisionBox.getHeight() / 2);
+
+				if (collisionBoxCollidable.overlaps(collisionBoxX)) {
+					float diff = 0;
+					if (collisionBoxX.getX() + collisionBoxX.getWidth() / 2
+							< collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth() / 2){
+						diff = (collisionBoxX.getX() + collisionBoxX.getWidth()) - collisionBoxCollidable.getX();
+					} else {
+						diff = collisionBoxX.getX() - (collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth());
+					}
+					rigidbody.collisionX(diff);
 					collision = true;
 				}
 				if(collision) {
