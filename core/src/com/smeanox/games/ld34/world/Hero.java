@@ -11,6 +11,9 @@ import com.badlogic.gdx.utils.Array;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Comment
  */
@@ -19,9 +22,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private World world;
 	private Texture texture;
 	private Animation activeAnimation, walk, axeSwing, throwPlant, fall, climbing;
-	private boolean alive;
+	private Set<Plant> climbingPlants;
+	private Plant climbingPlant;
+	private float lives;
 
-	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem;
+	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem, landingSystem;
 
 	private float animationTime;
 
@@ -31,11 +36,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		world.addRenderable(Consts.LAYER_HERO, this);
 		world.getPhysics().addRigidbody(this);
 
-		alive = true;
+		lives = Consts.HERO_START_LIVES;
 
 		texture = Textures.get().hero;
 
 		x = y = vx = vy = 0;
+		climbingPlants = new HashSet<Plant>();
+		climbingPlant = null;
 
 		initAnimations();
 
@@ -102,6 +109,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
+		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.002f, 0.001f, 0, 0, 2, 2, 0, 10, 10, 5);
 		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, Consts.HERO_VELO * 0.5f, 1, 1);
 	}
 
@@ -112,6 +120,12 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				setAnimation(fall);
 			}
 		} else {
+			if(activeAnimation == climbing && climbingPlant != null){
+				if(y + Consts.PLANT_TOP_MARGIN > ((Vine) climbingPlant).getHeight() + climbingPlant.getY0()){
+					vy = Consts.HERO_JUMP_VELO;
+					setAnimation(walk);
+				}
+			}
 			if (activeAnimation != walk && activeAnimation != climbing && (activeAnimation.isAnimationFinished(animationTime) || activeAnimation == fall)) {
 				setAnimation(walk);
 			}
@@ -131,7 +145,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 
 		if (y < -Consts.HEIGHT * 10) {
-			alive = false;
+			lives = 0;
 		}
 	}
 
@@ -159,6 +173,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	public void plant() {
 		if (activeAnimation == climbing) {
 			setAnimation(walk);
+			vy = Consts.HERO_JUMP_VELO;
 			return;
 		}
 		if (activeAnimation != walk) {
@@ -205,8 +220,16 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		return x;
 	}
 
+	public float getLives() {
+		return lives;
+	}
+
+	public void setLives(float lives) {
+		this.lives = lives;
+	}
+
 	public boolean isAlive() {
-		return alive;
+		return lives > 0;
 	}
 
 	@Override
@@ -221,7 +244,12 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				return false;
 			}
 			setAnimation(climbing);
+			climbingPlants.add((Plant) collidable);
+			climbingPlant = (Plant) collidable;
 			return false;
+		}
+		if (collidable instanceof GroundPart){
+			climbingPlants.clear();
 		}
 		return true;
 	}
@@ -229,10 +257,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	@Override
 	public boolean collidesWith(Collidable collidable) {
 		if (collidable instanceof Building) {
+			if(vy < 0 && y + Consts.BUILDING_TOP_MARGIN > ((Building) collidable).getHeight() + ((Building) collidable).getY()){
+				return true;
+			}
 			return false;
 		}
 		if (collidable instanceof Vine) {
-			if (((Vine) collidable).getX0() < x + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM / 2) {
+			if (((Vine) collidable).getX0() < x + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM / 2 && !climbingPlants.contains(collidable)) {
 				return true;
 			}
 			return false;
@@ -252,6 +283,17 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 		public PlantParticle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
 			super(particleSystem, time, x, y, vx, vy);
+		}
+
+		@Override
+		public boolean collidesWith(Collidable collidable) {
+			boolean collides = super.collidesWith(collidable);
+			if(collides){
+				if(collidable instanceof Plant){
+					collides = false;
+				}
+			}
+			return collides;
 		}
 
 		@Override
