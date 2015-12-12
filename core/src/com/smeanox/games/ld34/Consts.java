@@ -31,16 +31,16 @@ public class Consts {
 	public static final int LAYER_PLANT = 3;
 	public static final int LAYER_HERO = 10;
 
-	public static final int GROUNDPART_MIN_DIST = 100;
+	public static final int GROUNDPART_MIN_DIST = 0;
 	public static final int GROUNDPART_MAX_DIST = 500;
-	public static final int GROUNDPART_MIN_WIDTH = 100;
-	public static final int GROUNDPART_MAX_WIDTH = 10000;
+	public static final int GROUNDPART_MIN_WIDTH = 1000;
+	public static final int GROUNDPART_MAX_WIDTH = 5000;
 	public static final int BUILDING_MIN_DIST = 50;
 	public static final int BUILDING_MAX_DIST = 500;
 	public static final int BUILDING_MIN_WIDTH = 5;
-	public static final int BUILDING_MAX_WIDTH = 50;
+	public static final int BUILDING_MAX_WIDTH = 20;
 	public static final int BUILDING_MIN_HEIGHT = 5;
-	public static final int BUILDING_MAX_HEIGHT = 50;
+	public static final int BUILDING_MAX_HEIGHT = 20;
 
 	public static final int GROUND_TEX_OFFSET_Y = 50;
 	public static final int GROUND_TEX_HEIGHT = 100;
