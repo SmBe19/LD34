@@ -141,8 +141,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			while (nextParticles.getFirst() < passedTime) {
 				nextParticles.removeFirst();
-				particleFactory.createParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
-						getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+				addOneParticle();
 			}
 		} else {
 			timeout -= delta;
@@ -151,6 +150,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 				timeout = Float.POSITIVE_INFINITY;
 			}
 		}
+	}
+
+	public void addOneParticle(){
+		particleFactory.createParticle(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+				getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
 	}
 
 	@Override
