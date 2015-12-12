@@ -19,6 +19,8 @@ public class Vine extends Plant {
 	private TextureRegion[] regions;
 
 	private TextureRegion[] growRegions;
+	
+	private TextureRegion base;
 
 	public Vine(World world, float x0, float y0, float targetHeight) {
 		super(world, x0, y0);
@@ -33,6 +35,7 @@ public class Vine extends Plant {
 			int ix = MathUtils.random.nextInt(8) * 0;
 			regions[i] = new TextureRegion(vineTexture, 0, ix * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 		}
+		base = new TextureRegion(vineTexture, 0, 4 * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 	}
 	
 
@@ -47,14 +50,14 @@ public class Vine extends Plant {
 	}
 	
 	public void render(float delta, SpriteBatch batch) {
-		System.out.println(height);
+		batch.draw(base, x0 - Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM/2, y0, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 		for (int y = 0; y < height; y += Consts.VINE_STEP * Consts.VINE_TEX_ZOOM) {
 			//last section
-			if( y + Consts.VINE_STEP > height) {
+			if( y + Consts.VINE_STEP * Consts.VINE_TEX_ZOOM > height) {
 				int progress = (int)(4f*(height - y)/(Consts.VINE_STEP * Consts.VINE_TEX_ZOOM));
-				batch.draw(growRegions[progress], x0 - Consts.VINE_TEXTURE_WIDTH/2, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
+				batch.draw(growRegions[progress], x0 - Consts.VINE_TEXTURE_WIDTH*Consts.VINE_TEX_ZOOM/2, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 			} else {
-				batch.draw(regions[y/(int)(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM)], x0 - Consts.VINE_TEXTURE_WIDTH, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
+				batch.draw(regions[y/(int)(Consts.VINE_STEP*Consts.VINE_TEX_ZOOM)], x0 - Consts.VINE_TEXTURE_WIDTH*Consts.VINE_TEX_ZOOM/2, y0 + y, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 			}
 		}
 
