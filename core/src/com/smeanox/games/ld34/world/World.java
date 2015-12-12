@@ -41,6 +41,7 @@ public class World implements Updatable, Renderable {
 		new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
 
 		new ParticleSystem(this, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 5, 1, 0.001f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
+		new Vine(this, 600, Consts.GROUND_HEIGHT, 100);
 	}
 
 	public void addRenderable(int layer, Renderable renderable){

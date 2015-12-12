@@ -9,7 +9,11 @@ public abstract class Plant implements Updatable, Renderable, Collidable {
 
 	protected World world;
 
-	public Plant(World world) {
+	protected float x0, y0;
+
+	public Plant(World world, float x0, float y0) {
+		this.x0 = x0;
+		this.y0 = y0;
 		this.world = world;
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_PLANT, this);
