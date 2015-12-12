@@ -110,7 +110,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
 		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.002f, 0.001f, 0, 0, 2, 2, 0, 10, 10, 5);
-		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, Consts.HERO_VELO * 0.5f, 1, 1);
+		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, 0, 1, 1);
 	}
 
 	@Override
