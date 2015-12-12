@@ -23,7 +23,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	public Hero(World world) {
 		this.world = world;
 		world.getUpdatables().add(this);
-		world.getRenderables().add(this);
+		world.addRenderable(Consts.LAYER_HERO, this);
 		world.getPhysics().addRigidbody(this);
 
 		texture = Textures.get().hero;

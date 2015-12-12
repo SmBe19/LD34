@@ -15,6 +15,8 @@ import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;
 import com.smeanox.games.ld34.world.World;
 
+import java.util.List;
+
 /**
  * Comment
  */
@@ -64,8 +66,9 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(Math.max(world.getHero().getY()), -Consts.HEIGHT), 0);
-		camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(world.getHero().getY()), 0);
+		camera.position.set(MathUtils.roundPositive(world.getHero().getX()),
+				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
+		//camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(world.getHero().getY() - Consts.GROUND_HEIGHT), 0);
 		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
 
 		camera.update();
@@ -83,8 +86,10 @@ public class GameScreen implements Screen {
 		spriteBatch.setProjectionMatrix(camera.combined);
 
 		spriteBatch.begin();
-		for(Renderable renderable : world.getRenderables()){
-			renderable.render(delta, spriteBatch);
+		for(List<Renderable> list : world.getRenderables()) {
+			for (Renderable renderable : list) {
+				renderable.render(delta, spriteBatch);
+			}
 		}
 		spriteBatch.end();
 	}

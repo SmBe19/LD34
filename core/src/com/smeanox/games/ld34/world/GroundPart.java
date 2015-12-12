@@ -23,7 +23,7 @@ public class GroundPart implements Renderable, Collidable {
 
 		ground = Textures.get().ground;
 
-		world.getRenderables().add(this);
+		world.addRenderable(Consts.LAYER_GROUND, this);
 		world.getPhysics().addCollidable(this);
 	}
 

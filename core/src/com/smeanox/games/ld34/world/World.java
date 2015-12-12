@@ -2,6 +2,7 @@ package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
 
 import java.util.ArrayList;
@@ -19,16 +20,16 @@ public class World implements Updatable, Renderable {
 	private float totalTime;
 
 	private List<Updatable> updatables;
-	private List<Renderable> renderables;
+	private List<List<Renderable> > renderables;
 
 	public World(){
 		updatables = new ArrayList<Updatable>();
-		renderables = new ArrayList<Renderable>();
+		renderables = new ArrayList<List<Renderable> >();
 
 		physics = new PhysicSimulation(this);
 
 		updatables.add(this);
-		renderables.add(this);
+		addRenderable(Consts.LAYER_WORLD, this);
 
 		hero = new Hero(this);
 		plants = new ArrayList<Plant>();
@@ -36,10 +37,17 @@ public class World implements Updatable, Renderable {
 
 		totalTime = 0;
 
-		new GroundPart(this, 0, 5000);
-		new Building(this, 1000, 0, 5,5);
+		new GroundPart(this, 0, 3000);
+		new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
 
-		new ParticleSystem(this, Textures.get().particle, Color.WHITE, 5, 1, 0.001f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
+		new ParticleSystem(this, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 5, 1, 0.001f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
+	}
+
+	public void addRenderable(int layer, Renderable renderable){
+		while(renderables.size() <= layer){
+			renderables.add(new ArrayList<Renderable>());
+		}
+		renderables.get(layer).add(renderable);
 	}
 
 	@Override
@@ -64,8 +72,12 @@ public class World implements Updatable, Renderable {
 		return updatables;
 	}
 
-	public List<Renderable> getRenderables() {
+	public List<List<Renderable>> getRenderables(){
 		return renderables;
+	}
+
+	public List<Renderable> getRenderables(int layer) {
+		return renderables.get(layer);
 	}
 
 	public float getTotalTime() {

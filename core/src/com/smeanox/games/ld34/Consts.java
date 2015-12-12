@@ -11,7 +11,7 @@ public class Consts {
 	public static float WIDTH = DEV_WIDTH;
 	public static float HEIGHT = DEV_HEIGHT;
 
-	public static final int GROUND_HEIGHT = -50;
+	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 100;
 	public static final float GRAVITY = -9.81f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
@@ -20,9 +20,18 @@ public class Consts {
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
 
+	public static final int LAYER_WORLD = 0;
+	public static final int LAYER_GROUND = 1;
+	public static final int LAYER_BUILDING = 2;
+	public static final int LAYER_PLANT = 3;
+	public static final int LAYER_HERO = 10;
+
 	public static final int GROUND_TEX_OFFSET_Y = 50;
 	public static final int GROUND_TEX_HEIGHT = 100;
 	public static final int HERO_TEX_WIDTH = 24;
 	public static final int HERO_TEX_HEIGHT = 24;
-	public static final float HERO_TEX_ZOOM = 5;
+	public static final int BUILDING_TEX_WIDTH = 32;
+	public static final int BUILDING_TEX_HEIGHT = 32;
+	public static final float HERO_TEX_ZOOM = 4;
+	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM / 2;
 }

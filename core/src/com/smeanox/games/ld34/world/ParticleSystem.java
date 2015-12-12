@@ -19,6 +19,7 @@ import java.util.List;
 public class ParticleSystem implements Updatable, Renderable {
 
 	private World world;
+	private int layer;
 	private Texture texture;
 	private List<Particle> particles;
 
@@ -28,10 +29,11 @@ public class ParticleSystem implements Updatable, Renderable {
 	float passedTime;
 	boolean generating;
 
-	public ParticleSystem(World world, Texture texture, Color color, float lifeTime, float lifeTimeRand, float rate,
+	public ParticleSystem(World world, int layer, Texture texture, Color color, float lifeTime, float lifeTimeRand, float rate,
 	                      float rateRand, float startX, float startY, float startXRand, float startYRand,
 	                      float startVeloX, float startVeloY, float startVeloXRand, float startVeloYRand) {
 		this.world = world;
+		this.layer = layer;
 		this.texture = texture;
 		this.color = color;
 		this.lifeTime = lifeTime;
@@ -51,7 +53,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		nextParticles = new ArrayDeque<Float>();
 
 		world.getUpdatables().add(this);
-		world. getRenderables().add(this);
+		world.addRenderable(layer, this);
 
 		passedTime = 0;
 		generating = false;
@@ -82,7 +84,7 @@ public class ParticleSystem implements Updatable, Renderable {
 			particle.destroy();
 		}
 		world.getUpdatables().remove(this);
-		world.getRenderables().remove(this);
+		world.getRenderables().get(layer).remove(this);
 	}
 
 	private float getRand(float mid, float rand){

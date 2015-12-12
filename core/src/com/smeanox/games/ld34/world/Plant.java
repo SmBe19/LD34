@@ -1,5 +1,7 @@
 package com.smeanox.games.ld34.world;
 
+import com.smeanox.games.ld34.Consts;
+
 /**
  * Comment
  */
@@ -10,7 +12,7 @@ public abstract class Plant implements Updatable, Renderable, Collidable {
 	public Plant(World world) {
 		this.world = world;
 		world.getUpdatables().add(this);
-		world.getRenderables().add(this);
+		world.addRenderable(Consts.LAYER_PLANT, this);
 		world.getPhysics().addCollidable(this);
 	}
 
