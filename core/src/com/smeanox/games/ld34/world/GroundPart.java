@@ -54,7 +54,8 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	}
 
 	@Override
-	public void onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable) {
+		return true;
 	}
 
 	@Override

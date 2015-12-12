@@ -53,38 +53,45 @@ public class PhysicSimulation implements Updatable {
 						collisionBox.getY(), collisionBox.getWidth() / 2, collisionBox.getHeight());
 
 				Rectangle collisionBoxCollidable = collidable.getCollisionBox();
+
 				boolean collision = false;
+				float diffY = 0;
+				float diffX = 0;
 				if (collisionBoxCollidable.overlaps(collisionBoxY)) {
-					float diff = 0;
 					if (collisionBoxY.getY() + collisionBoxY.getHeight() / 2
 							< collisionBoxCollidable.getY() + collisionBoxCollidable.getHeight() / 2){
-						diff = (collisionBoxY.getY() + collisionBoxY.getHeight()) - collisionBoxCollidable.getY();
+						diffY = (collisionBoxY.getY() + collisionBoxY.getHeight()) - collisionBoxCollidable.getY();
 					} else {
-						diff = collisionBoxY.getY() - (collisionBoxCollidable.getY() + collisionBoxCollidable.getHeight());
+						diffY = collisionBoxY.getY() - (collisionBoxCollidable.getY() + collisionBoxCollidable.getHeight());
 					}
-					rigidbody.collisionY(diff);
 					collision = true;
 				}
 
-				collisionBox = rigidbody.getCollisionBox();
 				Rectangle collisionBoxX = new Rectangle(collisionBox.getX(),
-						collisionBox.getY() + collisionBox.getHeight() / 4, collisionBox.getWidth(),
+						collisionBox.getY() + collisionBox.getHeight() / 4 + diffY, collisionBox.getWidth(),
 						collisionBox.getHeight() / 2);
 
 				if (collisionBoxCollidable.overlaps(collisionBoxX)) {
-					float diff = 0;
 					if (collisionBoxX.getX() + collisionBoxX.getWidth() / 2
-							< collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth() / 2){
-						diff = (collisionBoxX.getX() + collisionBoxX.getWidth()) - collisionBoxCollidable.getX();
+							< collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth() / 2) {
+						diffX = (collisionBoxX.getX() + collisionBoxX.getWidth()) - collisionBoxCollidable.getX();
 					} else {
-						diff = collisionBoxX.getX() - (collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth());
+						diffX = collisionBoxX.getX() - (collisionBoxCollidable.getX() + collisionBoxCollidable.getWidth());
 					}
-					rigidbody.collisionX(diff);
 					collision = true;
 				}
 				if(collision) {
-					rigidbody.onCollision(collidable);
+					boolean acceptCollision = rigidbody.onCollision(collidable);
 					collidable.onCollision(rigidbody);
+
+					if(acceptCollision){
+						if(Math.abs(diffY) > 0.1e-10){
+							rigidbody.collisionY(diffY);
+						}
+						if(Math.abs(diffX) > 0.1e-10){
+							rigidbody.collisionX(diffX);
+						}
+					}
 				}
 			}
 		}

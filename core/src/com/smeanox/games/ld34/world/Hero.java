@@ -215,10 +215,12 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	@Override
-	public void onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable) {
 		if(collidable instanceof Vine){
 			setAnimation(climbing);
+			return false;
 		}
+		return true;
 	}
 
 	@Override
@@ -227,6 +229,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			return false;
 		}
 		if(collidable instanceof Vine){
+			if(((Vine) collidable).getX0() < x + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM / 2){
+				return true;
+			}
 			return false;
 		}
 		return true;
@@ -247,8 +252,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 
 		@Override
-		public void onCollision(Collidable collidable) {
-			super.onCollision(collidable);
+		public boolean onCollision(Collidable collidable) {
+			boolean acceptCollision = super.onCollision(collidable);
 			if (collidable instanceof GroundPart) {
 				GroundPart gp = (GroundPart) collidable;
 				float height = -1;
@@ -265,6 +270,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				destroy();
 
 			}
+			return acceptCollision;
 		}
 	}
 }
