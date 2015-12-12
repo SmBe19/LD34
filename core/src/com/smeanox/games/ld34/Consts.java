@@ -20,7 +20,11 @@ public class Consts {
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 5;
-	public static final float HERO_CLIMB_VELO = 0.8f;
+	public static final float HERO_CLIMB_VELO = 1.2f;
+	public static final float HERO_START_LIVES = 100f;
+	public static final float HERO_JUMP_VELO = 5f;
+	public static final float BUILDING_TOP_MARGIN = 10f;
+	public static final float PLANT_TOP_MARGIN = 10f;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
@@ -31,16 +35,16 @@ public class Consts {
 	public static final int LAYER_PLANT = 3;
 	public static final int LAYER_HERO = 10;
 
-	public static final int GROUNDPART_MIN_DIST = 100;
+	public static final int GROUNDPART_MIN_DIST = 0;
 	public static final int GROUNDPART_MAX_DIST = 500;
-	public static final int GROUNDPART_MIN_WIDTH = 100;
-	public static final int GROUNDPART_MAX_WIDTH = 10000;
+	public static final int GROUNDPART_MIN_WIDTH = 1000;
+	public static final int GROUNDPART_MAX_WIDTH = 5000;
 	public static final int BUILDING_MIN_DIST = 50;
 	public static final int BUILDING_MAX_DIST = 500;
 	public static final int BUILDING_MIN_WIDTH = 5;
-	public static final int BUILDING_MAX_WIDTH = 50;
+	public static final int BUILDING_MAX_WIDTH = 20;
 	public static final int BUILDING_MIN_HEIGHT = 5;
-	public static final int BUILDING_MAX_HEIGHT = 50;
+	public static final int BUILDING_MAX_HEIGHT = 20;
 
 	public static final int GROUND_TEX_OFFSET_Y = 50;
 	public static final int GROUND_TEX_HEIGHT = 100;

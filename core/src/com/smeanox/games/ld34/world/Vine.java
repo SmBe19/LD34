@@ -72,4 +72,7 @@ public class Vine extends Plant {
 		return true;
 	}
 
+	public float getHeight() {
+		return height;
+	}
 }
