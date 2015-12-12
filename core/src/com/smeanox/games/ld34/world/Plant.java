@@ -33,4 +33,12 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 		world.getRenderables(Consts.LAYER_PLANT).remove(this);
 		world.getPhysics().removeCollidable(this);
 	}
+
+	public float getX0() {
+		return x0;
+	}
+
+	public float getY0() {
+		return y0;
+	}
 }
