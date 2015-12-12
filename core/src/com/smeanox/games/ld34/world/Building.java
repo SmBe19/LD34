@@ -15,11 +15,13 @@ public class Building implements Renderable, Collidable, Destroyable {
 
 	private int vSegments, hSegments;
 	private TextureRegion[][] regions;
+	private TextureRegion[][] overgrow;
 
 	private World world;
 	private float x0;
 	private float y0;
 	private Texture walls;
+	private Texture plants;
 
 	public Building(World world, float x0, float y0, int vertSegments, int horSegments) {
 		this.x0 = x0;
@@ -28,7 +30,9 @@ public class Building implements Renderable, Collidable, Destroyable {
 		this.vSegments = vertSegments;
 		this.hSegments = horSegments;
 		this.regions = new TextureRegion[vSegments][hSegments];
+		this.overgrow = new TextureRegion[vSegments][hSegments];
 		this.walls = Textures.get().walls;
+		this.plants = Textures.get().overlay;
 
 		world.addRenderable(Consts.LAYER_BUILDING, this);
 		world.getPhysics().addCollidable(this);
@@ -39,6 +43,8 @@ public class Building implements Renderable, Collidable, Destroyable {
 				TextureRegion region = new TextureRegion(walls, Consts.BUILDING_TEX_WIDTH * ix, 0, 
 						Consts.BUILDING_TEX_WIDTH, Consts.BUILDING_TEX_HEIGHT);
 				regions[y][x] = region;
+				ix = MathUtils.random.nextInt(4);
+				overgrow[y][x] = MathUtils.randomBoolean(((float)(vSegments-y))/vSegments) ? new TextureRegion(plants, Consts.BUILDING_TEX_WIDTH * ix, 0, Consts.BUILDING_TEX_WIDTH, Consts.BUILDING_TEX_HEIGHT) : null;
 			}
 		}
 		System.out.println("Created building from " + x0 + " to " + (getWidth() + getX()) );
@@ -63,6 +69,12 @@ public class Building implements Renderable, Collidable, Destroyable {
 						getY() + y * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM,
 						Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
 						Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
+				if (overgrow[y][x] != null) {
+					spriteBatch.draw(overgrow[y][x], getX() + x * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+							getY() + y * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM,
+							Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+							Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
+				}
 			}
 		}
 
