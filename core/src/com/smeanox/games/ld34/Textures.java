@@ -15,6 +15,7 @@ public class Textures {
 	public Texture background;
 	public Texture ground;
 	public Texture walls;
+	public Texture overlay;
 	public Texture particle;
 	public Texture vine;
 	public Texture thorn;
@@ -36,6 +37,7 @@ public class Textures {
 		manager.load("textures/background.png", Texture.class);
 		manager.load("textures/ground.png", Texture.class);
 		manager.load("textures/walls.png", Texture.class);
+		manager.load("textures/overlay.png", Texture.class);
 		manager.load("textures/particle.png", Texture.class);
 		manager.load("textures/vine.png", Texture.class);
 		manager.load("textures/thornbush.png", Texture.class);
@@ -57,6 +59,7 @@ public class Textures {
 		background = manager.get("textures/background.png", Texture.class);
 		ground = manager.get("textures/ground.png", Texture.class);
 		walls = manager.get("textures/walls.png", Texture.class);
+		overlay = manager.get("textures/overlay.png", Texture.class);
 		particle = manager.get("textures/particle.png", Texture.class);
 		vine = manager.get("textures/vine.png", Texture.class);
 		thorn = manager.get("textures/thornbush.png", Texture.class);

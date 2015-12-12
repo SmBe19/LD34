@@ -258,6 +258,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			climbingPlant = (Plant) collidable;
 			return false;
 		}
+		if (collidable instanceof Thorn) {
+			lives--;
+			return true;
+		}
 		if (collidable instanceof GroundPart){
 			climbingPlants.clear();
 			if(vy < Consts.GRAVITY * 0.1f){
