@@ -55,7 +55,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		}
 		int bwidth = MathUtils.random(Consts.BUILDING_MIN_WIDTH, Consts.BUILDING_MAX_WIDTH);
 		buildings.add(new Building(world, width - bwidth * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM + getX(), Consts.GROUND_HEIGHT, MathUtils.random(Consts.BUILDING_MIN_HEIGHT, Consts.BUILDING_MAX_HEIGHT), bwidth));
-		maxGap = Consts.HERO_VELO  * (float)Math.sqrt( 2 * buildings.get(buildings.size() - 1).getHeight() / -Consts.GRAVITY) + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM;
+		maxGap = Consts.HERO_VELO  * (float)Math.sqrt( 2 * buildings.get(buildings.size() - 1).getHeight() / -Consts.GRAVITY);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		return true;
 	}
 
-	
+
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		int i = 0;
