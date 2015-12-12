@@ -68,7 +68,8 @@ public class Vine extends Plant {
 	}
 
 	@Override
-	public void onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable) {
+		return true;
 	}
 
 }

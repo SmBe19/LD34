@@ -312,14 +312,15 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		}
 
 		@Override
-		public void onCollision(Collidable collidable) {
+		public boolean onCollision(Collidable collidable) {
 			if(collidable instanceof GroundPart) {
-				return;
+				return true;
 			}
 			collisions--;
 			if(collisions < 0){
 				destroy();
 			}
+			return true;
 		}
 
 		@Override

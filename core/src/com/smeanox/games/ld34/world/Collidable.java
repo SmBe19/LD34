@@ -8,5 +8,5 @@ import com.badlogic.gdx.math.Rectangle;
 public interface Collidable {
 	Rectangle getCollisionBox();
 
-	void onCollision(Collidable collidable);
+	boolean onCollision(Collidable collidable);
 }
