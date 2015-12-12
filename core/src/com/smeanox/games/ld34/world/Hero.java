@@ -89,10 +89,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void initParticles(){
-		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
-		attackSystem = new ParticleSystem(world, "attack", Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
-		walkSystem = new ParticleSystem(world, "walk", Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
-		plantSystem = new ParticleSystem(world, "plant", Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
+		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
+		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
+		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
+		plantSystem = new ParticleSystem(world, "plant", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
 	}
 
 	@Override

@@ -34,6 +34,12 @@ public class Consts {
 	public static final int GROUNDPART_MAX_DIST = 500;
 	public static final int GROUNDPART_MIN_WIDTH = 100;
 	public static final int GROUNDPART_MAX_WIDTH = 10000;
+	public static final int BUILDING_MIN_DIST = 50;
+	public static final int BUILDING_MAX_DIST = 500;
+	public static final int BUILDING_MIN_WIDTH = 5;
+	public static final int BUILDING_MAX_WIDTH = 50;
+	public static final int BUILDING_MIN_HEIGHT = 5;
+	public static final int BUILDING_MAX_HEIGHT = 50;
 
 	public static final int GROUND_TEX_OFFSET_Y = 50;
 	public static final int GROUND_TEX_HEIGHT = 100;

@@ -2,6 +2,7 @@ package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
@@ -37,6 +38,14 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	}
 
 	public void generate(){
+		PlantFactory plantFactory = new PlantFactory();
+
+		float lastBuilding = 0;
+
+		while (lastBuilding + Consts.BUILDING_MIN_DIST + Consts.BUILDING_MIN_WIDTH < width){
+			lastBuilding += MathUtils.random(Consts.BUILDING_MIN_DIST, Consts.BUILDING_MAX_DIST);
+
+		}
 	}
 
 	@Override
@@ -78,5 +87,13 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	public int getWidth() {
 		return width;
+	}
+
+	public List<Plant> getPlants() {
+		return plants;
+	}
+
+	public List<Building> getBuildings() {
+		return buildings;
 	}
 }

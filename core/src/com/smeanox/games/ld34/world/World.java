@@ -20,6 +20,7 @@ public class World implements Updatable, Renderable {
 	private Camera camera;
 
 	private float totalTime;
+	private ParticleSystem snowSystem;
 
 	private List<Updatable> updatables;
 	private List<List<Renderable> > renderables;
@@ -40,10 +41,11 @@ public class World implements Updatable, Renderable {
 		totalTime = 0;
 
 		generateWorldPart();
-		new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
+		//new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
+		//new Vine(this, 600, Consts.GROUND_HEIGHT, 1000);
 
-		new Vine(this, 600, Consts.GROUND_HEIGHT, 1000);
-		new ParticleSystem(this, "snow", Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 1f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
+		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 1f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10);
+		snowSystem.setGenerating(true);
 	}
 
 	public void generateWorldPart(){
@@ -97,6 +99,9 @@ public class World implements Updatable, Renderable {
 
 		clearWorldPart();
 		generateWorldPart();
+
+		snowSystem.setStartX(hero.getX());
+		snowSystem.setStartY(hero.getY());
 	}
 
 	@Override
