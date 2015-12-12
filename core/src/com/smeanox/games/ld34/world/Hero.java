@@ -223,6 +223,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			setAnimation(climbing);
 			return false;
 		}
+		if (collidable instanceof Thorn) {
+			alive = false;
+			return true;
+		}
 		return true;
 	}
 
