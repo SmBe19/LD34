@@ -17,7 +17,8 @@ public class Building implements Renderable, Collidable, Destroyable {
 	private TextureRegion[][] regions;
 
 	private World world;
-	private float x0, y0;
+	private float x0;
+	private float y0;
 	private Texture walls;
 
 	public Building(World world, float x0, float y0, int vertSegments, int horSegments) {
@@ -46,12 +47,19 @@ public class Building implements Renderable, Collidable, Destroyable {
 		return vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM;
 	}
 
+
+	public float getWidth(){
+		return hSegments * Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_ZOOM;
+	}
+
+
+
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		for (int y = 0; y < vSegments; y++) {
 			for (int x = 0; x < hSegments; x++) {
-				spriteBatch.draw(regions[y][x], x0 + x * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
-						y0 + y * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM,
+				spriteBatch.draw(regions[y][x], getX() + x * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+						getY() + y * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM,
 						Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
 						Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
 			}
@@ -61,7 +69,7 @@ public class Building implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x0, y0, hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+		return new Rectangle(getX(), getY(), hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
 				vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
 	}
 
@@ -73,5 +81,13 @@ public class Building implements Renderable, Collidable, Destroyable {
 	public void destroy() {
 		world.getRenderables(Consts.LAYER_BUILDING).remove(this);
 		world.getPhysics().removeCollidable(this);
+	}
+
+	public float getX() {
+		return x0;
+	}
+
+	public float getY() {
+		return y0;
 	}
 }

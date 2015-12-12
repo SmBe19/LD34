@@ -222,9 +222,16 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		@Override
 		public void onCollision(Collidable collidable) {
 			super.onCollision(collidable);
-			if (collidable instanceof Building) {
-				Building building = (Building) collidable;
-				PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, building.getHeight());
+			if (collidable instanceof GroundPart) {
+				GroundPart gp = (GroundPart) collidable;
+				float height = -1;
+				for (Building b : gp.getBuildings()){
+					if (b.getX() > getX() && getX() < b.getX() +  b.getWidth()){
+						height = b.getHeight();
+					}
+				}
+				if (height > 0)
+					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
 			}
 		}
 	}
