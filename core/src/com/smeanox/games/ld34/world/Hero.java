@@ -194,8 +194,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM + Consts.HERO_VELO);
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setGenerating(false);
-		plantSystem.setAutoDisable(0.1f);
-		plantSystem.setTimeout(0.32f);
+		plantSystem.addOneParticle();
 	}
 
 	public float getY() {
@@ -251,7 +250,6 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		public void onCollision(Collidable collidable) {
 			super.onCollision(collidable);
 			if (collidable instanceof GroundPart) {
-				System.out.println("Collided with ground");
 				GroundPart gp = (GroundPart) collidable;
 				float height = -1;
 				for (Building b : gp.getBuildings()){
@@ -261,11 +259,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				}
 				if (height > 0) {
 					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
-					destroy();
 				}else{
 
-					System.out.println("No building");
 				}
+				destroy();
+
 			}
 		}
 	}
