@@ -212,6 +212,14 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		return true;
 	}
 
+	public class PlantParticleFactory implements ParticleSystem.ParticleFactory{
+
+		@Override
+		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
+			return new PlantParticle(ps, time, x, y, vx, vy);
+		}
+	}
+
 	public class PlantParticle extends ParticleSystem.Particle {
 
 
@@ -223,6 +231,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		public void onCollision(Collidable collidable) {
 			super.onCollision(collidable);
 			if (collidable instanceof GroundPart) {
+				System.out.println("Collided with ground");
 				GroundPart gp = (GroundPart) collidable;
 				float height = -1;
 				for (Building b : gp.getBuildings()){
@@ -230,8 +239,12 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 						height = b.getHeight();
 					}
 				}
-				if (height > 0)
+				if (height > 0) {
 					PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height);
+				}else{
+
+					System.out.println("No building");
+				}
 			}
 		}
 	}
