@@ -9,8 +9,7 @@ import com.smeanox.games.ld34.Consts;
 /**
  * Comment
  */
-public class Building implements Renderable
-{
+public class Building implements Renderable {
 
 	private int vSegments, hSegments;
 	private TextureRegion[][] regions;
