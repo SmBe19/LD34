@@ -42,6 +42,8 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	public void generate(){
 		PlantFactory plantFactory = new PlantFactory();
 
+		plants.add(new Thorn(world, x, Consts.GROUND_HEIGHT));
+
 		float lastBuilding = 0;
 
 		while (lastBuilding + Consts.BUILDING_MAX_DIST + 2*Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM < width){
