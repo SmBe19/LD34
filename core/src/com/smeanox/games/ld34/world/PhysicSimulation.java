@@ -51,7 +51,7 @@ public class PhysicSimulation implements Updatable {
 			Rectangle collisionBoxY = new Rectangle(collisionBox.getX() + collisionBox.getWidth() / 4,
 					collisionBox.getY(), collisionBox.getWidth() / 2, collisionBox.getHeight());
 			for(Collidable collidable : collidables){
-				if(collidable == rigidbody){
+				if(collidable == rigidbody || !rigidbody.collidesWith(collidable)){
 					continue;
 				}
 				Rectangle collisionBoxCollidable = collidable.getCollisionBox();

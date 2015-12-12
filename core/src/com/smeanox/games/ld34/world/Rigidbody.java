@@ -10,6 +10,8 @@ public abstract class Rigidbody implements Collidable {
 	protected float x, y, vx, vy;
 	protected float fallingFor;
 
+	public abstract boolean collidesWith(Collidable collidable);
+
 	public void doPhysics(float delta){
 		vy += Consts.GRAVITY * delta;
 		x += vx;
@@ -21,6 +23,7 @@ public abstract class Rigidbody implements Collidable {
 		y -= diff;
 		vy = 0;
 		fallingFor = 0;
+		vx *= Consts.FRICTION;
 	}
 
 	public void collisionX(float diff){
