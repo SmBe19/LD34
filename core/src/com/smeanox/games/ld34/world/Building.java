@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Comment
  */
-public class Building implements Renderable
-{
+public class Building implements Renderable {
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 

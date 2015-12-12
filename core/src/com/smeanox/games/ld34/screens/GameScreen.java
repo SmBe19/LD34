@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
@@ -63,9 +64,9 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// camera.position.set(world.getHero().getX(), Math.max(world.getHero().getY(), -Consts.HEIGHT), 0);
-		camera.position.set(world.getHero().getX(), world.getHero().getY(), 0);
-		backgroundCamera.position.set(camera.position.x / 10, camera.position.y / 10, 0);
+		// camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(Math.max(world.getHero().getY()), -Consts.HEIGHT), 0);
+		camera.position.set(MathUtils.roundPositive(world.getHero().getX()), MathUtils.roundPositive(world.getHero().getY()), 0);
+		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
 
 		camera.update();
 		backgroundCamera.update();

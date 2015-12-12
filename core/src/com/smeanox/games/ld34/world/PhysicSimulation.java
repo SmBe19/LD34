@@ -24,11 +24,18 @@ public class PhysicSimulation implements Updatable {
 
 	public void addRigidbody(Rigidbody rigidbody) {
 		rigidbodies.add(rigidbody);
-		addCollidable(rigidbody);
 	}
 
 	public void addCollidable(Collidable collidable){
 		collidables.add(collidable);
+	}
+
+	public void removeRigidbody(Rigidbody rigidbody){
+		rigidbodies.remove(rigidbody);
+	}
+
+	public void removeCollidable(Collidable collidable){
+		collidables.remove(collidable);
 	}
 
 	@Override

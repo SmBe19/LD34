@@ -1,6 +1,8 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.smeanox.games.ld34.Textures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,8 @@ public class World implements Updatable, Renderable {
 		totalTime = 0;
 
 		new GroundPart(this, 0, 5000);
+
+		new ParticleSystem(this, Textures.get().particle, Color.WHITE, 5, 1, 0.001f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10).setGenerating(true);
 	}
 
 	@Override
