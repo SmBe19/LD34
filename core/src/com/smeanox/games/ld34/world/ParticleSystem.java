@@ -255,7 +255,7 @@ public class ParticleSystem implements Updatable, Renderable {
 		this.color = color;
 	}
 
-	private class Particle extends Rigidbody implements Updatable, Renderable{
+	public class Particle extends Rigidbody implements Updatable, Renderable{
 		private float time;
 
 		public Particle(float time, float x, float y, float vx, float vy) {

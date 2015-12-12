@@ -86,7 +86,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void initParticles(){
-		bloodInDaFaceSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.01f, 0.005f, 0, 0, 2, 2, -1, 2, 7, 7);
+		bloodInDaFaceSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.005f, 0.001f, 0, 0, 2, 2, -1, 2, 7, 7);
 		attackSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.5f, 0.05f, 0, 0, 2, 2, -5, 2, 2, 2);
 		walkSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
 		plantSystem = new ParticleSystem(world, Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 0.8f, 1f, 0.1f, 0.1f, 0.01f, 0, 0, 1, 1, Consts.HERO_VELO * 1.5f, -1, 1, 1);
@@ -134,7 +134,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if(MathUtils.randomBoolean(0.5f)){
 			spawnAttackSystem();
 		}
-		if(MathUtils.randomBoolean(0.01f)){
+		if(MathUtils.randomBoolean(10.01f)){
 			spawnBloodInDaFaceSystem();
 		}
 	}

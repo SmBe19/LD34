@@ -4,13 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Textures;
 import com.smeanox.games.ld34.Consts;
 
 /**
  * Comment
  */
-public class Building implements Renderable {
+public class Building implements Renderable, Collidable {
 
 	private int vSegments, hSegments;
 	private TextureRegion[][] regions;
@@ -29,6 +30,7 @@ public class Building implements Renderable {
 		this.walls = Textures.get().walls;
 
 		world.addRenderable(Consts.LAYER_BUILDING, this);
+		world.getPhysics().addCollidable(this);
 
 		for (int y = 0; y < vSegments; y++) {
 			for (int x = 0; x < hSegments; x++) {
@@ -51,5 +53,11 @@ public class Building implements Renderable {
 			}
 		}
 
+	}
+
+	@Override
+	public Rectangle getCollisionBox() {
+		return new Rectangle(x0, y0, hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+				vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
 	}
 }
