@@ -82,7 +82,7 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
-	public static final int BRIDGE_STEP = 8;
+	public static final int BRIDGE_STEP = 16;
 	public static final float BRIDGE_GROW_RATE = 200;
 	public static final float BRIDGE_START_LIVES = Float.POSITIVE_INFINITY;
 

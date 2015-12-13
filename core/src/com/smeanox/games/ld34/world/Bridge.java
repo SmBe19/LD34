@@ -28,7 +28,7 @@ public class Bridge extends Plant {
 		bridgeTexture = Textures.get().bridge;
 		growRegions = new TextureRegion[4];
 		for (int i=0; i<4; i++) {
-			growRegions[i] = new TextureRegion(bridgeTexture, i * Consts.BRIDGE_TEXTURE_WIDTH, Consts.BRIDGE_TEXTURE_HEIGHT, Consts.BRIDGE_TEXTURE_WIDTH, Consts.BRIDGE_TEXTURE_HEIGHT);
+			growRegions[i] = new TextureRegion(bridgeTexture, Consts.BRIDGE_TEXTURE_WIDTH, i * Consts.BRIDGE_TEXTURE_HEIGHT, Consts.BRIDGE_TEXTURE_WIDTH, Consts.BRIDGE_TEXTURE_HEIGHT);
 		}
 		regions = new TextureRegion[MathUtils.ceil(targetWidth/(Consts.BRIDGE_STEP*Consts.BRIDGE_TEX_ZOOM))];
 		for (int i=0; i<MathUtils.ceil(targetWidth/(Consts.BRIDGE_STEP*Consts.BRIDGE_TEX_ZOOM)); i++) {
@@ -54,7 +54,6 @@ public class Bridge extends Plant {
 	}
 
 	public void render(float delta, SpriteBatch batch) {
-		batch.draw(base, getX() - Consts.BRIDGE_TEXTURE_WIDTH * Consts.BRIDGE_TEX_ZOOM/2, getY(), Consts.BRIDGE_TEXTURE_WIDTH * Consts.BRIDGE_TEX_ZOOM, Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM);
 		for (int x = 0; x < width; x += Consts.BRIDGE_STEP * Consts.BRIDGE_TEX_ZOOM) {
 			//last section
 			if( x + Consts.BRIDGE_STEP * Consts.BRIDGE_TEX_ZOOM > width) {
