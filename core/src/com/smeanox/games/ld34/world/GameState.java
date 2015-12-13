@@ -129,7 +129,6 @@ public class GameState {
 	float moneyGrowth =  1;
 
 	public float getMoneyGrowth(){
-		System.out.println(moneyGrowth);
 		return Math.min(1.5f,moneyGrowth);
 	}
 

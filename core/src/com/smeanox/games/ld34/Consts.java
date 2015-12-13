@@ -127,6 +127,7 @@ public class Consts {
 	public static final int COIN_LOG_ADD_PER_DIST = 2000;
 	public static final float COIN_ATTRACTION = -130000f;
 	public static final float COIN_VELOCITY = 800f;
+	public static final float COIN_DUST_VELOCITY = 80f;
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
