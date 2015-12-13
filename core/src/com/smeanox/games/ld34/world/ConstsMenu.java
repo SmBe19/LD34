@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
  * Comment
  */
 public class ConstsMenu {
-	public static final String GAME_TITLE = "Mike's Garden\nSimulater 2015\nPlatinum Edition";
+	public static final String GAME_TITLE = "Mike's Garden\nSimulator 2015\nPlatinum Edition";
 	public static final String[] GAME_TITLE_SPLIT;
 	public static final int TITLE_OFFSET_X = 100;
 	public static final int TITLE_OFFSET_Y = 50;
