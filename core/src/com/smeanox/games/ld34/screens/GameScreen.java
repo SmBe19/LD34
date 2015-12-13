@@ -128,7 +128,7 @@ public class GameScreen implements Screen {
 		String text = "";
 		int textWidth = 0;
 
-		text = "" + GameState.get().getMoney();
+		text = "" + GameState.get().getVisibleMoney();
 		textWidth = text.length() * Consts.UI_MONEY_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
 		font.draw(spriteBatch, text, Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
 		Icons.COIN.draw(spriteBatch, Consts.UI_MONEY_ICON_SIZE, Consts.UI_MONEY_X + Consts.UI_MONEY_ICON_OFFSET_X, Consts.UI_MONEY_Y + Consts.UI_MONEY_ICON_OFFSET_Y);

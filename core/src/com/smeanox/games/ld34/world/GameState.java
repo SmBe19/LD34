@@ -121,4 +121,17 @@ public class GameState {
 	public void setRoses(long roses) {
 		this.roses = roses;
 	}
+
+	double visibleMoney = 0;
+
+	long lastT = System.currentTimeMillis();
+
+	public long getVisibleMoney() {
+		float delta = 0.001f*(System.currentTimeMillis() - lastT);
+		lastT = System.currentTimeMillis();
+		double fac = 0.02;
+		fac = Math.pow(fac, delta);
+		visibleMoney = ((2-fac) * visibleMoney + fac * money) / 2;
+		return (long)visibleMoney;
+	}
 }
