@@ -39,6 +39,15 @@ public class GameState {
 	public boolean isAbleToUpgradeDamage(){
 		return getMoney() >= getHeroDamageUpgradeCost();
 	}
+	
+	public boolean isAbleToBuyRose(){
+		return getMoney() >= getRoseCost();
+	}
+	
+	public boolean isAbleToBuyBridge(){
+		return getMoney() >= getBridgeCost();
+	}
+
 
 	public long getHeroDamageUpgradeCost(){
 		return (long)Math.floor(Consts.UPGRADE_DAMAGE_COST * (float)Math.pow(Consts.UPGRADE_DAMAGE_BONUS, damageUpgrades));
@@ -46,6 +55,14 @@ public class GameState {
 
 	public long getHeroHealthUpgradeCost(){
 		return (long)Math.floor(Consts.UPGRADE_HEALTH_COST * (float) Math.pow(Consts.UPGRADE_HEALTH_BONUS, healthUpgrades));
+	}
+
+	public long getBridgeCost(){
+		return Consts.BRIDGE_COST;
+	}
+	
+	public long getRoseCost(){
+		return Consts.ROSE_COST;
 	}
 	
 	public void upgradeHealth(){
@@ -58,6 +75,20 @@ public class GameState {
 		if (!isAbleToUpgradeDamage()) return;
 		damageUpgrades++;
 		money -= getHeroDamageUpgradeCost();
+	}
+
+
+
+	public void buyRose(){
+		if (!isAbleToBuyRose()) return;
+		roses ++;
+		money -= getRoseCost();
+	}
+
+	public void buyBridge(){
+		if (!isAbleToBuyBridge()) return;
+		bridges ++;
+		money -= getBridgeCost();
 	}
 
 	public long getMoney() {
