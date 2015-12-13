@@ -76,7 +76,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		});
 
 		// enemies
-		distributeThing(Consts.ENEMY_MIN_DIST, Consts.ENEMY_MAX_DIST, false, 0f, new ThingFactory() {
+		distributeThing(Consts.ENEMY_MIN_DIST, Consts.ENEMY_MAX_DIST, false, Consts.ENEMY_ON_ROOF_CHANCE, new ThingFactory() {
 			@Override
 			public float createThing(World world, float x, float y) {
 				GroundEnemy enemy = new GroundEnemy(world, x, y);

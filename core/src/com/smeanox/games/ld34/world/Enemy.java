@@ -38,10 +38,17 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 
 	public abstract float getDamage();
 
+	public abstract float getDamageOnTop();
+
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
-			((Hero) collidable).addLives(-getDamage() * delta);
+			if(((Hero) collidable).getY() > y + getHeight() / 2){
+				((Hero) collidable).addLives(-getDamageOnTop());
+				destroy();
+			} else {
+				((Hero) collidable).addLives(-getDamage() * delta);
+			}
 		}
 		return true;
 	}
@@ -60,8 +67,6 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 
 	public void addLives(float lives){
 		this.lives += lives;
-
-		System.out.println(lives);
 	}
 
 	public abstract float getWidth();

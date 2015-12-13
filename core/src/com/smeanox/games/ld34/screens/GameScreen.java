@@ -112,15 +112,20 @@ public class GameScreen implements Screen {
 	}
 
 	private void handleInput(float delta){
-		if(!wasAttackActionPressed && Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION)){
+		int touchInp = 0;
+		if(Gdx.input.isTouched()){
+			touchInp = (int) Math.signum(Gdx.input.getX() - Consts.WIDTH / 2);
+		}
+
+		if(!wasAttackActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1)){
 			world.getHero().attack();
 		}
-		if(!wasPlantActionPressed && Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION)){
+		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1)){
 			world.getHero().plant();
 		}
 
-		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION);
-		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION);
+		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1;
+		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1;
 	}
 
 	@Override

@@ -329,45 +329,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 		@Override
 		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
-			return new PlantParticle(ps, time, x, y, vx, vy);
+			return new PlantParticle(world, ps, time, x, y, vx, vy);
 		}
 	}
 
-	public class PlantParticle extends ParticleSystem.Particle {
-
-		public PlantParticle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
-			super(particleSystem, time, x, y, vx, vy);
-		}
-
-		@Override
-		public boolean collidesWith(Collidable collidable) {
-			boolean collides = super.collidesWith(collidable);
-			if(collides){
-				if(collidable instanceof Plant){
-					collides = false;
-				}
-			}
-			return collides;
-		}
-
-		@Override
-		public boolean onCollision(Collidable collidable, float delta) {
-			boolean acceptCollision = super.onCollision(collidable, delta);
-			if (collidable instanceof GroundPart) {
-				GroundPart gp = (GroundPart) collidable;
-				float height = -1;
-				for (Building b : gp.getBuildings()) {
-					if (b.getX() < getX() && getX() < b.getX() + b.getWidth()) {
-						height = b.getHeight();
-					}
-				}
-				if (height > 0) {
-					gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
-				}
-				destroy();
-
-			}
-			return acceptCollision;
-		}
-	}
 }
