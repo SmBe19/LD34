@@ -40,13 +40,16 @@ public class Consts {
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 150;
 	public static final float HERO_CLIMB_VELO = 60f;
-	public static final float HERO_START_LIVES = 10;
-	public static final long HERO_START_MONEY = 100;
-	public static final float HERO_DAMAGE = 2;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
 	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
 	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
+	public static final long HERO_START_MONEY = 100;
+
+	public static final float HERO_START_LIVES = 10;
+	public static final float HERO_START_DAMAGE = 2;
+	public static final long HERO_START_ROSES = 0;
+	public static final long HERO_START_BRIDGES = 0;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;

@@ -3,6 +3,7 @@ package com.smeanox.games.ld34.world;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
@@ -36,11 +37,10 @@ public class CoinPlant extends Plant {
 	}
 
 	private void initAnimation(){
-		if(animation != null){
-			return;
+		if(animation == null){
+			animation = Hero.createAnimation(Textures.get().coin, 0, 1, 0, 6, Consts.COIN_TEX_WIDTH, Consts.COIN_TEX_HEIGHT, 0.15f, Animation.PlayMode.LOOP);
 		}
-		animation = Hero.createAnimation(Textures.get().coin, 0, 1, 0, 6, Consts.COIN_TEX_WIDTH, Consts.COIN_TEX_HEIGHT, 0.15f, Animation.PlayMode.LOOP);
-		animationTime = 0;
+		animationTime = MathUtils.random(0, animation.getAnimationDuration());
 	}
 
 	private void initParticles(){
