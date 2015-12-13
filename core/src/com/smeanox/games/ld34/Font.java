@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.Color;
 
 public class Font {
-	private static final String order = "abcdefghijklmnopqrstuvwxyz.,!?\" 01234567890()'$";
+	private static final String order = "abcdefghijklmnopqrstuvwxyz.,!?\" 0123456789()'$";
 	private Texture fontTexture;
 	private TextureRegion[] regions;
 
