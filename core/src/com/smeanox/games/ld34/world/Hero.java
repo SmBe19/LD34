@@ -161,8 +161,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			}
 			if(!damaged){
 				for(Enemy enemy : groundPart.getEnemies()){
-					if(enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y){
-						// TODO
+					if(enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() + enemy.getHeight() / 2 - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y){
+						enemy.addLives(-Consts.HERO_DAMAGE);
+						damaged = true;
+						break;
 					}
 				}
 			}

@@ -12,7 +12,7 @@ public class Thorn extends Plant {
 
 	public Thorn(World world, float x0, float y0) {
 		super(world, x0, y0);
-		lives = Consts.THORN_START_LIVES;
+		lives = Consts.THORN_START_LIVES + x0 * Consts.THORN_LIVES_PER_DIST;
 		initParticles();
 	}
 
@@ -45,7 +45,12 @@ public class Thorn extends Plant {
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
-			((Hero) collidable).addLives(-Consts.THORN_DAMAGE_PER_SECOND * delta);
+			if(((Hero) collidable).getY() > y0 + getHeight() / 2){
+				((Hero) collidable).addLives(-Consts.THORN_DAMAGE_ON_TOP);
+				destroy();
+			} else {
+				((Hero) collidable).addLives(-Consts.THORN_DAMAGE_PER_SECOND * delta);
+			}
 		}
 		return true;
 	}

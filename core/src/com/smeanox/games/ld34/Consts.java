@@ -85,12 +85,15 @@ public class Consts {
 	public static final int ENEMY_MIN_DIST = 200;
 	public static final int ENEMY_MAX_DIST = 400;
 	public static final float ENEMY_SPEED = 32;
-	
+	public static final float ENEMY_START_LIVES = 1;
+	public static final float ENEMY_LIVES_PER_DIST = 0.001f;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
+	public static final float THORN_DAMAGE_ON_TOP = 4;
 	public static final float THORN_START_LIVES = 1;
+	public static final float THORN_LIVES_PER_DIST = 0.001f;
 
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;

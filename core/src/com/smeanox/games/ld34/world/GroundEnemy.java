@@ -26,11 +26,20 @@ public class GroundEnemy extends Enemy {
 		return 3;
 	}
 
+	@Override
+	public float getWidth() {
+		return Consts.ENEMY_TEX_WIDTH * Consts.ENEMY_TEX_ZOOM;
+	}
+
+	@Override
+	public float getHeight() {
+		return Consts.ENEMY_TEX_HEIGHT * Consts.ENEMY_TEX_ZOOM;
+	}
+
 	public void update(float delta) {
+		super.update(delta);
 		animationTime += delta;
 		vx = -Consts.ENEMY_SPEED;
-		
-
 	}
 
 	public Rectangle getCollisionBox() {
