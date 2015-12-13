@@ -66,30 +66,58 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		maxGap -= endGap;
 
 		// plants
-		float lastPlant = 0;
+		distributeThing(Consts.PLANT_MIN_DIST, Consts.PLANT_MAX_DIST, false, Consts.PLANT_ON_ROOF_CHANCE, new ThingFactory() {
+			@Override
+			public float createThing(World world, float x, float y) {
+				Plant plant = PlantFactory.getRandomPlant(world, x, y);
+				plants.add(plant);
+				return plant.getWidth();
+			}
+		});
 
-		while(lastPlant < width){
-			lastPlant += MathUtils.random(Consts.PLANT_MIN_DIST, Consts.PLANT_MAX_DIST);
-			if(lastPlant > width){
+		// enemies
+
+		// coins
+		final int logVal = x / Consts.COIN_LOG_ADD_PER_DIST;
+		distributeThing(Consts.COIN_MIN_DIST, Consts.COIN_MAX_DIST, false, Consts.COIN_ON_ROOF_CHANCE, new ThingFactory() {
+			@Override
+			public float createThing(World world, float x, float y) {
+				int coinNum = MathUtils.random(0, CoinPlant.colors.length - 1);
+				CoinPlant coin = new CoinPlant(world, x, y + Consts.COIN_OFFSET_Y, logVal + coinNum * 2, coinNum);
+				plants.add(coin);
+				return coin.getWidth();
+			}
+		});
+	}
+
+	private interface ThingFactory {
+		float createThing(World world, float x, float y);
+	}
+
+	private void distributeThing(float minDist, float maxDist, boolean roofOnly, float roofChance, ThingFactory thingFactory){
+		float lastThing = 0;
+
+		while(lastThing < width){
+			lastThing += MathUtils.random(minDist, maxDist);
+			if(lastThing > width){
 				break;
 			}
 
 			float y = Consts.GROUND_HEIGHT;
 			for(Building aBuilding : buildings){
-				if(aBuilding.getX() < x + lastPlant && aBuilding.getX() + aBuilding.getWidth() > x + lastPlant){
-					if (MathUtils.randomBoolean(Consts.PLANT_ON_ROOF_CHANCE)){
+				if(aBuilding.getX() < x + lastThing && aBuilding.getX() + aBuilding.getWidth() > x + lastThing){
+					if (MathUtils.randomBoolean(roofChance)){
 						y = aBuilding.getHeight() + aBuilding.getY();
 					}
 					break;
 				}
 			}
+			if(roofOnly && Math.abs(y - Consts.GROUND_HEIGHT) < 0.1e-10){
+				continue;
+			}
 
-			Plant plant = PlantFactory.getRandomPlant(world, x + lastPlant, y);
-			plants.add(plant);
-			lastPlant += plant.getWidth();
+			lastThing += thingFactory.createThing(world, x + lastThing, y);
 		}
-
-		// enemies
 	}
 
 	@Override
