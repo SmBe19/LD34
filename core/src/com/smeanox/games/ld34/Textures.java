@@ -19,6 +19,7 @@ public class Textures {
 	public Texture particle;
 	public Texture vine;
 	public Texture thorn;
+	public Texture enemy;
 
 	private Textures(){
 		manager = new AssetManager();
@@ -41,6 +42,7 @@ public class Textures {
 		manager.load("textures/particle.png", Texture.class);
 		manager.load("textures/vine.png", Texture.class);
 		manager.load("textures/thornbush.png", Texture.class);
+		manager.load("textures/enemy.png", Texture.class);
 	}
 
 	public boolean update(){
@@ -63,6 +65,7 @@ public class Textures {
 		particle = manager.get("textures/particle.png", Texture.class);
 		vine = manager.get("textures/vine.png", Texture.class);
 		thorn = manager.get("textures/thornbush.png", Texture.class);
+		enemy = manager.get("textures/enemy.png", Texture.class);
 	}
 
 	public void clear(){
