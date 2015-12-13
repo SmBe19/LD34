@@ -11,7 +11,8 @@ public enum Icons {
 	ROSE(2),
 	BRIDGE(3),
 	MIKE(4),
-	COIN(5);
+	COIN(5),
+	KEY(6);
 
 	private TextureRegion region;
 
