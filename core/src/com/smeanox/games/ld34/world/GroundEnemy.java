@@ -28,6 +28,7 @@ public class GroundEnemy extends Enemy {
 
 	public void update(float delta) {
 		animationTime += delta;
+		vx = -Consts.ENEMY_SPEED;
 		
 
 	}
