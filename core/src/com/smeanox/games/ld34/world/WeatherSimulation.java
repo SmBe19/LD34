@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.Textures;
 
 /**
@@ -65,6 +66,8 @@ public class WeatherSimulation implements Updatable {
 				autumn();
 				break;
 		}
+
+		snowSystem.setGenerating(true);
 
 		oldSeason = season;
 	}

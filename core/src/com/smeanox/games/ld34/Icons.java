@@ -24,4 +24,8 @@ public enum Icons {
 	public void draw(SpriteBatch batch, int scale, float x, float y) {
 		batch.draw(region, x, y, 8 * scale, 8*scale);
 	}
+
+	public TextureRegion get(){
+		return region;
+	}
 }

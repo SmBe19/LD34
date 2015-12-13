@@ -62,10 +62,10 @@ public class Consts {
 	public static final int LAYER_WORLD = 0;
 	public static final int LAYER_BUILDING = 1;
 	public static final int LAYER_GROUND = 2;
-	public static final int LAYER_ROSE = 3;
-	public static final int LAYER_PLANT = 4;
-	public static final int LAYER_ENEMY = 5;
-	public static final int LAYER_WEATHER = 9;
+	public static final int LAYER_PLANT = 3;
+	public static final int LAYER_ENEMY = 4;
+	public static final int LAYER_WEATHER = 8;
+	public static final int LAYER_PARTICLES = 9;
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 200;
