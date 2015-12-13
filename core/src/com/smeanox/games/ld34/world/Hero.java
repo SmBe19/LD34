@@ -297,6 +297,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 			world.setCameraShake((float) (Math.sqrt(-lives) * Consts.CAMERA_SHAKE_ATTACK_PER_DAMAGE));
 		}
+		if (lives > GameState.get().getHeroHealth()){
+			lives = GameState.get().getHeroHealth();
+		}
 	}
 
 	public boolean isAlive() {
