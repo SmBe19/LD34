@@ -127,4 +127,9 @@ public class Consts {
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float ROSE_HP_BONUS = 10;
 	public static final float ROSE_START_LIVES = 1;
+
+	public static final float UPGRADE_HEALTH_BONUS = 1.5f;
+	public static final float UPGRADE_DAMAGE_BONUS = 1.5f;
+	public static final float UPGRADE_HEALTH_COST = 1.5f;
+	public static final float UPGRADE_DAMAGE_COST = 1.5f;
 }

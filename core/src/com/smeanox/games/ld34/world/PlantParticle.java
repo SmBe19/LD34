@@ -33,7 +33,7 @@ public class PlantParticle extends ParticleSystem.Particle {
 			GroundPart prevgp = world.getPrevGroundPart(getX());
 			float left = getX() - prevgp.getX() + prevgp.getWidth();
 			float right = gp.getX() - getX();
-			gp.getPlants().add(new Bridge(world, prevgp.getX() + prevgp.getWidth(), getY(), right));
+			gp.getPlants().add(new Bridge(world, prevgp.getX() + prevgp.getWidth(), getY(), gp.getX() - prevgp.getX() - prevgp.getWidth()));
 			destroy();
 		}
 	}
