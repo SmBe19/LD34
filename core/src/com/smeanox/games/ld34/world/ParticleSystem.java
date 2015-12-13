@@ -189,7 +189,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public void addOneParticle(){
-		particleFactory.createParticle(this, getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+		Particle p = particleFactory.createParticle(this, getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
 				getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
 	}
 
