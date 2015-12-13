@@ -43,8 +43,6 @@ public class GameScreen implements Screen {
 	public GameScreen(LD34 game) {
 		this.game = game;
 
-		Textures.get().finishLoading();
-
 		screenRatio = Consts.DEV_WIDTH / Consts.DEV_HEIGHT;
 
 		camera = new OrthographicCamera(Consts.DEV_WIDTH, Consts.DEV_HEIGHT);
