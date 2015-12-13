@@ -30,6 +30,13 @@ public class Consts {
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
+	public static final float WEATHER_OFFSET_Y = 500;
+	public static final float WEATHER_YEAR_LENGTH = 120;
+	public static final float WEATHER_MIN_DURATION = 5;
+	public static final float WEATHER_MAX_DURATION = 20;
+	public static final float WEATHER_NORMAL_PROBABILITY = 0.2f;
+	public static final float WEATHER_STORM_PROBABILITY = 0.01f;
+
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
@@ -58,6 +65,7 @@ public class Consts {
 	public static final int LAYER_ROSE = 3;
 	public static final int LAYER_PLANT = 4;
 	public static final int LAYER_ENEMY = 5;
+	public static final int LAYER_WEATHER = 9;
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 200;

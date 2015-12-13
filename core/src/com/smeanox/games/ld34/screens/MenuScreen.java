@@ -111,14 +111,23 @@ public class MenuScreen implements Screen {
 			}
 		}
 
+		drawKeyHelp(spriteBatch, font);
+
+		spriteBatch.end();
+	}
+
+	public static void drawKeyHelp(SpriteBatch spriteBatch, Font font){
 		Icons.KEY.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, ConstsMenu.KEY_PLANT_X, Consts.HEIGHT - ConstsMenu.KEY_PLANT_Y);
 		font.draw(spriteBatch, Consts.KEY_PLANT_ACTION_STRING, ConstsMenu.KEY_PLANT_X + ConstsMenu.KEY_TEXT_OFFSET_X,
 				(int) (Consts.HEIGHT - ConstsMenu.KEY_PLANT_Y + ConstsMenu.KEY_TEXT_OFFSET_Y), ConstsMenu.KEY_FONT_SIZE);
+		Icons.ROSE.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, ConstsMenu.KEY_PLANT_X + ConstsMenu.KEY_SECOND_ICON_OFFSET_X,
+				Consts.HEIGHT - ConstsMenu.KEY_PLANT_Y);
 
 		Icons.KEY.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, Consts.WIDTH - ConstsMenu.KEY_ATTACK_X, Consts.HEIGHT - ConstsMenu.KEY_ATTACK_Y);
 		font.draw(spriteBatch, Consts.KEY_ATTACK_ACTION_STRING, (int) (Consts.WIDTH - ConstsMenu.KEY_ATTACK_X + ConstsMenu.KEY_TEXT_OFFSET_X),
 				(int) (Consts.HEIGHT - ConstsMenu.KEY_ATTACK_Y + ConstsMenu.KEY_TEXT_OFFSET_Y), ConstsMenu.KEY_FONT_SIZE);
-		spriteBatch.end();
+		Icons.AXE.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, Consts.WIDTH - (ConstsMenu.KEY_ATTACK_X + ConstsMenu.KEY_SECOND_ICON_OFFSET_X),
+				Consts.HEIGHT - ConstsMenu.KEY_ATTACK_Y);
 	}
 
 	private void handleInput(float delta){
