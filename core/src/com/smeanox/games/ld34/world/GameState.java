@@ -81,13 +81,13 @@ public class GameState {
 
 	public void buyRose(){
 		if (!isAbleToBuyRose()) return;
-		roses ++;
+		setRoses(getRoses() + 1);
 		money -= getRoseCost();
 	}
 
 	public void buyBridge(){
 		if (!isAbleToBuyBridge()) return;
-		bridges ++;
+		setBridges(getBridges() + 1);
 		money -= getBridgeCost();
 	}
 
@@ -101,5 +101,21 @@ public class GameState {
 
 	public void addMoney(long money){
 		this.money += money;
+	}
+
+	public long getBridges() {
+		return bridges;
+	}
+
+	public long getRoses() {
+		return roses;
+	}
+
+	public void setBridges(long bridges) {
+		this.bridges = bridges;
+	}
+
+	public void setRoses(long roses) {
+		this.roses = roses;
 	}
 }
