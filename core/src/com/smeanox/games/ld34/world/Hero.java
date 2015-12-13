@@ -99,18 +99,18 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
 			}
 		}
-		climbing = new Animation(0.3f, regions);
+		climbing = new Animation(0.2f, regions);
 		climbing.setPlayMode(Animation.PlayMode.LOOP);
 
 		activeAnimation = walk;
 	}
 
 	private void initParticles() {
-		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, -1, 2, 7, 7);
-		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 1, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -5, 2, 2, 2);
-		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 2, 1, 1);
-		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 1, 0.4f, 0.1f, 0.002f, 0.001f, 0, 0, 2, 2, 0, 10, 10, 5);
-		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 2f, 1f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, 0, 1, 1);
+		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.001f, 0.0005f, 0, 0, 2, 2, 20, 100, 177, 177);
+		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, 0, 50, 5, 20);
+		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
+		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.6f, 0.2f, 0.025f, 0.01f, 0, 0, 5, 2, 0, 50, 200, 20);
+		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 1f, 10f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, 0, 10, 10);
 	}
 
 	@Override
@@ -122,7 +122,6 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		} else {
 			if(activeAnimation == climbing && climbingPlant != null){
 				if(y + Consts.PLANT_TOP_MARGIN > ((Vine) climbingPlant).getHeight() + climbingPlant.getY0()){
-					vy = Consts.HERO_JUMP_VELO;
 					setAnimation(walk);
 				}
 			}
@@ -143,6 +142,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			vx = 0;
 			walkSystem.setGenerating(false);
 		}
+
+		walkSystem.setStartX(x + 8 * Consts.HERO_TEX_ZOOM);
+		walkSystem.setStartY(y + 2 * Consts.HERO_TEX_ZOOM);
 
 		if (y < -Consts.HEIGHT * 10) {
 			lives = 0;
@@ -172,7 +174,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	public void plant() {
 		if (activeAnimation == climbing) {
-			setAnimation(walk);
+			setAnimation(fall);
 			vy = Consts.HERO_JUMP_VELO;
 			return;
 		}
@@ -210,6 +212,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setGenerating(false);
 		plantSystem.setOneParticleTimeout(0.32f);
+	}
+
+	private void spawnLandingSystem() {
+		landingSystem.setStartX(x + Consts.HERO_TEX_WIDTH / 2 * Consts.HERO_TEX_ZOOM);
+		landingSystem.setStartY(y + 2 * Consts.HERO_TEX_ZOOM);
+		landingSystem.setAutoDisable(0.5f);
+		landingSystem.setGenerating(true);
 	}
 
 	public float getY() {
@@ -254,6 +263,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		if (collidable instanceof GroundPart){
 			climbingPlants.clear();
+			if(vy < Consts.GRAVITY * 0.1f){
+				spawnLandingSystem();
+			}
 		}
 		return true;
 	}
@@ -261,7 +273,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	@Override
 	public boolean collidesWith(Collidable collidable) {
 		if (collidable instanceof Building) {
-			if(vy < 0 && y + Consts.BUILDING_TOP_MARGIN > ((Building) collidable).getHeight() + ((Building) collidable).getY()){
+			if(vy < 0 && y - vy/60 + 2 + Consts.PLANT_TOP_MARGIN > ((Building) collidable).getHeight() + ((Building) collidable).getY()){
 				return true;
 			}
 			return false;

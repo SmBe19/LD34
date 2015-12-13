@@ -44,7 +44,7 @@ public class World implements Updatable, Renderable {
 		//new Building(this, 1000, Consts.GROUND_HEIGHT, 10,10);
 		//new Vine(this, 600, Consts.GROUND_HEIGHT, 1000);
 
-		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 1f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -10, 0, 10, 10);
+		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 0.5f, 10, 1, 0.01f, 0.001f, 2500, 300, 2500, 5, -100, 0, 100, 100);
 		snowSystem.setGenerating(true);
 	}
 
@@ -64,7 +64,7 @@ public class World implements Updatable, Renderable {
 				} else {
 					float maxGap = getGroundParts().get(getGroundParts().size() - 1).getMaxGap();
 					System.out.println(maxGap);
-					newPos = lastPos +  maxGap ;//Math.min(maxGap, MathUtils.random(Consts.GROUNDPART_MIN_DIST, maxGap));
+					newPos = lastPos +  Math.min(maxGap, MathUtils.random(Consts.GROUNDPART_MIN_DIST, maxGap));
 				}
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
 				System.out.println("Generating new world part from " + newPos + " to " + (newPos + newWidth));
