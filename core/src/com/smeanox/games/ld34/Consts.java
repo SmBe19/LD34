@@ -11,6 +11,20 @@ public class Consts {
 	public static float WIDTH = DEV_WIDTH;
 	public static float HEIGHT = DEV_HEIGHT;
 
+	public static final int GROUND_TEX_OFFSET_Y = 50;
+	public static final int GROUND_TEX_HEIGHT = 100;
+	public static final int HERO_TEX_WIDTH = 24;
+	public static final int HERO_TEX_HEIGHT = 24;
+	public static final int BUILDING_TEX_WIDTH = 32;
+	public static final int BUILDING_TEX_HEIGHT = 32;
+	public static final int VINE_TEXTURE_HEIGHT = 16;
+	public static final int VINE_TEXTURE_WIDTH = 16;
+
+	public static final float HERO_TEX_ZOOM = 2.5f;
+	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
+	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
+
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
@@ -22,9 +36,12 @@ public class Consts {
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 150;
 	public static final float HERO_CLIMB_VELO = 60f;
-	public static final float HERO_START_LIVES = 100f;
-	public static final float HERO_JUMP_VELO = 300f;
-	public static final float PLANT_TOP_MARGIN = 10f;
+	public static final float HERO_START_LIVES = 10;
+	public static final float HERO_DAMAGE = 2;
+	public static final float HERO_JUMP_VELO = 300;
+	public static final float PLANT_TOP_MARGIN = 10;
+	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
+	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
@@ -33,6 +50,7 @@ public class Consts {
 	public static final int LAYER_GROUND = 1;
 	public static final int LAYER_BUILDING = 2;
 	public static final int LAYER_PLANT = 3;
+	public static final int LAYER_ENEMY = 4;
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 100;
@@ -47,23 +65,15 @@ public class Consts {
 	public static final int BUILDING_MAX_WIDTH = 9;
 	public static final int BUILDING_MIN_HEIGHT = 2;
 	public static final int BUILDING_MAX_HEIGHT = 14;
-
-	public static final int GROUND_TEX_OFFSET_Y = 50;
-	public static final int GROUND_TEX_HEIGHT = 100;
-	public static final int HERO_TEX_WIDTH = 24;
-	public static final int HERO_TEX_HEIGHT = 24;
-	public static final int BUILDING_TEX_WIDTH = 32;
-	public static final int BUILDING_TEX_HEIGHT = 32;
+	public static final int PLANT_MIN_DIST = 100;
+	public static final int PLANT_MAX_DIST = 200;
+	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
 	public static final int VINE_STEP = 8;
-	public static final int VINE_TEXTURE_HEIGHT = 16;
-	public static final int VINE_TEXTURE_WIDTH = 16;
 	public static final float VINE_GROW_RATE = 70;
+	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
-
-	public static final float HERO_TEX_ZOOM = 2.5f;
-	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
-	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
-	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float THORN_DAMAGE_PER_SECOND = 10;
+	public static final float THORN_START_LIVES = 1;
 }

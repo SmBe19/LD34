@@ -10,6 +10,7 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 	protected World world;
 
 	protected float x0, y0;
+	protected float lives;
 
 	public Plant(World world, float x0, float y0) {
 		this.x0 = x0;
@@ -25,6 +26,10 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 	@Override
 	public final void update(float delta) {
 		grow(delta);
+
+		if(!isAlive()){
+			destroy();
+		}
 	}
 
 	@Override
@@ -40,5 +45,26 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 
 	public float getY0() {
 		return y0;
+	}
+
+	public abstract float getWidth();
+
+	public abstract float getHeight();
+
+	public void setLives(float lives) {
+		this.lives = lives;
+	}
+
+	public float getLives() {
+		return lives;
+	}
+
+	public void addLives(float lives){
+		System.out.println("add lives" + lives);
+		this.lives += lives;
+	}
+
+	public boolean isAlive(){
+		return lives > 0;
 	}
 }

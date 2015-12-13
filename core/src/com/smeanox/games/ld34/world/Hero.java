@@ -107,7 +107,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	private void initParticles() {
 		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.001f, 0.0005f, 0, 0, 2, 2, 20, 100, 177, 177);
-		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, 0, 50, 5, 20);
+		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -10, 50, 10, 20);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
 		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.6f, 0.2f, 0.025f, 0.01f, 0, 0, 5, 2, 0, 50, 200, 20);
 		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_HERO, Textures.get().particle, new Color(0, 0.8f, 0, 1), 1f, 10f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, 0, 10, 10);
@@ -170,6 +170,28 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if (MathUtils.randomBoolean(0.01f)) {
 			spawnBloodInDaFaceSystem();
 		}
+
+		GroundPart groundPart = world.getGroundPart(x);
+		if(groundPart != null) {
+			boolean damaged = false;
+			for (Plant plant : groundPart.getPlants()) {
+				if(plant instanceof Vine){
+					continue;
+				}
+				float plantPosX = plant.getX0() - plant.getWidth() / 2;
+				float plantPosY = plant.getY0() + plant.getHeight() / 2;
+				if (plantPosX > x && plantPosX - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(plantPosY - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
+					plant.addLives(-Consts.HERO_DAMAGE);
+					damaged = true;
+					break;
+				}
+			}
+			if(!damaged){
+				for(Enemy enemy : groundPart.getEnemies()){
+					// TODO
+				}
+			}
+		}
 	}
 
 	public void plant() {
@@ -229,6 +251,14 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		return x;
 	}
 
+	public float getWidth(){
+		return Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM;
+	}
+
+	public float getHeight(){
+		return Consts.HERO_TEX_HEIGHT * Consts.HERO_TEX_ZOOM;
+	}
+
 	public float getLives() {
 		return lives;
 	}
@@ -237,17 +267,21 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		this.lives = lives;
 	}
 
+	public void addLives(float lives){
+		this.lives += lives;
+	}
+
 	public boolean isAlive() {
 		return lives > 0;
 	}
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x, y, Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM, Consts.HERO_TEX_HEIGHT * Consts.HERO_TEX_ZOOM);
+		return new Rectangle(x, y, getWidth(), getHeight());
 	}
 
 	@Override
-	public boolean onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable, float delta) {
 		if (collidable instanceof Vine) {
 			if (activeAnimation == climbing) {
 				return false;
@@ -256,10 +290,6 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			climbingPlants.add((Plant) collidable);
 			climbingPlant = (Plant) collidable;
 			return false;
-		}
-		if (collidable instanceof Thorn) {
-			lives--;
-			return true;
 		}
 		if (collidable instanceof GroundPart){
 			climbingPlants.clear();
@@ -313,8 +343,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 
 		@Override
-		public boolean onCollision(Collidable collidable) {
-			boolean acceptCollision = super.onCollision(collidable);
+		public boolean onCollision(Collidable collidable, float delta) {
+			boolean acceptCollision = super.onCollision(collidable, delta);
 			if (collidable instanceof GroundPart) {
 				GroundPart gp = (GroundPart) collidable;
 				float height = -1;

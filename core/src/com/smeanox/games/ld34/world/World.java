@@ -63,11 +63,9 @@ public class World implements Updatable, Renderable {
 					newPos = 0;
 				} else {
 					float maxGap = getGroundParts().get(getGroundParts().size() - 1).getMaxGap();
-					System.out.println(maxGap);
 					newPos = lastPos +  Math.min(maxGap, MathUtils.random(Consts.GROUNDPART_MIN_DIST, maxGap));
 				}
 				newWidth = MathUtils.random(Consts.GROUNDPART_MIN_WIDTH, Consts.GROUNDPART_MAX_WIDTH);
-				System.out.println("Generating new world part from " + newPos + " to " + (newPos + newWidth));
 				GroundPart newGroundPart = new GroundPart(this, ((int) newPos), ((int) newWidth));
 				newGroundPart.generate();
 				getGroundParts().add(newGroundPart);
@@ -90,7 +88,7 @@ public class World implements Updatable, Renderable {
 
 	public GroundPart getGroundPart(float x){
 		for (GroundPart gp : getGroundParts()){
-			if (gp.getX() > x) return gp;
+			if (gp.getX() < x && gp.getX() + gp.getWidth() > x) return gp;
 		}
 		return null;
 	}

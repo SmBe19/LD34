@@ -47,7 +47,6 @@ public class Building implements Renderable, Collidable, Destroyable {
 				overgrow[y][x] = MathUtils.randomBoolean(((float)(vSegments-y))/vSegments) ? new TextureRegion(plants, Consts.BUILDING_TEX_WIDTH * ix, 0, Consts.BUILDING_TEX_WIDTH, Consts.BUILDING_TEX_HEIGHT) : null;
 			}
 		}
-		System.out.println("Created building from " + x0 + " to " + (getWidth() + getX()) );
 	}
 
 	public float getHeight(){
@@ -87,7 +86,7 @@ public class Building implements Renderable, Collidable, Destroyable {
 	}
 
 	@Override
-	public boolean onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable, float delta) {
 		return true;
 	}
 

@@ -19,6 +19,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	private int x, width;
 
 	private List<Plant> plants;
+	private List<Enemy> enemies;
 	private List<Building> buildings;
 
 	private Texture ground;
@@ -30,6 +31,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		this.width = width;
 
 		plants = new ArrayList<Plant>();
+		enemies = new ArrayList<Enemy>();
 		buildings = new ArrayList<Building>();
 
 		ground = Textures.get().ground;
@@ -40,25 +42,54 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 
 	public void generate(){
-		PlantFactory plantFactory = new PlantFactory();
-
-
+		// buildings
 		float lastBuilding = 0;
 
-		while (lastBuilding + Consts.BUILDING_MAX_DIST + 2*Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM < width){
+		while (lastBuilding < width){
 			lastBuilding += MathUtils.random(Consts.BUILDING_MIN_DIST, Consts.BUILDING_MAX_DIST);
-
 			int bwidth = MathUtils.random(Consts.BUILDING_MIN_WIDTH, Consts.BUILDING_MAX_WIDTH);
+
+			if(lastBuilding + bwidth + Consts.BUILDING_MAX_DIST + Consts.BUILDING_MAX_WIDTH * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM > width){
+				break;
+			}
+
 			buildings.add(new Building(world, getX() + lastBuilding, Consts.GROUND_HEIGHT, MathUtils.random(Consts.BUILDING_MIN_HEIGHT, Consts.BUILDING_MAX_HEIGHT), bwidth));
 			lastBuilding += buildings.get(buildings.size() - 1).getWidth();
 		}
 		int bwidth = MathUtils.random(Consts.BUILDING_MIN_WIDTH, Consts.BUILDING_MAX_WIDTH);
 		int bheight = MathUtils.random(Consts.BUILDING_MIN_HEIGHT, Consts.BUILDING_MAX_HEIGHT);
+
 		maxGap = Consts.HERO_VELO  * (float)Math.sqrt( 2 * bheight * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM / -Consts.GRAVITY);
+
 		float endGap = Math.min(MathUtils.random(Consts.GROUNDPART_END_MIN_WIDTH, Consts.GROUNDPART_END_MAX_WIDTH), maxGap);
 		buildings.add(new Building(world, width - bwidth * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM + getX() - endGap, Consts.GROUND_HEIGHT, bheight, bwidth));
-		System.out.println(buildings.get(buildings.size() - 1).getHeight()  + "-> " + maxGap);
 		maxGap -= endGap;
+
+		// plants
+		float lastPlant = 0;
+
+		while(lastPlant < width){
+			lastPlant += MathUtils.random(Consts.PLANT_MIN_DIST, Consts.PLANT_MAX_DIST);
+			if(lastPlant > width){
+				break;
+			}
+
+			float y = Consts.GROUND_HEIGHT;
+			for(Building aBuilding : buildings){
+				if(aBuilding.getX() < x + lastPlant && aBuilding.getX() + aBuilding.getWidth() > x + lastPlant){
+					if (MathUtils.randomBoolean(Consts.PLANT_ON_ROOF_CHANCE)){
+						y = aBuilding.getHeight() + aBuilding.getY();
+					}
+					break;
+				}
+			}
+
+			Plant plant = PlantFactory.getRandomPlant(world, x + lastPlant, y);
+			plants.add(plant);
+			lastPlant += plant.getWidth();
+		}
+
+		// enemies
 	}
 
 	@Override
@@ -67,7 +98,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	}
 
 	@Override
-	public boolean onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable, float delta) {
 		return true;
 	}
 
@@ -106,6 +137,10 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	public List<Plant> getPlants() {
 		return plants;
+	}
+
+	public List<Enemy> getEnemies() {
+		return enemies;
 	}
 
 	public List<Building> getBuildings() {
