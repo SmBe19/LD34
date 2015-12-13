@@ -58,12 +58,13 @@ public class GameState {
 	}
 
 	public long getBridgeCost(){
-		return Consts.BRIDGE_COST;
+		return (long)(Math.pow(Consts.BRIDGE_COST_MULT, bridges)*Consts.BRIDGE_BASE_COST);
 	}
 	
 	public long getRoseCost(){
-		return Consts.ROSE_COST;
+		return (long)(Math.pow(Consts.ROSE_COST_MULT, roses)*Consts.ROSE_BASE_COST);
 	}
+	
 	
 	public void upgradeHealth(){
 		if (!isAbleToUpgradeHealth()) return;
