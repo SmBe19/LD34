@@ -19,10 +19,13 @@ public class Consts {
 	public static final int BUILDING_TEX_HEIGHT = 32;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
+	public static final int BRIDGE_TEXTURE_HEIGHT = 16;
+	public static final int BRIDGE_TEXTURE_WIDTH = 16;
 
 	public static final float HERO_TEX_ZOOM = 2.5f;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
 	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float BRIDGE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
@@ -79,6 +82,9 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
+	public static final int BRIDGE_STEP = 8;
+	public static final float BRIDGE_GROW_RATE = 200;
+	public static final float BRIDGE_START_LIVES = Float.POSITIVE_INFINITY;
 
 	public static final int ENEMY_TEX_HEIGHT = 24;
 	public static final int ENEMY_TEX_WIDTH = 24;

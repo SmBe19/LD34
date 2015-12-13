@@ -26,6 +26,19 @@ public class PlantParticle extends ParticleSystem.Particle {
 	}
 
 	@Override
+	public void update(float delta){
+		super.update(delta);
+		if (getY() < Consts.GROUND_HEIGHT - 20){
+			GroundPart gp = world.getNextGroundPart(getX());
+			GroundPart prevgp = world.getPrevGroundPart(getX());
+			float left = getX() - prevgp.getX() + prevgp.getWidth();
+			float right = gp.getX() - getX();
+			gp.getPlants().add(new Bridge(world, prevgp.getX() + prevgp.getWidth(), getY(), right));
+			destroy();
+		}
+	}
+
+	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		boolean acceptCollision = super.onCollision(collidable, delta);
 		if (collidable instanceof GroundPart) {

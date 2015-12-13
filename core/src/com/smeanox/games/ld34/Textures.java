@@ -18,6 +18,7 @@ public class Textures {
 	public Texture overlay;
 	public Texture particle;
 	public Texture vine;
+	public Texture bridge;
 	public Texture thorn;
 	public Texture enemy;
 	public Texture airEnemy;
@@ -46,6 +47,7 @@ public class Textures {
 		manager.load("textures/overlay.png", Texture.class);
 		manager.load("textures/particle.png", Texture.class);
 		manager.load("textures/vine.png", Texture.class);
+		manager.load("textures/bridge.png", Texture.class);
 		manager.load("textures/thornbush.png", Texture.class);
 		manager.load("textures/enemies.png", Texture.class);
 		manager.load("textures/enemies.png", Texture.class);
@@ -75,6 +77,7 @@ public class Textures {
 		overlay = manager.get("textures/overlay.png", Texture.class);
 		particle = manager.get("textures/particle.png", Texture.class);
 		vine = manager.get("textures/vine.png", Texture.class);
+		bridge = manager.get("textures/bridge.png", Texture.class);
 		thorn = manager.get("textures/thornbush.png", Texture.class);
 		enemy = manager.get("textures/enemies.png", Texture.class);
 		airEnemy = manager.get("textures/airenemy.png", Texture.class);
