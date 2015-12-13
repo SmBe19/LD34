@@ -35,7 +35,7 @@ public class Consts {
 	public static final int LAYER_PLANT = 3;
 	public static final int LAYER_HERO = 10;
 
-	public static final int GROUNDPART_MIN_DIST = 0;
+	public static final int GROUNDPART_MIN_DIST = 100;
 	public static final int GROUNDPART_MAX_DIST = 250;
 	public static final int GROUNDPART_MIN_WIDTH = 900;
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
