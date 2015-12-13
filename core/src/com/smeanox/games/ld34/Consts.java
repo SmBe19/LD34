@@ -51,8 +51,9 @@ public class Consts {
 	public static final int LAYER_WORLD = 0;
 	public static final int LAYER_GROUND = 1;
 	public static final int LAYER_BUILDING = 2;
-	public static final int LAYER_PLANT = 3;
-	public static final int LAYER_ENEMY = 4;
+	public static final int LAYER_ROSE = 3;
+	public static final int LAYER_PLANT = 4;
+	public static final int LAYER_ENEMY = 5;
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 100;
@@ -113,4 +114,11 @@ public class Consts {
 
 	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
 	public static final float CAMERA_SHAKE_ATTACK_PER_DAMAGE = 30;
+
+
+	public static final int ROSE_TEX_HEIGHT = 24;
+	public static final int ROSE_TEX_WIDTH = 24;
+	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float ROSE_HP_BONUS = 10;
+	public static final float ROSE_START_LIVES = 1;
 }
