@@ -115,6 +115,7 @@ public class Consts {
 	public static final float COIN_VELOCITY = 800f;
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final int HERO_SPAMMING_DAMAGE = 1;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 10;
 	public static final float DEATH_TIMEOUT = 2;
 
@@ -133,7 +134,7 @@ public class Consts {
 	public static final float UPGRADE_HEALTH_COST = 1.5f;
 	public static final float UPGRADE_DAMAGE_COST = 1.5f;
 
-	public static final int UI_MONEY_X = 10;
+	public static final int UI_MONEY_X = 60;
 	public static final int UI_MONEY_Y = 10;
 	public static final int UI_MONEY_ICON_OFFSET_X = -50;
 	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
