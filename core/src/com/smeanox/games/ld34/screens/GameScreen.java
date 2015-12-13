@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
 import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;
@@ -23,11 +24,13 @@ import java.util.List;
  */
 public class GameScreen implements Screen {
 
-	private Game game;
+	private LD34 game;
 	private OrthographicCamera camera;
 	private OrthographicCamera backgroundCamera;
 	private SpriteBatch spriteBatch;
 	private float screenRatio;
+
+	private float deathTimeout;
 
 	private Texture background;
 
@@ -37,7 +40,7 @@ public class GameScreen implements Screen {
 
 	private FPSLogger fpsLogger = new FPSLogger();
 
-	public GameScreen(Game game) {
+	public GameScreen(LD34 game) {
 		this.game = game;
 
 		Textures.get().finishLoading();
@@ -54,6 +57,8 @@ public class GameScreen implements Screen {
 		background = Textures.get().background;
 
 		wasAttackActionPressed = wasPlantActionPressed = false;
+
+		deathTimeout = Consts.DEATH_TIMEOUT;
 	}
 
 	@Override
@@ -65,15 +70,19 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		fpsLogger.log();
 
+		if(!world.getHero().isAlive()){
+			deathTimeout -= delta;
+			System.out.println("Dead" + deathTimeout);
+			if(deathTimeout < 0) {
+				game.showMenu();
+			}
+		}
+
 		handleInput(delta);
 		update(delta);
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		if(!world.getHero().isAlive()){
-			game.setScreen(new GameScreen(game));
-		}
 
 		camera.position.set(MathUtils.roundPositive(world.getHero().getX() + Consts.CAMERA_OFFSET_X),
 				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
