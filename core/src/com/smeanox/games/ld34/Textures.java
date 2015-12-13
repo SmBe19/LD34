@@ -26,6 +26,7 @@ public class Textures {
 	public Texture coin;
 	public Texture rose;
 	public Texture font;
+	public Texture icons;
 
 	private Textures(){
 		manager = new AssetManager();
@@ -56,6 +57,7 @@ public class Textures {
 		manager.load("textures/coin.png", Texture.class);
 		manager.load("textures/rose.png", Texture.class);
 		manager.load("textures/font.png", Texture.class);
+		manager.load("textures/icons.png", Texture.class);
 	}
 
 	public boolean update(){
@@ -85,6 +87,7 @@ public class Textures {
 		coin = manager.get("textures/coin.png", Texture.class);
 		rose = manager.get("textures/rose.png", Texture.class);
 		font = manager.get("textures/font.png", Texture.class);
+		icons = manager.get("textures/icons.png", Texture.class);
 	}
 
 	public void clear(){
