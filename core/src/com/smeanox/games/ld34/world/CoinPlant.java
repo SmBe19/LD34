@@ -44,10 +44,10 @@ public class CoinPlant extends Plant {
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "coinDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 1f, 0.2f,
-				(colors.length - colorNum)*(colors.length - colorNum) * 0.0001f,
-				(colors.length - colorNum)*(colors.length - colorNum) * 0.00005f,
-				x0, y0 + getHeight() / 2, 2, 2, 0, 0, (1 + colorNum*colorNum) * 200, (1 + colorNum*colorNum) * 200);
+		destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
+				0.2f / (1 << moneyLog) * 0.125f,
+				0,
+				x0, y0 + getHeight() / 2, 2, 2, 0,0 ,Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 	}
 
 	@Override
@@ -72,7 +72,6 @@ public class CoinPlant extends Plant {
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
-			GameState.get().addMoney(1 << moneyLog);
 			didGiveMoney = true;
 			destroy();
 		}
@@ -102,5 +101,14 @@ public class CoinPlant extends Plant {
 	private void spawnDestroySystem(){
 		destroySystem.setGenerating(true);
 		destroySystem.setAutoDisable(0.2f);
+	}
+
+
+	public class CoinParticleFactory implements ParticleSystem.ParticleFactory {
+
+		@Override
+		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
+			return new CoinParticle(world, ps, time, x, y, vx, vy, moneyLog);
+		}
 	}
 }
