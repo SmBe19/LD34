@@ -2,6 +2,7 @@ package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
@@ -9,6 +10,8 @@ import com.smeanox.games.ld34.Textures;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.soap.Text;
 
 /**
  * Comment
@@ -22,8 +25,14 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	private List<Plant> plants;
 	private List<Enemy> enemies;
 	private List<Building> buildings;
+	private int[] indexes;
 
 	private Texture ground;
+
+	private TextureRegion leftBorder;
+	private TextureRegion rightBorder;
+	private TextureRegion[] centre;
+
 	private float maxGap = 0;
 
 	public GroundPart(World world, int x, int width) {
@@ -36,6 +45,16 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		buildings = new ArrayList<Building>();
 
 		ground = Textures.get().ground;
+		centre = new TextureRegion[6];
+		leftBorder = new TextureRegion(ground, 0, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		rightBorder = new TextureRegion(ground, 7*Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		for (int xx = 1; xx < 7; xx++){
+			centre[xx-1] = new TextureRegion(ground, xx * Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		}
+		indexes  = new int[width / (int)(Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM) + 2];
+		for (int i = 0; i < indexes.length; i++){
+			indexes[i] = MathUtils.random(0,centre.length-1);
+		}
 
 		world.addRenderable(Consts.LAYER_GROUND, this);
 		world.getPhysics().addCollidable(this);
@@ -151,11 +170,12 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		int i = 0;
-		while(i * ground.getWidth() < width){
-			spriteBatch.draw(ground, x + i * ground.getWidth(),
-					Consts.GROUND_HEIGHT + Consts.GROUND_TEX_OFFSET_Y - Consts.GROUND_TEX_HEIGHT,
-					ground.getWidth(), Consts.GROUND_TEX_HEIGHT);
-			i++;
+		for (float x = getX(); x < getX() + getWidth(); x+= Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM){
+			TextureRegion tex = centre[indexes[i++]];
+			if (x == getX()) tex = leftBorder;
+			if (x + Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM >= getX() + getWidth()) tex = rightBorder;
+			spriteBatch.draw(tex, x ,Consts.GROUND_HEIGHT + Consts.GROUNDPART_TEX_OFFSET_Y * Consts.GROUNDPART_TEX_ZOOM- Consts.GROUNDPART_TEX_HEIGHT * Consts.GROUNDPART_TEX_ZOOM,
+					Consts.GROUNDPART_TEX_WIDTH* Consts.GROUNDPART_TEX_ZOOM, Consts.GROUNDPART_TEX_HEIGHT* Consts.GROUNDPART_TEX_ZOOM);
 		}
 	}
 

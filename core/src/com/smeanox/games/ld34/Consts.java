@@ -13,8 +13,7 @@ public class Consts {
 	public static float WIDTH = DEV_WIDTH;
 	public static float HEIGHT = DEV_HEIGHT;
 
-	public static final int GROUND_TEX_OFFSET_Y = 50;
-	public static final int GROUND_TEX_HEIGHT = 100;
+	public static final int GROUNDPART_TEX_OFFSET_Y = 16;
 	public static final int HERO_TEX_WIDTH = 24;
 	public static final int HERO_TEX_HEIGHT = 24;
 	public static final int BUILDING_TEX_WIDTH = 32;
@@ -61,8 +60,8 @@ public class Consts {
 	public static final String KEY_ATTACK_ACTION_STRING = "D";
 
 	public static final int LAYER_WORLD = 0;
-	public static final int LAYER_GROUND = 1;
-	public static final int LAYER_BUILDING = 2;
+	public static final int LAYER_BUILDING = 1;
+	public static final int LAYER_GROUND = 2;
 	public static final int LAYER_ROSE = 3;
 	public static final int LAYER_PLANT = 4;
 	public static final int LAYER_ENEMY = 5;
@@ -75,6 +74,9 @@ public class Consts {
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
 	public static final int GROUNDPART_END_MIN_WIDTH = 25;
 	public static final int GROUNDPART_END_MAX_WIDTH = 200;
+	public static final int GROUNDPART_TEX_WIDTH = 16;
+	public static final int GROUNDPART_TEX_HEIGHT = 64;
+	public static final float GROUNDPART_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final int BUILDING_MIN_DIST = 200;
 	public static final int BUILDING_MAX_DIST = 500;
 	public static final int BUILDING_MIN_WIDTH = 3;
