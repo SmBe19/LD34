@@ -46,8 +46,8 @@ public class CoinPlant extends Plant {
 	private void initParticles(){
 		GameState.get().addMoney((1 << moneyLog));
 		destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
-				0.2f / (float)Math.sqrt((1 << moneyLog)) * 1f / 64,
-				0,
+				0.2f / (colorNum + 1) * 1f / 128,
+				0.2f / (colorNum + 1) * 1f / 256,
 				getX(), getY() + getHeight() / 2, 2, 2, 0,0 ,Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 	}
 
