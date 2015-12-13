@@ -25,7 +25,7 @@ public class Font {
 			char c = string.charAt(i);
 			int ix = order.indexOf(c);
 			if(ix != -1) {
-				batch.draw(regions[i], x + 8 * i * scale, y, 8*scale, 8*scale);
+				batch.draw(regions[ix], x + 8 * i * scale, y, 8*scale, 8*scale);
 			}
 		}
 	}
@@ -36,7 +36,7 @@ public class Font {
 			char c = string.charAt(i);
 			int ix = order.indexOf(c);
 			if(ix != -1) {
-				batch.draw(regions[i], x + 8 * i * scale, y, 8*scale, 8*scale);
+				batch.draw(regions[ix], x + 8 * i * scale, y, 8*scale, 8*scale);
 			}
 		}
 		batch.setColor(Color.WHITE);
