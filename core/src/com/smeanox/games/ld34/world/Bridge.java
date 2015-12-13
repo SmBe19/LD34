@@ -54,7 +54,6 @@ public class Bridge extends Plant {
 	}
 
 	public void render(float delta, SpriteBatch batch) {
-		batch.draw(base, getX() - Consts.BRIDGE_TEXTURE_WIDTH * Consts.BRIDGE_TEX_ZOOM/2, getY(), Consts.BRIDGE_TEXTURE_WIDTH * Consts.BRIDGE_TEX_ZOOM, Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM);
 		for (int x = 0; x < width; x += Consts.BRIDGE_STEP * Consts.BRIDGE_TEX_ZOOM) {
 			//last section
 			if( x + Consts.BRIDGE_STEP * Consts.BRIDGE_TEX_ZOOM > width) {
