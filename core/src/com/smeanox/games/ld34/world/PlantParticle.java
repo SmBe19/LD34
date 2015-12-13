@@ -28,7 +28,7 @@ public class PlantParticle extends ParticleSystem.Particle {
 	@Override
 	public void update(float delta){
 		super.update(delta);
-		if (getY() < Consts.GROUND_HEIGHT - 20 && GameState.get().getBridges() > 0){
+		if (getY() < Consts.GROUND_HEIGHT - 26 && GameState.get().getBridges() > 0){
 			GameState.get().setBridges(GameState.get().getBridges() - 1);
 			GroundPart gp = world.getNextGroundPart(getX());
 			GroundPart prevgp = world.getPrevGroundPart(getX());

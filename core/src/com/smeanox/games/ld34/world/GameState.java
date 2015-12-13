@@ -129,7 +129,7 @@ public class GameState {
 	public long getVisibleMoney() {
 		float delta = 0.001f*(System.currentTimeMillis() - lastT);
 		lastT = System.currentTimeMillis();
-		double fac = 0.02;
+		double fac = 1e-323d;
 		fac = Math.pow(fac, delta);
 		visibleMoney = ((2-fac) * visibleMoney + fac * money) / 2;
 		return (long)visibleMoney;
