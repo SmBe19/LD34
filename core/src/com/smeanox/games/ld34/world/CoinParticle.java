@@ -56,7 +56,6 @@ public class CoinParticle extends ParticleSystem.Particle {
     @Override
     public boolean onCollision(Collidable collidable, float delta) {
         if (collidable instanceof Hero) {
-            GameState.get().addMoney(1);
             destroy();
             return true;
         }

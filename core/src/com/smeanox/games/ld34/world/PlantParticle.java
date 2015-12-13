@@ -38,6 +38,9 @@ public class PlantParticle extends ParticleSystem.Particle {
 			}
 			if (height > 0) {
 				gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
+			}else{
+				gp.getPlants().add(new UselessPlant(world, getX(), Consts.GROUND_HEIGHT));
+
 			}
 			destroy();
 
