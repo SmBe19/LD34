@@ -77,6 +77,7 @@ public class GameScreen implements Screen {
 
 		camera.position.set(MathUtils.roundPositive(world.getHero().getX() + Consts.CAMERA_OFFSET_X),
 				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
+		shake(delta);
 		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
 
 		camera.update();
@@ -105,6 +106,17 @@ public class GameScreen implements Screen {
 		spriteBatch.end();
 	}
 
+	private void shake(float delta){
+		if(world.getCameraShake() > 0.5f){
+			camera.position.set(camera.position.add(MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()),
+					MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()), 0));
+
+			world.setCameraShake((float) (world.getCameraShake() * Math.pow(0.1f, delta)), true);
+		} else {
+			world.setCameraShake(0, true);
+		}
+	}
+
 	private void update(float delta){
 		for(Updatable updatable : new ArrayList<Updatable>(world.getUpdatables())){
 			updatable.update(delta);
@@ -112,15 +124,20 @@ public class GameScreen implements Screen {
 	}
 
 	private void handleInput(float delta){
-		if(!wasAttackActionPressed && Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION)){
+		int touchInp = 0;
+		if(Gdx.input.isTouched()){
+			touchInp = (int) Math.signum(Gdx.input.getX() - Consts.WIDTH / 2);
+		}
+
+		if(!wasAttackActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1)){
 			world.getHero().attack();
 		}
-		if(!wasPlantActionPressed && Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION)){
+		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1)){
 			world.getHero().plant();
 		}
 
-		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION);
-		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION);
+		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1;
+		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1;
 	}
 
 	@Override

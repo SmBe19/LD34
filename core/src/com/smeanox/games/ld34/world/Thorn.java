@@ -17,7 +17,7 @@ public class Thorn extends Plant {
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "thornDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, Color.BROWN, 0.5f, 2f, 0.2f, 0.001f, 0.0005f, x0, y0 + getHeight() / 2, 2, 2, 0, 0, 400, 400);
+		destroySystem = new ParticleSystem(world, "thornDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, Color.BROWN, 0.5f, 1f, 0.2f, 0.001f, 0.0005f, x0, y0 + getHeight() / 2, 2, 2, 0, 0, 400, 400);
 	}
 
 	public void grow(float delta) {
@@ -57,6 +57,9 @@ public class Thorn extends Plant {
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
 		super.destroy();
 		spawnDestroySystem();
 	}

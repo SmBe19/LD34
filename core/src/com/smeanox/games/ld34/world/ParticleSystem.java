@@ -1,5 +1,7 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +17,7 @@ import java.util.List;
  * Comment
  */
 public class ParticleSystem implements Updatable, Renderable, Destroyable {
+	private boolean destroyed = false;
 
 	private World world;
 	private int layer;
@@ -54,6 +57,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloY = startVeloY;
 		this.startVeloXRand = startVeloXRand;
 		this.startVeloYRand = startVeloYRand;
+
+		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
+			this.rate *= 10;
+			this.rateRand *= 10;
+		}
 
 		if(rate <= 0 || rate - rateRand <= 0){
 			System.err.println(rate + "/" + rateRand);
@@ -117,11 +125,20 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void destroy(){
+		if(isDestroyed()){
+			return;
+		}
+		destroyed = true;
 		for(Particle particle : getParticles()){
 			particle.destroy();
 		}
 		world.getUpdatables().remove(this);
 		world.getRenderables().get(layer).remove(this);
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return destroyed;
 	}
 
 	private float getRand(float mid, float rand){
@@ -215,6 +232,10 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	public void setRate(float rate) {
 		this.rate = rate;
+
+		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
+			this.rate *= 10;
+		}
 	}
 
 	public float getRateRand() {
@@ -223,6 +244,10 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	public void setRateRand(float rateRand) {
 		this.rateRand = rateRand;
+
+		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
+			this.rateRand *= 10;
+		}
 	}
 
 	public float getStartX() {
@@ -306,6 +331,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public static class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
+		private boolean destroyed = false;
+
 		private float time;
 		private int collisions;
 		private ParticleSystem particleSystem;
@@ -368,8 +395,17 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public void destroy(){
+			if(isDestroyed()){
+				return;
+			}
+			destroyed = true;
 			particleSystem.world.getPhysics().removeRigidbody(this);
 			particleSystem.getParticles().remove(this);
+		}
+
+		@Override
+		public boolean isDestroyed() {
+			return destroyed;
 		}
 	}
 }

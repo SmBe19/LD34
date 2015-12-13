@@ -14,6 +14,7 @@ import java.util.List;
  * Comment
  */
 public class GroundPart implements Renderable, Collidable, Destroyable {
+	private boolean destroyed = false;
 
 	private World world;
 	private int x, width;
@@ -76,7 +77,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		});
 
 		// enemies
-		distributeThing(Consts.ENEMY_MIN_DIST, Consts.ENEMY_MAX_DIST, false, 0f, new ThingFactory() {
+		distributeThing(Consts.ENEMY_MIN_DIST, Consts.ENEMY_MAX_DIST, false, Consts.ENEMY_ON_ROOF_CHANCE, new ThingFactory() {
 			@Override
 			public float createThing(World world, float x, float y) {
 				GroundEnemy enemy = new GroundEnemy(world, x, y);
@@ -90,7 +91,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		distributeThing(Consts.COIN_MIN_DIST, Consts.COIN_MAX_DIST, false, Consts.COIN_ON_ROOF_CHANCE, new ThingFactory() {
 			@Override
 			public float createThing(World world, float x, float y) {
-				int coinNum = MathUtils.random(0, CoinPlant.colors.length - 1);
+				int coinNum = MathUtils.floor(MathUtils.randomTriangular(0, CoinPlant.colors.length, 0));
 				CoinPlant coin = new CoinPlant(world, x, y + Consts.COIN_OFFSET_Y, logVal + coinNum * 2, coinNum);
 				plants.add(coin);
 				return coin.getWidth();
@@ -126,9 +127,6 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 			lastThing += thingFactory.createThing(world, x + lastThing, y);
 		}
-
-
-		// enemies
 	}
 
 	@Override
@@ -155,6 +153,10 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
+		destroyed = true;
 		world.getRenderables(Consts.LAYER_GROUND).remove(this);
 		world.getPhysics().removeCollidable(this);
 
@@ -164,6 +166,11 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		for(Building building : new ArrayList<Building>(buildings)){
 			building.destroy();
 		}
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return destroyed;
 	}
 
 	public int getX() {

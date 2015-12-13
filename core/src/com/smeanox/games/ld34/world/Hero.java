@@ -26,7 +26,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private Plant climbingPlant;
 	private float lives;
 
-	ParticleSystem bloodInDaFaceSystem, attackedSystem, attackSystem, plantSystem, walkSystem, landingSystem;
+	private int spammingCount;
+	private float lastAttack;
+
+	private ParticleSystem bloodInDaFaceSystem, attackedSystem, attackSystem, plantSystem, walkSystem, landingSystem;
 
 	private float animationTime;
 
@@ -73,7 +76,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void initParticles() {
-		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.001f, 0.0005f, 0, 0, 2, 2, 20, 100, 177, 177);
+		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, 20, 100, 277, 277);
 		attackedSystem = new ParticleSystem(world, "attacked", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.01f, 0.005f, 0, 0, 2, 2, 0, 100, 177, 177);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -10, 50, 10, 20);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
@@ -132,6 +135,14 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			vy = Consts.HERO_JUMP_VELO;
 			return;
 		}
+
+		if(world.getTotalTime() - lastAttack < Consts.HERO_SPAMMING_TIME_LIMIT){
+			spammingCount++;
+		} else {
+			spammingCount = 0;
+		}
+		lastAttack = world.getTotalTime();
+
 		if (activeAnimation != walk) {
 			return;
 		}
@@ -140,29 +151,35 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if (MathUtils.randomBoolean(0.5f)) {
 			spawnAttackSystem();
 		}
-		if (MathUtils.randomBoolean(0.01f)) {
+		if (MathUtils.randomBoolean(0.01f + (float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
 			spawnBloodInDaFaceSystem();
 		}
 
 		GroundPart groundPart = world.getGroundPart(x);
 		if(groundPart != null) {
 			boolean damaged = false;
-			for (Plant plant : groundPart.getPlants()) {
-				if(plant instanceof Vine){
+			for (Enemy enemy : groundPart.getEnemies()) {
+				if (!enemy.isAlive()) {
 					continue;
 				}
-				float plantPosX = plant.getX0() - plant.getWidth() / 2;
-				float plantPosY = plant.getY0() + plant.getHeight() / 2;
-				if (plantPosX > x && plantPosX - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(plantPosY - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
-					plant.addLives(-Consts.HERO_DAMAGE);
+				if (enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() + enemy.getHeight() / 2 - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
+					enemy.addLives(-Consts.HERO_DAMAGE);
 					damaged = true;
 					break;
 				}
 			}
-			if(!damaged){
-				for(Enemy enemy : groundPart.getEnemies()){
-					if(enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() + enemy.getHeight() / 2 - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y){
-						enemy.addLives(-Consts.HERO_DAMAGE);
+			if(!damaged) {
+				for (Plant plant : groundPart.getPlants()) {
+					if(!plant.isAlive()){
+						continue;
+					}
+					if(plant instanceof Vine){
+						continue;
+					}
+					float plantPosX = plant.getX0() - plant.getWidth() / 2;
+					float plantPosY = plant.getY0() + plant.getHeight() / 2;
+					if (plantPosX > x && plantPosX - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(plantPosY - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
+						plant.addLives(-Consts.HERO_DAMAGE);
 						damaged = true;
 						break;
 					}
@@ -274,6 +291,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 		if(lives < 0){
 			spawnAttackedSystem();
+
+			world.setCameraShake((float) (Math.sqrt(-lives) * Consts.CAMERA_SHAKE_ATTACK_PER_DAMAGE));
 		}
 	}
 
@@ -301,9 +320,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		if (collidable instanceof GroundPart){
 			climbingPlants.clear();
-			if(vy < Consts.GRAVITY * 0.1f){
-				spawnLandingSystem();
-			}
+		}
+		if(vy < Consts.GRAVITY * 0.1f){
+			spawnLandingSystem();
+
+			world.setCameraShake(Consts.CAMERA_SHAKE_LANDING_PER_VELO_Y * vy * vy);
 		}
 		return true;
 	}
@@ -329,45 +350,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 		@Override
 		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
-			return new PlantParticle(ps, time, x, y, vx, vy);
+			return new PlantParticle(world, ps, time, x, y, vx, vy);
 		}
 	}
 
-	public class PlantParticle extends ParticleSystem.Particle {
-
-		public PlantParticle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
-			super(particleSystem, time, x, y, vx, vy);
-		}
-
-		@Override
-		public boolean collidesWith(Collidable collidable) {
-			boolean collides = super.collidesWith(collidable);
-			if(collides){
-				if(collidable instanceof Plant){
-					collides = false;
-				}
-			}
-			return collides;
-		}
-
-		@Override
-		public boolean onCollision(Collidable collidable, float delta) {
-			boolean acceptCollision = super.onCollision(collidable, delta);
-			if (collidable instanceof GroundPart) {
-				GroundPart gp = (GroundPart) collidable;
-				float height = -1;
-				for (Building b : gp.getBuildings()) {
-					if (b.getX() < getX() && getX() < b.getX() + b.getWidth()) {
-						height = b.getHeight();
-					}
-				}
-				if (height > 0) {
-					gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
-				}
-				destroy();
-
-			}
-			return acceptCollision;
-		}
-	}
 }

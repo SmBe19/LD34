@@ -42,7 +42,7 @@ public class Consts {
 	public static final float HERO_DAMAGE = 2;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
-	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
+	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 75;
 	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
@@ -72,8 +72,8 @@ public class Consts {
 	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
 	public static final float VINE_ON_CLIMBING_OFFSET_X = 100;
 	public static final float VINE_ON_CLIMBING_OFFSET_Y = 20;
-	public static final int COIN_MIN_DIST = 200;
-	public static final int COIN_MAX_DIST = 800;
+	public static final int COIN_MIN_DIST = 20;
+	public static final int COIN_MAX_DIST = 80;
 	public static final float COIN_ON_ROOF_CHANCE = 0.8f;
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
@@ -84,20 +84,30 @@ public class Consts {
 	public static final float ENEMY_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final int ENEMY_MIN_DIST = 200;
 	public static final int ENEMY_MAX_DIST = 400;
+	public static final float ENEMY_DAMAGE_PER_SECOND = 3;
+	public static final float ENEMY_DAMAGE_ON_TOP = 0;
+	public static final float ENEMY_ON_ROOF_CHANCE = 0.8f;
 	public static final float ENEMY_SPEED = 32;
+	public static final float ENEMY_DIST_TO_HERO = 500;
 	public static final float ENEMY_START_LIVES = 1;
-	public static final float ENEMY_LIVES_PER_DIST = 0.001f;
+	public static final float ENEMY_LIVES_PER_DIST = 0.0001f;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
 	public static final float THORN_DAMAGE_ON_TOP = 4;
 	public static final float THORN_START_LIVES = 1;
-	public static final float THORN_LIVES_PER_DIST = 0.001f;
+	public static final float THORN_LIVES_PER_DIST = 0.0001f;
 
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;
 	public static final float COIN_START_LIVES = 1;
-	public static final float COIN_OFFSET_Y = 2;
-	public static final int COIN_LOG_ADD_PER_DIST = 1000;
+	public static final float COIN_OFFSET_Y = 12;
+	public static final int COIN_LOG_ADD_PER_DIST = 10000;
+
+	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final float HERO_SPAMMING_TIME_LIMIT = 1;
+
+	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
+	public static final float CAMERA_SHAKE_ATTACK_PER_DAMAGE = 30;
 }
