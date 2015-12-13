@@ -20,6 +20,8 @@ public class Textures {
 	public Texture vine;
 	public Texture thorn;
 	public Texture enemy;
+	public Texture airEnemy;
+	public Texture roofEnemy;
 	public Texture coin;
 
 	private Textures(){
@@ -44,6 +46,9 @@ public class Textures {
 		manager.load("textures/vine.png", Texture.class);
 		manager.load("textures/thornbush.png", Texture.class);
 		manager.load("textures/enemies.png", Texture.class);
+		manager.load("textures/enemies.png", Texture.class);
+		manager.load("textures/airenemy.png", Texture.class);
+		manager.load("textures/roofenemy.png", Texture.class);
 		manager.load("textures/coin.png", Texture.class);
 	}
 
@@ -68,6 +73,8 @@ public class Textures {
 		vine = manager.get("textures/vine.png", Texture.class);
 		thorn = manager.get("textures/thornbush.png", Texture.class);
 		enemy = manager.get("textures/enemies.png", Texture.class);
+		airEnemy = manager.get("textures/airenemy.png", Texture.class);
+		roofEnemy = manager.get("textures/roofenemy.png", Texture.class);
 		coin = manager.get("textures/coin.png", Texture.class);
 	}
 
