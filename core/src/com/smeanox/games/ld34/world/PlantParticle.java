@@ -54,7 +54,7 @@ public class PlantParticle extends ParticleSystem.Particle {
 				gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
 			}else if (  GameState.get().getRoses() > 0){
 				GameState.get().setRoses(GameState.get().getRoses() - 1);
-				gp.getPlants().add(new UselessPlant(world, getX(), Consts.GROUND_HEIGHT));
+				gp.getPlants().add(new Rose(world, getX(), Consts.GROUND_HEIGHT));
 
 			}
 			destroy();

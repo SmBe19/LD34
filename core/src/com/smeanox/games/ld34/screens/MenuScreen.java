@@ -66,9 +66,9 @@ public class MenuScreen implements Screen {
 
 		for (int i = 0; i < ConstsMenu.GAME_TITLE_SPLIT.length; i++) {
 			int y = (int) (Consts.HEIGHT - (ConstsMenu.TITLE_OFFSET_Y + i * ConstsMenu.ITEMS_SPACING_Y));
-			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i].toLowerCase(), ConstsMenu.TITLE_OFFSET_X + 2,
+			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i], ConstsMenu.TITLE_OFFSET_X + 2,
 					y - 2, ConstsMenu.FONT_SIZE, ConstsMenu.TITLE_COLOR_SHADOW);
-			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i].toLowerCase(), ConstsMenu.TITLE_OFFSET_X,
+			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i], ConstsMenu.TITLE_OFFSET_X,
 					y, ConstsMenu.FONT_SIZE, ConstsMenu.TITLE_COLOR);
 		}
 		Icons.COIN.draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, (int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y)));
@@ -110,6 +110,14 @@ public class MenuScreen implements Screen {
 				Icons.COIN.draw(spriteBatch, ConstsMenu.ICON_SIZE, Consts.WIDTH - ConstsMenu.ITEMS_PRICE_ICON_OFFSET_X, y);
 			}
 		}
+
+		Icons.KEY.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, ConstsMenu.KEY_PLANT_X, Consts.HEIGHT - ConstsMenu.KEY_PLANT_Y);
+		font.draw(spriteBatch, Consts.KEY_PLANT_ACTION_STRING, ConstsMenu.KEY_PLANT_X + ConstsMenu.KEY_TEXT_OFFSET_X,
+				(int) (Consts.HEIGHT - ConstsMenu.KEY_PLANT_Y + ConstsMenu.KEY_TEXT_OFFSET_Y), ConstsMenu.KEY_FONT_SIZE);
+
+		Icons.KEY.draw(spriteBatch, ConstsMenu.KEY_ICON_SIZE, Consts.WIDTH - ConstsMenu.KEY_ATTACK_X, Consts.HEIGHT - ConstsMenu.KEY_ATTACK_Y);
+		font.draw(spriteBatch, Consts.KEY_ATTACK_ACTION_STRING, (int) (Consts.WIDTH - ConstsMenu.KEY_ATTACK_X + ConstsMenu.KEY_TEXT_OFFSET_X),
+				(int) (Consts.HEIGHT - ConstsMenu.KEY_ATTACK_Y + ConstsMenu.KEY_TEXT_OFFSET_Y), ConstsMenu.KEY_FONT_SIZE);
 		spriteBatch.end();
 	}
 
@@ -119,18 +127,18 @@ public class MenuScreen implements Screen {
 			touchInp = (int) Math.signum(Gdx.input.getX() - Consts.WIDTH / 2);
 		}
 
-		if(!wasAttackActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1)){
-			nextItem();
-		}
-		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1)){
+		if(!wasAttackActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1)){
 			chooseItem();
+		}
+		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1)){
+			nextItem();
 		}
 		if(!wasSpacePressed && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			game.showGame(true);
 		}
 
-		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == -1;
-		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == 1;
+		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1;
+		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1;
 		wasSpacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 	}
 

@@ -27,6 +27,15 @@ public class ConstsMenu {
 	public static final Color CAN_BUY_ITEM_COLOR = Color.WHITE;
 	public static final Color CANNOT_BUT_ITEM_COLOR = Color.DARK_GRAY;
 
+	public static final int KEY_ICON_SIZE = 4;
+	public static final int KEY_FONT_SIZE = 2;
+	public static final int KEY_TEXT_OFFSET_X = 10;
+	public static final int KEY_TEXT_OFFSET_Y = 8;
+	public static final int KEY_ATTACK_X = 42;
+	public static final int KEY_ATTACK_Y = 42;
+	public static final int KEY_PLANT_X = 10;
+	public static final int KEY_PLANT_Y = 42;
+
 	static {
 		GAME_TITLE_SPLIT = GAME_TITLE.split("\n");
 	}

@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
  * Comment
  */
 public class Consts {
+	public static final boolean IS_DEV = true;
+
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;
 	public static float WIDTH = DEV_WIDTH;
@@ -131,14 +133,14 @@ public class Consts {
 	public static final int ROSE_TEX_HEIGHT = 24;
 	public static final int ROSE_TEX_WIDTH = 24;
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
-	public static final float ROSE_HP_BONUS = 0.5f; //relative to full hp
+	public static final float ROSE_HP_BONUS = 0.2f; //relative to full hp
 	public static final float ROSE_START_LIVES = 1;
 
-	public static final long HERO_START_MONEY = 0;
-	public static final float HERO_START_LIVES = 10;
-	public static final float HERO_START_DAMAGE = 2;
-	public static final long HERO_START_ROSES = 0;
-	public static final long HERO_START_BRIDGES = 0;
+	public static final long HERO_START_MONEY = IS_DEV ? 13371337 : 0;
+	public static final float HERO_START_LIVES = IS_DEV ? 1337 : 10;
+	public static final float HERO_START_DAMAGE = IS_DEV ? 2 : 2;
+	public static final long HERO_START_ROSES = IS_DEV ? 1337 : 0;
+	public static final long HERO_START_BRIDGES = IS_DEV ? 1337 : 0;
 
 	public static final float UPGRADE_HEALTH_AMOUNT = 10;
 	public static final float UPGRADE_DAMAGE_AMOUNT = 2;
