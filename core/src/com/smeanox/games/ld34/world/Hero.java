@@ -40,7 +40,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		world.getPhysics().addRigidbody(this);
 		world.getPhysics().addCollidable(this);
 
-		lives = Consts.HERO_START_LIVES;
+		lives = GameState.get().getHeroHealth();
 
 		texture = Textures.get().hero;
 
@@ -166,7 +166,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 					continue;
 				}
 				if (enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() + enemy.getHeight() / 2 - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
-					enemy.addLives(-Consts.HERO_DAMAGE);
+					enemy.addLives(-GameState.get().getHeroDamage());
 					damaged = true;
 					break;
 				}
