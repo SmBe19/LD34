@@ -46,9 +46,9 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		ground = Textures.get().ground;
 		centre = new TextureRegion[4];
 		leftBorder = new TextureRegion(ground, 0, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
-		rightBorder = new TextureRegion(ground, Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
-		for (int xx = 2; xx < 6; xx++){
-			centre[xx-2] = new TextureRegion(ground, xx * Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		rightBorder = new TextureRegion(ground, 5*Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		for (int xx = 1; xx < 5; xx++){
+			centre[xx-1] = new TextureRegion(ground, xx * Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
 		}
 
 		world.addRenderable(Consts.LAYER_GROUND, this);
@@ -168,7 +168,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 			TextureRegion tex = centre[MathUtils.random(0,centre.length-1)];
 			if (x == getX()) tex = leftBorder;
 			if (x + Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM >= getX() + getWidth()) tex = rightBorder;
-			spriteBatch.draw(tex, x ,Consts.GROUND_HEIGHT + Consts.GROUNDPART_TEX_OFFSET_Y - Consts.GROUNDPART_TEX_HEIGHT,
+			spriteBatch.draw(tex, x ,Consts.GROUND_HEIGHT + Consts.GROUNDPART_TEX_OFFSET_Y * Consts.GROUNDPART_TEX_ZOOM- Consts.GROUNDPART_TEX_HEIGHT * Consts.GROUNDPART_TEX_ZOOM,
 					Consts.GROUNDPART_TEX_WIDTH* Consts.GROUNDPART_TEX_ZOOM, Consts.GROUNDPART_TEX_HEIGHT* Consts.GROUNDPART_TEX_ZOOM);
 		}
 	}
