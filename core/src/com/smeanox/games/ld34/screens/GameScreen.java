@@ -14,6 +14,7 @@ import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
+import com.smeanox.games.ld34.world.ConstsMenu;
 import com.smeanox.games.ld34.world.GameState;
 import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;
@@ -150,6 +151,10 @@ public class GameScreen implements Screen {
 		textWidth = text.length() * Consts.UI_LIVES_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
 		font.draw(spriteBatch, text, (int) (Consts.WIDTH - Consts.UI_LIVES_X - textWidth), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
 		Icons.HEART.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
+
+		if(world.getTotalTime() < ConstsMenu.SHOW_KEYS_DURATION) {
+			MenuScreen.drawKeyHelp(spriteBatch, font);
+		}
 
 		spriteBatch.end();
 	}
