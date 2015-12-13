@@ -21,8 +21,9 @@ public class Font {
 	}
 
 	public void draw(SpriteBatch batch, String string, int x, int y, int scale) {
-		for (int i=0; i<string.length(); i++) {
-			char c = string.charAt(i);
+		String lower = string.toLowerCase();
+		for (int i=0; i<lower.length(); i++) {
+			char c = lower.charAt(i);
 			int ix = order.indexOf(c);
 			if(ix != -1) {
 				batch.draw(regions[ix], x + 8 * i * scale, y, 8*scale, 8*scale);
@@ -32,13 +33,7 @@ public class Font {
 
 	public void draw(SpriteBatch batch, String string, int x, int y, int scale, Color col) {
 		batch.setColor(col);
-		for (int i=0; i<string.length(); i++) {
-			char c = string.charAt(i);
-			int ix = order.indexOf(c);
-			if(ix != -1) {
-				batch.draw(regions[ix], x + 8 * i * scale, y, 8*scale, 8*scale);
-			}
-		}
+		draw(batch, string, x, y, scale);
 		batch.setColor(Color.WHITE);
 	}
 }

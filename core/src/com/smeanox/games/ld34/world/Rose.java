@@ -9,11 +9,10 @@ import com.smeanox.games.ld34.Textures;
 /**
  * Comment
  */
-public class UselessPlant extends Plant {
+public class Rose extends Plant {
 	private boolean destroyed = false;
 
-
-	public UselessPlant(World world, float x, float y){
+	public Rose(World world, float x, float y){
 		super(world, x, y, Consts.ROSE_START_LIVES);
 
 	}
