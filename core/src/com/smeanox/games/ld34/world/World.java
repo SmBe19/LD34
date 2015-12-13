@@ -1,11 +1,9 @@
 package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
-import com.smeanox.games.ld34.Textures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +15,12 @@ public class World implements Updatable, Renderable {
 	private Hero hero;
 	private List<GroundPart> groundParts;
 	private PhysicSimulation physics;
+	private WeatherSimulation weatherSimulation;
 	private Camera camera;
 
 	private float cameraShake;
 
 	private float totalTime;
-	private ParticleSystem snowSystem;
 
 	private List<Updatable> updatables;
 	private List<List<Renderable> > renderables;
@@ -46,8 +44,7 @@ public class World implements Updatable, Renderable {
 
 		generateWorldPart();
 
-		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 0.5f, 10, 1, 0.01f, 0.001f, 2500, 300, Consts.WIDTH*2, 5, -100, 0, 100, 100);
-		snowSystem.setGenerating(true);
+		weatherSimulation = new WeatherSimulation(this);
 	}
 
 	public void generateWorldPart(){
@@ -123,9 +120,6 @@ public class World implements Updatable, Renderable {
 
 		clearWorldPart();
 		generateWorldPart();
-
-		snowSystem.setStartX(hero.getX());
-		snowSystem.setStartY(hero.getY() + 500);
 	}
 
 	@Override
