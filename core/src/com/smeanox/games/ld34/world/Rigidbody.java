@@ -35,9 +35,6 @@ public abstract class Rigidbody implements Collidable {
 		} else {
 			vy = 0;
 		}
-		if (fallingFor > 0.5 && this instanceof  Hero){
-			System.out.println("Jump from " + fallingFromX + "|" + fallingFromY + " to " + x + "|" + y + " in " + fallingFor);
-		}
 		fallingFor = 0;
 		vx *= Consts.FRICTION;
 	}

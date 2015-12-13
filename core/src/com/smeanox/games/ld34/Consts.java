@@ -97,29 +97,29 @@ public class Consts {
 	public static final float ENEMY_SPEED = 32;
 	public static final float ENEMY_DIST_TO_HERO = 500;
 	public static final float ENEMY_START_LIVES = 1;
-	public static final float ENEMY_LIVES_PER_DIST = 0.001f;
-	public static final float ENEMY_DAMAGE_PER_DIST = 0.001f;
+	public static final float ENEMY_LIVES_PER_DIST = 0.0002f;
+	public static final float ENEMY_DAMAGE_PER_DIST = 0.0004f;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
 	public static final float THORN_DAMAGE_ON_TOP = 4;
 	public static final float THORN_START_LIVES = 1;
-	public static final float THORN_LIVES_PER_DIST = 0.001f;
-	public static final float THORN_DAMAGE_PER_DIST = 0.001f;
+	public static final float THORN_LIVES_PER_DIST = 0.0002f;
+	public static final float THORN_DAMAGE_PER_DIST = 0.0005f;
 
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;
 	public static final float COIN_START_LIVES = 1;
 	public static final float COIN_OFFSET_Y = 12;
-	public static final int COIN_LOG_ADD_PER_DIST = 10000;
+	public static final int COIN_LOG_ADD_PER_DIST = 2000;
 	public static final float COIN_ATTRACTION = -130000f;
 	public static final float COIN_VELOCITY = 800f;
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
 	public static final int HERO_SPAMMING_DAMAGE = 1;
-	public static final float HERO_SPAMMING_TIME_LIMIT = 10;
+	public static final float HERO_SPAMMING_TIME_LIMIT = 2;
 	public static final float DEATH_TIMEOUT = 2;
 
 	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
@@ -139,26 +139,32 @@ public class Consts {
 	public static final long HERO_START_BRIDGES = 0;
 
 	public static final float UPGRADE_HEALTH_AMOUNT = 10;
-	public static final float UPGRADE_DAMAGE_AMOUNT = 1;
-	public static final float UPGRADE_HEALTH_BONUS = 1.2f;
-	public static final float UPGRADE_DAMAGE_BONUS = 1.2f;
+	public static final float UPGRADE_DAMAGE_AMOUNT = 2;
+	public static final float UPGRADE_HEALTH_BONUS = 1.1f;
+	public static final float UPGRADE_DAMAGE_BONUS = 1.1f;
 	public static final float UPGRADE_HEALTH_COST = 700;
 	public static final float UPGRADE_DAMAGE_COST = 1000;
-	public static final float BRIDGE_BASE_COST = 200;
-	public static final float ROSE_BASE_COST = 50;
-	public static final float BRIDGE_COST_MULT = 1.2f;
-	public static final float ROSE_COST_MULT = 1.2f;
+	public static final float BRIDGE_BASE_COST = 50;
+	public static final float ROSE_BASE_COST = 20;
+	public static final float BRIDGE_COST_MULT = 1.1f;
+	public static final float ROSE_COST_MULT = 1.1f;
 
-	public static final int UI_MONEY_X = 60;
+	public static final int UI_MONEY_X = 100;
 	public static final int UI_MONEY_Y = 10;
+	public static final int UI_MONEY_MULTIPLIER_Y = 50;
+	public static final int UI_MONEY_MULTIPLIER_X = 50;
 	public static final int UI_MONEY_ICON_OFFSET_X = -50;
 	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
-	public static final int UI_MONEY_FONT_SIZE = 3;
+	public static final int UI_MONEY_FONT_SIZE = 4;
+	public static final int UI_MONEY_MULTIPLIER_FONT_SIZE = 3;
 	public static final int UI_MONEY_ICON_SIZE = 4;
-	public static final int UI_LIVES_X = 100;
+	public static final int UI_LIVES_X = 50;
 	public static final int UI_LIVES_Y = 10;
-	public static final int UI_LIVES_ICON_OFFSET_X = -50;
+	public static final int UI_LIVES_ICON_OFFSET_X = 5;
 	public static final int UI_LIVES_ICON_OFFSET_Y = 0;
 	public static final int UI_LIVES_FONT_SIZE = 4;
 	public static final int UI_LIVES_ICON_SIZE = 4;
+	public static final int UI_ROSES_OFFSET_Y = 100;
+	public static final int UI_BRIDGES_OFFSET_Y = 50;
+	public static final int UI_FONT_WIDTH_PER_SIZE_AND_CHAR = 8;
 }

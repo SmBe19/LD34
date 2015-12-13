@@ -119,14 +119,38 @@ public class GameScreen implements Screen {
 		}
 		spriteBatch.end();
 
+		// UI
+
 		spriteBatch.setProjectionMatrix(uicamera.combined);
 
 		spriteBatch.begin();
-		font.draw(spriteBatch, "" + GameState.get().getMoney(), Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
+
+		String text = "";
+		int textWidth = 0;
+
+		text = "" + GameState.get().getMoney();
+		textWidth = text.length() * Consts.UI_MONEY_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
+		font.draw(spriteBatch, text, Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
 		Icons.COIN.draw(spriteBatch, Consts.UI_MONEY_ICON_SIZE, Consts.UI_MONEY_X + Consts.UI_MONEY_ICON_OFFSET_X, Consts.UI_MONEY_Y + Consts.UI_MONEY_ICON_OFFSET_Y);
 
-		font.draw(spriteBatch, "" + MathUtils.ceil(Math.max(0, world.getHero().getLives())), (int) (Consts.WIDTH - Consts.UI_LIVES_X), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
+		text = "x" + (1 << (((int) world.getHero().getX()) / Consts.COIN_LOG_ADD_PER_DIST));
+		font.draw(spriteBatch, text, Consts.UI_MONEY_MULTIPLIER_X, Consts.UI_MONEY_MULTIPLIER_Y, Consts.UI_MONEY_MULTIPLIER_FONT_SIZE);
+
+		text = "" + MathUtils.ceil(Math.max(0, GameState.get().getRoses()));
+		textWidth = text.length() * Consts.UI_LIVES_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
+		font.draw(spriteBatch, text, (int) (Consts.WIDTH - Consts.UI_LIVES_X - textWidth), Consts.UI_LIVES_Y + Consts.UI_ROSES_OFFSET_Y, Consts.UI_LIVES_FONT_SIZE);
+		Icons.ROSE.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_ROSES_OFFSET_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
+
+		text = "" + MathUtils.ceil(Math.max(0, GameState.get().getBridges()));
+		textWidth = text.length() * Consts.UI_LIVES_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
+		font.draw(spriteBatch, text, (int) (Consts.WIDTH - Consts.UI_LIVES_X - textWidth), Consts.UI_LIVES_Y + Consts.UI_BRIDGES_OFFSET_Y, Consts.UI_LIVES_FONT_SIZE);
+		Icons.BRIDGE.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_BRIDGES_OFFSET_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
+
+		text = "" + MathUtils.ceil(Math.max(0, world.getHero().getLives()));
+		textWidth = text.length() * Consts.UI_LIVES_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
+		font.draw(spriteBatch, text, (int) (Consts.WIDTH - Consts.UI_LIVES_X - textWidth), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
 		Icons.HEART.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
+
 		spriteBatch.end();
 	}
 

@@ -46,7 +46,7 @@ public class World implements Updatable, Renderable {
 
 		generateWorldPart();
 
-		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.BLUE, 0.5f, 10, 1, 0.01f, 0.001f, 2500, 300, Consts.WIDTH*2, 5, -100, 0, 100, 100);
+		snowSystem = new ParticleSystem(this, "snow", null, Consts.LAYER_HERO, Textures.get().particle, Color.WHITE, 0.5f, 10, 1, 0.01f, 0.001f, 2500, 300, Consts.WIDTH*2, 5, -100, 0, 100, 100);
 		snowSystem.setGenerating(true);
 	}
 
