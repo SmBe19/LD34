@@ -23,8 +23,7 @@ public class Consts {
 	public static final float HERO_VELO = 150;
 	public static final float HERO_CLIMB_VELO = 60f;
 	public static final float HERO_START_LIVES = 100f;
-	public static final float HERO_JUMP_VELO = 10f;
-	public static final float BUILDING_TOP_MARGIN = 50f;
+	public static final float HERO_JUMP_VELO = 300f;
 	public static final float PLANT_TOP_MARGIN = 10f;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
@@ -58,12 +57,12 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
-	public static final float VINE_GROW_RATE = 60;
+	public static final float VINE_GROW_RATE = 70;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
 
-	public static final float HERO_TEX_ZOOM = 2.4f;
+	public static final float HERO_TEX_ZOOM = 2.5f;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
 	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
