@@ -17,6 +17,7 @@ import java.util.List;
  * Comment
  */
 public class ParticleSystem implements Updatable, Renderable, Destroyable {
+	private boolean destroyed = false;
 
 	private World world;
 	private int layer;
@@ -124,11 +125,20 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void destroy(){
+		if(isDestroyed()){
+			return;
+		}
+		destroyed = true;
 		for(Particle particle : getParticles()){
 			particle.destroy();
 		}
 		world.getUpdatables().remove(this);
 		world.getRenderables().get(layer).remove(this);
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return destroyed;
 	}
 
 	private float getRand(float mid, float rand){
@@ -321,6 +331,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public static class Particle extends Rigidbody implements Updatable, Renderable, Destroyable{
+		private boolean destroyed = false;
+
 		private float time;
 		private int collisions;
 		private ParticleSystem particleSystem;
@@ -383,8 +395,17 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public void destroy(){
+			if(isDestroyed()){
+				return;
+			}
+			destroyed = true;
 			particleSystem.world.getPhysics().removeRigidbody(this);
 			particleSystem.getParticles().remove(this);
+		}
+
+		@Override
+		public boolean isDestroyed() {
+			return destroyed;
 		}
 	}
 }

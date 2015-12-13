@@ -72,8 +72,8 @@ public class Consts {
 	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
 	public static final float VINE_ON_CLIMBING_OFFSET_X = 100;
 	public static final float VINE_ON_CLIMBING_OFFSET_Y = 20;
-	public static final int COIN_MIN_DIST = 200;
-	public static final int COIN_MAX_DIST = 800;
+	public static final int COIN_MIN_DIST = 20;
+	public static final int COIN_MAX_DIST = 80;
 	public static final float COIN_ON_ROOF_CHANCE = 0.8f;
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
@@ -102,6 +102,12 @@ public class Consts {
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;
 	public static final float COIN_START_LIVES = 1;
-	public static final float COIN_OFFSET_Y = 2;
+	public static final float COIN_OFFSET_Y = 12;
 	public static final int COIN_LOG_ADD_PER_DIST = 10000;
+
+	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final float HERO_SPAMMING_TIME_LIMIT = 1;
+
+	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
+	public static final float CAMERA_SHAKE_ATTACK_PER_DAMAGE = 30;
 }

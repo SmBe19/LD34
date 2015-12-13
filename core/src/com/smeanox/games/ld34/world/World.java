@@ -19,6 +19,8 @@ public class World implements Updatable, Renderable {
 	private PhysicSimulation physics;
 	private Camera camera;
 
+	private float cameraShake;
+
 	private float totalTime;
 	private ParticleSystem snowSystem;
 
@@ -30,6 +32,8 @@ public class World implements Updatable, Renderable {
 		setGroundParts(new ArrayList<GroundPart>());
 		updatables = new ArrayList<Updatable>();
 		renderables = new ArrayList<List<Renderable> >();
+
+		cameraShake = 0;
 
 		physics = new PhysicSimulation(this);
 
@@ -144,5 +148,21 @@ public class World implements Updatable, Renderable {
 
 	public void setGroundParts(List<GroundPart> groundParts) {
 		this.groundParts = groundParts;
+	}
+
+	public float getCameraShake() {
+		return cameraShake;
+	}
+
+	public void setCameraShake(float cameraShake){
+		setCameraShake(cameraShake, false);
+	}
+
+	public void setCameraShake(float cameraShake, boolean force) {
+		if(force){
+			this.cameraShake = cameraShake;
+		} else {
+			this.cameraShake = Math.max(this.cameraShake, cameraShake);
+		}
 	}
 }

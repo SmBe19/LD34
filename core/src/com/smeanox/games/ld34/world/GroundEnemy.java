@@ -25,8 +25,8 @@ public class GroundEnemy extends Enemy {
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "groundEnemyDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.7f, 0.4f, 1), 0.5f, 2f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 600);
-		bloodSystem = new ParticleSystem(world, "groundEnemyBlood", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.4f, 0.3f, 1), 0.5f, 2f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 400);
+		destroySystem = new ParticleSystem(world, "groundEnemyDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.7f, 0.4f, 1), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 600);
+		bloodSystem = new ParticleSystem(world, "groundEnemyBlood", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.4f, 0.3f, 1), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 400);
 	}
 
 	public float getDamage() {
@@ -88,6 +88,9 @@ public class GroundEnemy extends Enemy {
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
 		super.destroy();
 		spawnDestroySystem();
 	}

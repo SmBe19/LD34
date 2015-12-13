@@ -44,7 +44,7 @@ public class CoinPlant extends Plant {
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "coinDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 2f, 0.2f,
+		destroySystem = new ParticleSystem(world, "coinDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 1f, 0.2f,
 				(colors.length - colorNum)*(colors.length - colorNum) * 0.0001f,
 				(colors.length - colorNum)*(colors.length - colorNum) * 0.00005f,
 				x0, y0 + getHeight() / 2, 2, 2, 0, 0, (1 + colorNum*colorNum) * 200, (1 + colorNum*colorNum) * 200);
@@ -90,6 +90,9 @@ public class CoinPlant extends Plant {
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
 		super.destroy();
 		if(didGiveMoney) {
 			spawnDestroySystem();

@@ -12,6 +12,7 @@ import com.smeanox.games.ld34.Consts;
  * Comment
  */
 public class Building implements Renderable, Collidable, Destroyable {
+	private boolean destroyed = false;
 
 	private int vSegments, hSegments;
 	private TextureRegion[][] regions;
@@ -58,8 +59,6 @@ public class Building implements Renderable, Collidable, Destroyable {
 		return hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM;
 	}
 
-
-
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		for (int y = 0; y < vSegments; y++) {
@@ -92,8 +91,17 @@ public class Building implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
+		destroyed = true;
 		world.getRenderables(Consts.LAYER_BUILDING).remove(this);
 		world.getPhysics().removeCollidable(this);
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return destroyed;
 	}
 
 	public float getX() {

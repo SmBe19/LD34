@@ -6,6 +6,8 @@ import com.smeanox.games.ld34.Consts;
  * Comment
  */
 public abstract class Enemy extends Rigidbody implements Updatable, Renderable, Destroyable {
+	private boolean destroyed = false;
+
 	protected World world;
 
 	protected float lives;
@@ -31,9 +33,18 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 
 	@Override
 	public void destroy() {
+		if(isDestroyed()){
+			return;
+		}
+		destroyed = true;
 		world.getUpdatables().remove(this);
 		world.getRenderables(Consts.LAYER_ENEMY).remove(this);
 		world.getPhysics().removeCollidable(this);
+	}
+
+	@Override
+	public boolean isDestroyed() {
+		return destroyed;
 	}
 
 	public abstract float getDamage();
