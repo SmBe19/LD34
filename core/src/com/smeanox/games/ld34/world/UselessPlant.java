@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
@@ -35,7 +36,7 @@ public class UselessPlant extends Plant {
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
 			//maybe spawn fancy particles
-			world.getHero().addLives(Consts.ROSE_HP_BONUS);
+			world.getHero().addLives(Consts.ROSE_HP_BONUS * GameState.get().getHeroHealth());
 			destroy();
 		}
 		return true;

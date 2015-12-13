@@ -122,9 +122,10 @@ public class GameScreen implements Screen {
 		spriteBatch.setProjectionMatrix(uicamera.combined);
 
 		spriteBatch.begin();
-		font.draw(spriteBatch, "$ " + GameState.get().getMoney(), Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
+		font.draw(spriteBatch, "" + GameState.get().getMoney(), Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
+		Icons.COIN.draw(spriteBatch, Consts.UI_MONEY_ICON_SIZE, Consts.UI_MONEY_X + Consts.UI_MONEY_ICON_OFFSET_X, Consts.UI_MONEY_Y + Consts.UI_MONEY_ICON_OFFSET_Y);
 
-		font.draw(spriteBatch, "" + MathUtils.ceil(world.getHero().getLives()), (int) (Consts.WIDTH - Consts.UI_LIVES_X), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
+		font.draw(spriteBatch, "" + MathUtils.ceil(Math.max(0, world.getHero().getLives())), (int) (Consts.WIDTH - Consts.UI_LIVES_X), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
 		Icons.HEART.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
 		spriteBatch.end();
 	}

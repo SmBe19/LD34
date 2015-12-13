@@ -155,6 +155,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 		if (MathUtils.randomBoolean(0.01f + (float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
 			setAnimation(axeSwingOld);
+			addLives(-Consts.HERO_SPAMMING_DAMAGE);
 			spawnBloodInDaFaceSystem();
 		}
 
@@ -296,6 +297,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			spawnAttackedSystem();
 
 			world.setCameraShake((float) (Math.sqrt(-lives) * Consts.CAMERA_SHAKE_ATTACK_PER_DAMAGE));
+		}
+		if (this.lives > GameState.get().getHeroHealth()){
+			this.lives = GameState.get().getHeroHealth();
 		}
 	}
 

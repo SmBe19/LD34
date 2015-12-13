@@ -28,7 +28,8 @@ public class PlantParticle extends ParticleSystem.Particle {
 	@Override
 	public void update(float delta){
 		super.update(delta);
-		if (getY() < Consts.GROUND_HEIGHT - 20){
+		if (getY() < Consts.GROUND_HEIGHT - 20 && GameState.get().getBridges() > 0){
+			GameState.get().setBridges(GameState.get().getBridges() - 1);
 			GroundPart gp = world.getNextGroundPart(getX());
 			GroundPart prevgp = world.getPrevGroundPart(getX());
 			float left = getX() - prevgp.getX() + prevgp.getWidth();
@@ -51,7 +52,8 @@ public class PlantParticle extends ParticleSystem.Particle {
 			}
 			if (height > 0) {
 				gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
-			}else{
+			}else if (  GameState.get().getRoses() > 0){
+				GameState.get().setRoses(GameState.get().getRoses() - 1);
 				gp.getPlants().add(new UselessPlant(world, getX(), Consts.GROUND_HEIGHT));
 
 			}

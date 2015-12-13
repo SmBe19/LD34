@@ -39,6 +39,15 @@ public class GameState {
 	public boolean isAbleToUpgradeDamage(){
 		return getMoney() >= getHeroDamageUpgradeCost();
 	}
+	
+	public boolean isAbleToBuyRose(){
+		return getMoney() >= getRoseCost();
+	}
+	
+	public boolean isAbleToBuyBridge(){
+		return getMoney() >= getBridgeCost();
+	}
+
 
 	public long getHeroDamageUpgradeCost(){
 		return (long)Math.floor(Consts.UPGRADE_DAMAGE_COST * (float)Math.pow(Consts.UPGRADE_DAMAGE_BONUS, damageUpgrades));
@@ -47,6 +56,15 @@ public class GameState {
 	public long getHeroHealthUpgradeCost(){
 		return (long)Math.floor(Consts.UPGRADE_HEALTH_COST * (float) Math.pow(Consts.UPGRADE_HEALTH_BONUS, healthUpgrades));
 	}
+
+	public long getBridgeCost(){
+		return (long)(Math.pow(Consts.BRIDGE_COST_MULT, bridges)*Consts.BRIDGE_BASE_COST);
+	}
+	
+	public long getRoseCost(){
+		return (long)(Math.pow(Consts.ROSE_COST_MULT, roses)*Consts.ROSE_BASE_COST);
+	}
+	
 	
 	public void upgradeHealth(){
 		if (!isAbleToUpgradeHealth()) return;
@@ -60,6 +78,20 @@ public class GameState {
 		money -= getHeroDamageUpgradeCost();
 	}
 
+
+
+	public void buyRose(){
+		if (!isAbleToBuyRose()) return;
+		setRoses(getRoses() + 1);
+		money -= getRoseCost();
+	}
+
+	public void buyBridge(){
+		if (!isAbleToBuyBridge()) return;
+		setBridges(getBridges() + 1);
+		money -= getBridgeCost();
+	}
+
 	public long getMoney() {
 		return money;
 	}
@@ -70,5 +102,21 @@ public class GameState {
 
 	public void addMoney(long money){
 		this.money += money;
+	}
+
+	public long getBridges() {
+		return bridges;
+	}
+
+	public long getRoses() {
+		return roses;
+	}
+
+	public void setBridges(long bridges) {
+		this.bridges = bridges;
+	}
+
+	public void setRoses(long roses) {
+		this.roses = roses;
 	}
 }

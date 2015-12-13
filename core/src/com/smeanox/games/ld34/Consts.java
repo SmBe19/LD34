@@ -65,8 +65,8 @@ public class Consts {
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
 	public static final int GROUNDPART_END_MIN_WIDTH = 25;
 	public static final int GROUNDPART_END_MAX_WIDTH = 200;
-	public static final int BUILDING_MIN_DIST = 25;
-	public static final int BUILDING_MAX_DIST = 250;
+	public static final int BUILDING_MIN_DIST = 200;
+	public static final int BUILDING_MAX_DIST = 500;
 	public static final int BUILDING_MIN_WIDTH = 3;
 	public static final int BUILDING_MAX_WIDTH = 9;
 	public static final int BUILDING_MIN_HEIGHT = 2;
@@ -115,6 +115,7 @@ public class Consts {
 	public static final float COIN_VELOCITY = 800f;
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final int HERO_SPAMMING_DAMAGE = 1;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 10;
 	public static final float DEATH_TIMEOUT = 2;
 
@@ -125,15 +126,19 @@ public class Consts {
 	public static final int ROSE_TEX_HEIGHT = 24;
 	public static final int ROSE_TEX_WIDTH = 24;
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
-	public static final float ROSE_HP_BONUS = 10;
+	public static final float ROSE_HP_BONUS = 0.5f; //relative to full hp
 	public static final float ROSE_START_LIVES = 1;
 
 	public static final float UPGRADE_HEALTH_BONUS = 1.5f;
 	public static final float UPGRADE_DAMAGE_BONUS = 1.5f;
 	public static final float UPGRADE_HEALTH_COST = 1.5f;
 	public static final float UPGRADE_DAMAGE_COST = 1.5f;
+	public static final float BRIDGE_BASE_COST = 50f;
+	public static final float ROSE_BASE_COST = 50f;
+	public static final float BRIDGE_COST_MULT = 1.1f;
+	public static final float ROSE_COST_MULT = 1.1f;
 
-	public static final int UI_MONEY_X = 10;
+	public static final int UI_MONEY_X = 60;
 	public static final int UI_MONEY_Y = 10;
 	public static final int UI_MONEY_ICON_OFFSET_X = -50;
 	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
