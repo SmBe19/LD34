@@ -10,13 +10,15 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 
 	protected World world;
 
-	protected float x0, y0;
+	private float x0;
+	private float y0;
 	protected float lives;
 
-	public Plant(World world, float x0, float y0) {
+	public Plant(World world, float x0, float y0, float lives) {
 		this.x0 = x0;
 		this.y0 = y0;
 		this.world = world;
+		this.lives = lives;
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_PLANT, this);
 		world.getPhysics().addCollidable(this);
@@ -50,11 +52,11 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 	}
 
 	public float getX0() {
-		return x0;
+		return getX();
 	}
 
 	public float getY0() {
-		return y0;
+		return getY();
 	}
 
 	public abstract float getWidth();
@@ -75,5 +77,13 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 
 	public boolean isAlive(){
 		return lives > 0;
+	}
+
+	public float getX() {
+		return x0;
+	}
+
+	public float getY() {
+		return y0;
 	}
 }

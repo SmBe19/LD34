@@ -25,7 +25,7 @@ public class CoinPlant extends Plant {
 	public static final Color[] colors = {new Color(0.5f, 0.3f, 0.1f, 1), new Color(0.8f, 0.4f, 0.1f, 1), new Color(0.6f, 0.7f, 0.8f, 1), new Color(0.9f, 0.9f, 0, 1), new Color(0.4f, 0, 0.9f, 1)};
 
 	public CoinPlant(World world, float x0, float y0, int moneyLog, int colorNum) {
-		super(world, x0, y0);
+		super(world, x0, y0, Consts.COIN_START_LIVES);
 		this.moneyLog = moneyLog;
 		this.colorNum = colorNum;
 		this.color = colors[colorNum];
@@ -47,7 +47,7 @@ public class CoinPlant extends Plant {
 		destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
 				0.2f / (1 << moneyLog) * 1f / 64,
 				0,
-				x0, y0 + getHeight() / 2, 2, 2, 0,0 ,Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
+				getX(), getY() + getHeight() / 2, 2, 2, 0,0 ,Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class CoinPlant extends Plant {
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x0 - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, y0, Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM, Consts.COIN_TEX_HEIGHT * Consts.COIN_TEX_ZOOM);
+		return new Rectangle(getX() - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, getY(), Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM, Consts.COIN_TEX_HEIGHT * Consts.COIN_TEX_ZOOM);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class CoinPlant extends Plant {
 	public void render(float delta, SpriteBatch spriteBatch) {
 		animationTime += delta;
 		spriteBatch.setColor(color);
-		spriteBatch.draw(animation.getKeyFrame(animationTime), x0 - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, y0,
+		spriteBatch.draw(animation.getKeyFrame(animationTime), getX() - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, getY(),
 				Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM, Consts.COIN_TEX_HEIGHT * Consts.COIN_TEX_ZOOM);
 		spriteBatch.setColor(Color.WHITE);
 	}
