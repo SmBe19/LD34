@@ -24,6 +24,7 @@ public class Textures {
 	public Texture roofEnemy;
 	public Texture coin;
 	public Texture font;
+	public Texture icons;
 
 	private Textures(){
 		manager = new AssetManager();
@@ -52,6 +53,7 @@ public class Textures {
 		manager.load("textures/roofenemy.png", Texture.class);
 		manager.load("textures/coin.png", Texture.class);
 		manager.load("textures/font.png", Texture.class);
+		manager.load("textures/icons.png", Texture.class);
 	}
 
 	public boolean update(){
@@ -79,6 +81,7 @@ public class Textures {
 		roofEnemy = manager.get("textures/roofenemy.png", Texture.class);
 		coin = manager.get("textures/coin.png", Texture.class);
 		font = manager.get("textures/font.png", Texture.class);
+		icons = manager.get("textures/icons.png", Texture.class);
 	}
 
 	public void clear(){
