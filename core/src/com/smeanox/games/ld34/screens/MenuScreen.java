@@ -65,7 +65,8 @@ public class MenuScreen implements Screen {
 			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i].toLowerCase(), ConstsMenu.TITLE_OFFSET_X,
 					y, ConstsMenu.FONT_SIZE, ConstsMenu.TITLE_COLOR);
 		}
-		font.draw(spriteBatch, "$ " + GameState.get().getMoney(), ConstsMenu.ITEMS_OFFSET_X,
+		Icons.COIN.draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, (int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y)));
+		font.draw(spriteBatch, "" + GameState.get().getMoney(), ConstsMenu.ITEMS_OFFSET_X,
 				(int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y)), ConstsMenu.FONT_SIZE);
 		for (int i = 0; i < menuItems.length; i++) {
 			int y = (int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y + (i + 1) * ConstsMenu.ITEMS_SPACING_Y));

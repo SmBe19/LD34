@@ -115,6 +115,7 @@ public class Consts {
 	public static final float COIN_VELOCITY = 800f;
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final int HERO_SPAMMING_DAMAGE = 1;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 10;
 	public static final float DEATH_TIMEOUT = 2;
 
@@ -135,7 +136,7 @@ public class Consts {
 	public static final long BRIDGE_COST = 10;
 	public static final long ROSE_COST = 10;
 
-	public static final int UI_MONEY_X = 10;
+	public static final int UI_MONEY_X = 60;
 	public static final int UI_MONEY_Y = 10;
 	public static final int UI_MONEY_ICON_OFFSET_X = -50;
 	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
