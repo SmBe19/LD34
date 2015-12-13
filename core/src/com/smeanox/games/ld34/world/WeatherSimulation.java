@@ -1,10 +1,8 @@
 package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
-import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.Textures;
 
 /**
@@ -31,8 +29,8 @@ public class WeatherSimulation implements Updatable {
 	}
 
 	private void initParticles(){
-		snowSystem = new ParticleSystem(world, "snow", null, Consts.LAYER_WEATHER, Textures.get().particle, Color.WHITE, 0.75f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
-		rainSystem = new ParticleSystem(world, "rain", null, Consts.LAYER_WEATHER, Textures.get().particle, Color.BLUE, 0.5f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
+		snowSystem = new ParticleSystem(world, "snow", null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(1, 1, 1, 0.5f), 0.75f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
+		rainSystem = new ParticleSystem(world, "rain", null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(0, 0, 1, 0.2f), 0.5f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
 	}
 
 	@Override
@@ -51,23 +49,23 @@ public class WeatherSimulation implements Updatable {
 			endSeason();
 		}
 
-		// Winter
-		switch (season){
-			case 0:
-				winter();
-				break;
-			case 1:
-				spring();
-				break;
-			case 2:
-				summer();
-				break;
-			case 3:
-				autumn();
-				break;
+		if(!snowSystem.isGenerating() && !rainSystem.isGenerating()) {
+			// Winter
+			switch (season) {
+				case 0:
+					winter(delta);
+					break;
+				case 1:
+					spring(delta);
+					break;
+				case 2:
+					summer(delta);
+					break;
+				case 3:
+					autumn(delta);
+					break;
+			}
 		}
-
-		snowSystem.setGenerating(true);
 
 		oldSeason = season;
 	}
@@ -83,27 +81,65 @@ public class WeatherSimulation implements Updatable {
 		system.setAutoDisable(Float.POSITIVE_INFINITY);
 	}
 
-	private void winter(){
-		if(snowSystem.isGenerating() || rainSystem.isGenerating()){
-			return;
+	private void winter(float delta){
+		if(MathUtils.randomBoolean(Consts.WEATHER_STORM_PROBABILITY * delta)){
+			snowStorm();
+		} else if(MathUtils.randomBoolean(Consts.WEATHER_NORMAL_PROBABILITY * delta)){
+			snowNormal();
 		}
 	}
 
-	private void spring(){
-		if(snowSystem.isGenerating() || rainSystem.isGenerating()){
-			return;
+	private void spring(float delta){
+		if(MathUtils.randomBoolean(Consts.WEATHER_STORM_PROBABILITY * delta)){
+			snowNormal();
+		} else if(MathUtils.randomBoolean(Consts.WEATHER_NORMAL_PROBABILITY * delta)){
+			rainNormal();
 		}
 	}
 
-	private void summer(){
-		if(snowSystem.isGenerating() || rainSystem.isGenerating()){
-			return;
+	private void summer(float delta){
+		if(MathUtils.randomBoolean(Consts.WEATHER_STORM_PROBABILITY * delta)){
+			rainStorm();
+		} else if(MathUtils.randomBoolean(Consts.WEATHER_NORMAL_PROBABILITY * delta)){
+			rainNormal();
 		}
 	}
 
-	private void autumn(){
-		if(snowSystem.isGenerating() || rainSystem.isGenerating()){
-			return;
+	private void autumn(float delta){
+		if(MathUtils.randomBoolean(Consts.WEATHER_STORM_PROBABILITY * delta)){
+			rainStorm();
+		} else if(MathUtils.randomBoolean(Consts.WEATHER_NORMAL_PROBABILITY * delta)){
+			snowNormal();
 		}
+	}
+
+	private void snowStorm(){
+		System.out.println("snow storm");
+		initSystem(snowSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
+	}
+
+	private void snowNormal(){
+		System.out.println("snow normal");
+		initSystem(snowSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
+	}
+
+	private void rainStorm(){
+		System.out.println("rain storm");
+		initSystem(rainSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
+	}
+
+	private void rainNormal(){
+		System.out.println("rain normal");
+		initSystem(rainSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
+	}
+
+	private void initSystem(ParticleSystem system, float maxVelo, float minRate, float maxRate){
+		float duration = MathUtils.random(Consts.WEATHER_MIN_DURATION, Consts.WEATHER_MAX_DURATION);
+		system.setAutoDisable(duration);
+		system.setStartVeloX(MathUtils.randomTriangular(-maxVelo, maxVelo));
+		system.setStartVeloXRand(system.getStartVeloX() / 10);
+		system.setRate(MathUtils.randomTriangular(minRate, maxRate));
+		system.setRateRand(system.getRate() / 10);
+		system.setGenerating(true);
 	}
 }

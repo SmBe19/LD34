@@ -78,11 +78,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void initParticles() {
-		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_PARTICLES, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, 20, 100, 277, 277);
-		attackedSystem = new ParticleSystem(world, "attacked", null, Consts.LAYER_PARTICLES, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.01f, 0.005f, 0, 0, 2, 2, 0, 100, 177, 177);
+		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_PARTICLES, Textures.get().particle, new Color(1, 0, 0, 1), 0.5f, 5f, 0.5f, 0.0005f, 0.0001f, 0, 0, 2, 2, 20, 100, 277, 277);
+		attackedSystem = new ParticleSystem(world, "attacked", null, Consts.LAYER_PARTICLES, Textures.get().particle, new Color(1, 0, 0, 0.5f), 0.5f, 5f, 0.5f, 0.01f, 0.005f, 0, 0, 2, 2, 0, 100, 177, 177);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -10, 50, 10, 20);
-		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_PARTICLES, Textures.get().particle, Color.BROWN, 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
-		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_PARTICLES, Textures.get().particle, Color.BROWN, 0.5f, 0.6f, 0.2f, 0.025f, 0.01f, 0, 0, 5, 2, 0, 50, 200, 20);
+		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_PARTICLES, Textures.get().particle, new Color(0.4f, 0.3f, 0.2f, 1), 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
+		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_PARTICLES, Textures.get().particle, new Color(0.4f, 0.3f, 0.2f, 1), 0.5f, 0.6f, 0.2f, 0.025f, 0.01f, 0, 0, 5, 2, 0, 50, 200, 20);
 		plantSystem = new ParticleSystem(world, "plant", new PlantParticleFactory(), Consts.LAYER_PARTICLES, Textures.get().particle, new Color(0, 0.8f, 0, 1), 1f, 10f, 0.1f, 0.05f, 0.04f, 0, 0, 1, 1, Consts.HERO_VELO * 2f, 0, 10, 10);
 	}
 

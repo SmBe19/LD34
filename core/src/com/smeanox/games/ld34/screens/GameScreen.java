@@ -60,11 +60,9 @@ public class GameScreen implements Screen {
 		world = new World(camera);
 
 		background = Textures.get().background;
-
 		font = new Font(Textures.get().font);
 
 		wasAttackActionPressed = wasPlantActionPressed = true;
-
 		deathTimeout = Consts.DEATH_TIMEOUT;
 	}
 
