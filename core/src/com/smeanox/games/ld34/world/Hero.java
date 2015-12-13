@@ -153,7 +153,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if (MathUtils.randomBoolean(0.5f)) {
 			spawnAttackSystem();
 		}
-		if (MathUtils.randomBoolean(0.01f + (float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
+		if (MathUtils.randomBoolean((float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
 			setAnimation(axeSwingOld);
 			addLives(-Consts.HERO_SPAMMING_DAMAGE);
 			spawnBloodInDaFaceSystem();
@@ -183,7 +183,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 					float plantPosX = plant.getX0() - plant.getWidth() / 2;
 					float plantPosY = plant.getY0() + plant.getHeight() / 2;
 					if (plantPosX > x && plantPosX - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(plantPosY - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y) {
-						plant.addLives(-Consts.HERO_DAMAGE);
+						plant.addLives(-Consts.HERO_START_DAMAGE);
 						damaged = true;
 						break;
 					}

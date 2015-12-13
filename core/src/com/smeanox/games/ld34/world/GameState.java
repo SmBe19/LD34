@@ -16,6 +16,8 @@ public class GameState {
 
 	private GameState(){
 		money = Consts.HERO_START_MONEY;
+		roses = Consts.HERO_START_ROSES;
+		bridges = Consts.HERO_START_BRIDGES;
 	}
 
 	public static GameState get(){
@@ -29,7 +31,7 @@ public class GameState {
 		return Consts.HERO_START_LIVES * (float)Math.pow(Consts.UPGRADE_HEALTH_BONUS, healthUpgrades);
 	}
 	public float getHeroDamage(){
-		return Consts.HERO_DAMAGE * (float)Math.pow(Consts.UPGRADE_DAMAGE_BONUS, damageUpgrades);
+		return Consts.HERO_START_DAMAGE * (float)Math.pow(Consts.UPGRADE_DAMAGE_BONUS, damageUpgrades);
 	}
 	
 	public boolean isAbleToUpgradeHealth(){
