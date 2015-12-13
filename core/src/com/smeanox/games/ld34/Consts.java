@@ -121,4 +121,17 @@ public class Consts {
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float ROSE_HP_BONUS = 10;
 	public static final float ROSE_START_LIVES = 1;
+
+	public static final int UI_MONEY_X = 10;
+	public static final int UI_MONEY_Y = 10;
+	public static final int UI_MONEY_ICON_OFFSET_X = -50;
+	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
+	public static final int UI_MONEY_FONT_SIZE = 3;
+	public static final int UI_MONEY_ICON_SIZE = 4;
+	public static final int UI_LIVES_X = 100;
+	public static final int UI_LIVES_Y = 10;
+	public static final int UI_LIVES_ICON_OFFSET_X = -50;
+	public static final int UI_LIVES_ICON_OFFSET_Y = 0;
+	public static final int UI_LIVES_FONT_SIZE = 4;
+	public static final int UI_LIVES_ICON_SIZE = 4;
 }
