@@ -60,7 +60,6 @@ public abstract class Plant implements Updatable, Renderable, Collidable, Destro
 	}
 
 	public void addLives(float lives){
-		System.out.println("add lives" + lives);
 		this.lives += lives;
 	}
 

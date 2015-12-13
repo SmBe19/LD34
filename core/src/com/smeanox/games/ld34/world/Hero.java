@@ -26,7 +26,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	private Plant climbingPlant;
 	private float lives;
 
-	ParticleSystem bloodInDaFaceSystem, attackSystem, plantSystem, walkSystem, landingSystem;
+	ParticleSystem bloodInDaFaceSystem, attackedSystem, attackSystem, plantSystem, walkSystem, landingSystem;
 
 	private float animationTime;
 
@@ -107,6 +107,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	private void initParticles() {
 		bloodInDaFaceSystem = new ParticleSystem(world, "bloodInDaFace", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.001f, 0.0005f, 0, 0, 2, 2, 20, 100, 177, 177);
+		attackedSystem = new ParticleSystem(world, "attacked", null, Consts.LAYER_HERO, Textures.get().particle, Color.RED, 0.5f, 5f, 0.5f, 0.01f, 0.005f, 0, 0, 2, 2, 0, 100, 177, 177);
 		attackSystem = new ParticleSystem(world, "attack", null, Consts.LAYER_HERO, Textures.get().particle, new Color(0.5f, 0, 0, 1), 0.5f, 0.4f, 0.1f, 0.05f, 0.01f, 0, 0, 2, 2, -10, 50, 10, 20);
 		walkSystem = new ParticleSystem(world, "walk", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.4f, 0.1f, 0.2f, 0.1f, 0, 0, 2, 2, 0, 80, 50, 20);
 		landingSystem = new ParticleSystem(world, "landing", null, Consts.LAYER_HERO, Textures.get().particle, Color.BROWN, 0.5f, 0.6f, 0.2f, 0.025f, 0.01f, 0, 0, 5, 2, 0, 50, 200, 20);
@@ -229,6 +230,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		bloodInDaFaceSystem.setTimeout(0.5f);
 	}
 
+	private void spawnAttackedSystem() {
+		attackedSystem.setStartX(x + 12 * Consts.HERO_TEX_ZOOM);
+		attackedSystem.setStartY(y + 13 * Consts.HERO_TEX_ZOOM);
+		attackedSystem.setGenerating(true);
+		attackedSystem.setAutoDisable(0.1f);
+	}
+
 	private void spawnPlantSystem() {
 		plantSystem.setStartX(x + 24 * Consts.HERO_TEX_ZOOM);
 		plantSystem.setStartY(y + 12 * Consts.HERO_TEX_ZOOM);
@@ -269,6 +277,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	public void addLives(float lives){
 		this.lives += lives;
+
+		if(lives < 0){
+			spawnAttackedSystem();
+		}
 	}
 
 	public boolean isAlive() {

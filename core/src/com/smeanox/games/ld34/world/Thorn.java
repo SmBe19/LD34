@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Textures;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,13 +8,19 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Thorn extends Plant {
 
+	private ParticleSystem destroySystem;
+
 	public Thorn(World world, float x0, float y0) {
 		super(world, x0, y0);
 		lives = Consts.THORN_START_LIVES;
+		initParticles();
+	}
+
+	private void initParticles(){
+		destroySystem = new ParticleSystem(world, "thornDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, Color.BROWN, 0.5f, 2f, 0.2f, 0.001f, 0.0005f, x0, y0, 2, 2, 0, 200, 600, 100);
 	}
 
 	public void grow(float delta) {
-
 	}
 
 	@Override
@@ -43,4 +50,14 @@ public class Thorn extends Plant {
 		return true;
 	}
 
+	@Override
+	public void destroy() {
+		super.destroy();
+		spawnDestroySystem();
+	}
+
+	private void spawnDestroySystem(){
+		destroySystem.setGenerating(true);
+		destroySystem.setAutoDisable(0.2f);
+	}
 }

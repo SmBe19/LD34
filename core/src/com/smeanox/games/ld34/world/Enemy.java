@@ -21,4 +21,14 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 		world.getRenderables(Consts.LAYER_ENEMY).remove(this);
 		world.getPhysics().removeCollidable(this);
 	}
+
+	public abstract float getDamage();
+
+	@Override
+	public boolean onCollision(Collidable collidable, float delta) {
+		if(collidable instanceof Hero){
+			((Hero) collidable).addLives(-getDamage() * delta);
+		}
+		return true;
+	}
 }
