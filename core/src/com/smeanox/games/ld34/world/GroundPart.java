@@ -25,6 +25,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	private List<Plant> plants;
 	private List<Enemy> enemies;
 	private List<Building> buildings;
+	private int[] indexes;
 
 	private Texture ground;
 
@@ -44,11 +45,15 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		buildings = new ArrayList<Building>();
 
 		ground = Textures.get().ground;
-		centre = new TextureRegion[4];
+		centre = new TextureRegion[6];
 		leftBorder = new TextureRegion(ground, 0, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
-		rightBorder = new TextureRegion(ground, 5*Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
-		for (int xx = 1; xx < 5; xx++){
+		rightBorder = new TextureRegion(ground, 7*Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		for (int xx = 1; xx < 7; xx++){
 			centre[xx-1] = new TextureRegion(ground, xx * Consts.GROUNDPART_TEX_WIDTH, 0, Consts.GROUNDPART_TEX_WIDTH, Consts.GROUNDPART_TEX_HEIGHT);
+		}
+		indexes  = new int[width / (int)(Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM) + 2];
+		for (int i = 0; i < indexes.length; i++){
+			indexes[i] = MathUtils.random(0,centre.length-1);
 		}
 
 		world.addRenderable(Consts.LAYER_GROUND, this);
@@ -164,8 +169,9 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
+		int i = 0;
 		for (float x = getX(); x < getX() + getWidth(); x+= Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM){
-			TextureRegion tex = centre[MathUtils.random(0,centre.length-1)];
+			TextureRegion tex = centre[indexes[i++]];
 			if (x == getX()) tex = leftBorder;
 			if (x + Consts.GROUNDPART_TEX_WIDTH * Consts.GROUNDPART_TEX_ZOOM >= getX() + getWidth()) tex = rightBorder;
 			spriteBatch.draw(tex, x ,Consts.GROUND_HEIGHT + Consts.GROUNDPART_TEX_OFFSET_Y * Consts.GROUNDPART_TEX_ZOOM- Consts.GROUNDPART_TEX_HEIGHT * Consts.GROUNDPART_TEX_ZOOM,
