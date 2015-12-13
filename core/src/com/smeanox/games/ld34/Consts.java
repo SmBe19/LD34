@@ -70,6 +70,8 @@ public class Consts {
 	public static final int PLANT_MIN_DIST = 400;
 	public static final int PLANT_MAX_DIST = 800;
 	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
+	public static final float VINE_ON_CLIMBING_OFFSET_X = 100;
+	public static final float VINE_ON_CLIMBING_OFFSET_Y = 20;
 	public static final int COIN_MIN_DIST = 200;
 	public static final int COIN_MAX_DIST = 800;
 	public static final float COIN_ON_ROOF_CHANCE = 0.8f;

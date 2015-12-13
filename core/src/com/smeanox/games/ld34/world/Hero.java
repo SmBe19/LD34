@@ -89,7 +89,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			}
 		} else {
 			if(activeAnimation == climbing && climbingPlant != null){
-				if(y + Consts.PLANT_TOP_MARGIN > ((Vine) climbingPlant).getHeight() + climbingPlant.getY0()){
+				if(y + Consts.PLANT_TOP_MARGIN > (climbingPlant).getHeight() + climbingPlant.getY0()){
 					setAnimation(walk);
 				}
 			}
@@ -127,6 +127,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	public void attack() {
+		if (activeAnimation == climbing) {
+			setAnimation(fall);
+			vy = Consts.HERO_JUMP_VELO;
+			return;
+		}
 		if (activeAnimation != walk) {
 			return;
 		}
@@ -156,16 +161,19 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			}
 			if(!damaged){
 				for(Enemy enemy : groundPart.getEnemies()){
-					// TODO
+					if(enemy.getX() > x && enemy.getX() - x < Consts.HERO_ATTACK_RANGE_X && Math.abs(enemy.getY() - (y + getHeight() / 2)) < Consts.HERO_ATTACK_RANGE_Y){
+						// TODO
+					}
 				}
 			}
 		}
 	}
 
 	public void plant() {
-		if (activeAnimation == climbing) {
-			setAnimation(fall);
-			vy = Consts.HERO_JUMP_VELO;
+		if(activeAnimation == climbing){
+			setAnimation(walk);
+			plantOnePlant();
+			vy = Consts.HERO_JUMP_VELO * 0.5f;
 			return;
 		}
 		if (activeAnimation != walk) {
@@ -174,6 +182,23 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		setAnimation(throwPlant);
 
 		spawnPlantSystem();
+	}
+
+	private void plantOnePlant(){
+		GroundPart groundPart = world.getGroundPart(x);
+		if(groundPart != null){
+			float newX = x + Consts.VINE_ON_CLIMBING_OFFSET_X;
+			float newY = y + Consts.VINE_ON_CLIMBING_OFFSET_Y;
+			float height = -1;
+			for (Building b : groundPart.getBuildings()) {
+				if (b.getX() < newX && newX < b.getX() + b.getWidth()) {
+					height = b.getHeight() + b.getY();
+				}
+			}
+			if (height > 0) {
+				groundPart.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, newX, newY, height - newY));
+			}
+		}
 	}
 
 	private void setAnimation(Animation animation) {
@@ -268,6 +293,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			setAnimation(climbing);
 			climbingPlants.add((Plant) collidable);
 			climbingPlant = (Plant) collidable;
+
+			fallingFor = 0;
 			return false;
 		}
 		if (collidable instanceof GroundPart){
@@ -288,7 +315,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			return false;
 		}
 		if (collidable instanceof Vine) {
-			if (((Vine) collidable).getX0() < x + Consts.HERO_TEX_WIDTH * Consts.HERO_TEX_ZOOM / 2 && !climbingPlants.contains(collidable)) {
+			if (((Vine) collidable).getX0() < x + getWidth() / 2 && !climbingPlants.contains(collidable)) {
 				return true;
 			}
 			return false;
