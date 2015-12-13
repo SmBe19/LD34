@@ -104,6 +104,8 @@ public class Consts {
 	public static final float COIN_START_LIVES = 1;
 	public static final float COIN_OFFSET_Y = 12;
 	public static final int COIN_LOG_ADD_PER_DIST = 10000;
+	public static final float COIN_ATTRACTION = -130000f;
+	public static final float COIN_VELOCITY = 800f;
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 1;

@@ -40,6 +40,7 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 		world.getUpdatables().remove(this);
 		world.getRenderables(Consts.LAYER_ENEMY).remove(this);
 		world.getPhysics().removeCollidable(this);
+		world.getPhysics().removeRigidbody(this);
 	}
 
 	@Override

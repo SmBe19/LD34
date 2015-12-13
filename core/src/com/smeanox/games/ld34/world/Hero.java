@@ -38,6 +38,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_HERO, this);
 		world.getPhysics().addRigidbody(this);
+		world.getPhysics().addCollidable(this);
 
 		lives = Consts.HERO_START_LIVES;
 
@@ -343,6 +344,13 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			}
 			return false;
 		}
+		if (collidable instanceof CoinParticle){
+			return true;
+		}
+		if (collidable instanceof ParticleSystem.Particle){
+			return false;
+		}
+
 		return true;
 	}
 
