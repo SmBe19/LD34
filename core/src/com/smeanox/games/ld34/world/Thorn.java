@@ -48,7 +48,7 @@ public class Thorn extends Plant {
 				((Hero) collidable).addLives(-Consts.THORN_DAMAGE_ON_TOP);
 				destroy();
 			} else {
-				((Hero) collidable).addLives(-Consts.THORN_DAMAGE_PER_SECOND * delta);
+				((Hero) collidable).addLives(-(Consts.THORN_DAMAGE_PER_SECOND + getX() * Consts.THORN_DAMAGE_PER_DIST) * delta);
 			}
 		}
 		return true;

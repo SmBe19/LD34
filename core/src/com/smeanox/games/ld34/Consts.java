@@ -42,17 +42,14 @@ public class Consts {
 	public static final float HERO_CLIMB_VELO = 60f;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
+	public static final float HERO_DEATH_HEIGHT = -2000;
 	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
 	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
-	public static final long HERO_START_MONEY = 100;
-
-	public static final float HERO_START_LIVES = 10;
-	public static final float HERO_START_DAMAGE = 2;
-	public static final long HERO_START_ROSES = 0;
-	public static final long HERO_START_BRIDGES = 0;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
+	public static final String KEY_PLANT_ACTION_STRING = "A";
+	public static final String KEY_ATTACK_ACTION_STRING = "D";
 
 	public static final int LAYER_WORLD = 0;
 	public static final int LAYER_GROUND = 1;
@@ -62,7 +59,7 @@ public class Consts {
 	public static final int LAYER_ENEMY = 5;
 	public static final int LAYER_HERO = 10;
 
-	public static final int GROUNDPART_MIN_DIST = 100;
+	public static final int GROUNDPART_MIN_DIST = 200;
 	public static final int GROUNDPART_MAX_DIST = 250;
 	public static final int GROUNDPART_MIN_WIDTH = 900;
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
@@ -80,7 +77,7 @@ public class Consts {
 	public static final float VINE_ON_CLIMBING_OFFSET_X = 100;
 	public static final float VINE_ON_CLIMBING_OFFSET_Y = 20;
 	public static final int COIN_MIN_DIST = 20;
-	public static final int COIN_MAX_DIST = 80;
+	public static final int COIN_MAX_DIST = 800;
 	public static final float COIN_ON_ROOF_CHANCE = 0.8f;
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
@@ -100,14 +97,16 @@ public class Consts {
 	public static final float ENEMY_SPEED = 32;
 	public static final float ENEMY_DIST_TO_HERO = 500;
 	public static final float ENEMY_START_LIVES = 1;
-	public static final float ENEMY_LIVES_PER_DIST = 0.0001f;
+	public static final float ENEMY_LIVES_PER_DIST = 0.001f;
+	public static final float ENEMY_DAMAGE_PER_DIST = 0.001f;
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
 	public static final float THORN_DAMAGE_ON_TOP = 4;
 	public static final float THORN_START_LIVES = 1;
-	public static final float THORN_LIVES_PER_DIST = 0.0001f;
+	public static final float THORN_LIVES_PER_DIST = 0.001f;
+	public static final float THORN_DAMAGE_PER_DIST = 0.001f;
 
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;
@@ -116,6 +115,7 @@ public class Consts {
 	public static final int COIN_LOG_ADD_PER_DIST = 10000;
 	public static final float COIN_ATTRACTION = -130000f;
 	public static final float COIN_VELOCITY = 800f;
+	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
 	public static final int HERO_SPAMMING_DAMAGE = 1;
@@ -132,14 +132,22 @@ public class Consts {
 	public static final float ROSE_HP_BONUS = 0.5f; //relative to full hp
 	public static final float ROSE_START_LIVES = 1;
 
-	public static final float UPGRADE_HEALTH_BONUS = 1.5f;
-	public static final float UPGRADE_DAMAGE_BONUS = 1.5f;
-	public static final float UPGRADE_HEALTH_COST = 1.5f;
-	public static final float UPGRADE_DAMAGE_COST = 1.5f;
-	public static final float BRIDGE_BASE_COST = 50f;
-	public static final float ROSE_BASE_COST = 50f;
-	public static final float BRIDGE_COST_MULT = 1.1f;
-	public static final float ROSE_COST_MULT = 1.1f;
+	public static final long HERO_START_MONEY = 0;
+	public static final float HERO_START_LIVES = 10;
+	public static final float HERO_START_DAMAGE = 2;
+	public static final long HERO_START_ROSES = 0;
+	public static final long HERO_START_BRIDGES = 0;
+
+	public static final float UPGRADE_HEALTH_AMOUNT = 10;
+	public static final float UPGRADE_DAMAGE_AMOUNT = 1;
+	public static final float UPGRADE_HEALTH_BONUS = 1.2f;
+	public static final float UPGRADE_DAMAGE_BONUS = 1.2f;
+	public static final float UPGRADE_HEALTH_COST = 700;
+	public static final float UPGRADE_DAMAGE_COST = 1000;
+	public static final float BRIDGE_BASE_COST = 200;
+	public static final float ROSE_BASE_COST = 50;
+	public static final float BRIDGE_COST_MULT = 1.2f;
+	public static final float ROSE_COST_MULT = 1.2f;
 
 	public static final int UI_MONEY_X = 60;
 	public static final int UI_MONEY_Y = 10;

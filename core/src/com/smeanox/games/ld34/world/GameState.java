@@ -28,10 +28,10 @@ public class GameState {
 	}
 
 	public float getHeroHealth(){
-		return Consts.HERO_START_LIVES * (float)Math.pow(Consts.UPGRADE_HEALTH_BONUS, healthUpgrades);
+		return Consts.HERO_START_LIVES + Consts.UPGRADE_HEALTH_AMOUNT * healthUpgrades;
 	}
 	public float getHeroDamage(){
-		return Consts.HERO_START_DAMAGE * (float)Math.pow(Consts.UPGRADE_DAMAGE_BONUS, damageUpgrades);
+		return Consts.HERO_START_DAMAGE + Consts.UPGRADE_DAMAGE_AMOUNT * damageUpgrades;
 	}
 	
 	public boolean isAbleToUpgradeHealth(){

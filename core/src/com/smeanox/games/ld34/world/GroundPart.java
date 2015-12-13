@@ -91,7 +91,16 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		distributeThing(Consts.COIN_MIN_DIST, Consts.COIN_MAX_DIST, false, Consts.COIN_ON_ROOF_CHANCE, new ThingFactory() {
 			@Override
 			public float createThing(World world, float x, float y) {
-				int coinNum = MathUtils.floor(MathUtils.randomTriangular(0, CoinPlant.colors.length, 0));
+				int coinNum = 0;
+				float rand = MathUtils.random(0f, 1);
+				for (int i = 0; i < CoinPlant.colors.length; i++) {
+					rand -= Consts.COIN_PROBABILITIES[i];
+					System.out.println(rand);
+					if (rand <= 0) {
+						coinNum = i;
+						break;
+					}
+				}
 				CoinPlant coin = new CoinPlant(world, x, y + Consts.COIN_OFFSET_Y, logVal + coinNum * 2, coinNum);
 				plants.add(coin);
 				return coin.getWidth();

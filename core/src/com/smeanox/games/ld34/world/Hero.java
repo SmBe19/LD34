@@ -119,7 +119,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		walkSystem.setStartX(x + 8 * Consts.HERO_TEX_ZOOM);
 		walkSystem.setStartY(y + 2 * Consts.HERO_TEX_ZOOM);
 
-		if (y < -Consts.HEIGHT * 10) {
+		if (y < Consts.HERO_DEATH_HEIGHT) {
 			lives = 0;
 		}
 	}
