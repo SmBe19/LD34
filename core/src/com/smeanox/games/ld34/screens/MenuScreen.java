@@ -6,7 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.LD34;
+import com.smeanox.games.ld34.Textures;
 
 /**
  * Comment
@@ -19,9 +21,12 @@ public class MenuScreen implements Screen {
 
 	private int activeMenuItem;
 	private String[] menuItems = {"More Lives", "More Damage", "More Lives", "More Bridges", "Play"};
+	private Font font;
 
 	public MenuScreen(LD34 game) {
 		this.game = game;
+
+		font = new Font(Textures.get().font);
 
 		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = false;
 	}
@@ -38,7 +43,9 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+		for (int i = 0; i < menuItems.length; i++) {
+			
+		}
 	}
 
 	private void handleInput(float delta){

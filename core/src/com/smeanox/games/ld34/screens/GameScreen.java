@@ -72,7 +72,6 @@ public class GameScreen implements Screen {
 
 		if(!world.getHero().isAlive()){
 			deathTimeout -= delta;
-			System.out.println("Dead" + deathTimeout);
 			if(deathTimeout < 0) {
 				game.showMenu();
 			}
@@ -117,8 +116,8 @@ public class GameScreen implements Screen {
 
 	private void shake(float delta){
 		if(world.getCameraShake() > 0.5f){
-			camera.position.set(camera.position.add(MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()),
-					MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()), 0));
+			camera.position.add(MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()),
+					MathUtils.randomTriangular(-world.getCameraShake(), world.getCameraShake()), 0);
 
 			world.setCameraShake((float) (world.getCameraShake() * Math.pow(0.1f, delta)), true);
 		} else {

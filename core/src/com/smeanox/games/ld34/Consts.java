@@ -108,7 +108,7 @@ public class Consts {
 	public static final float COIN_VELOCITY = 800f;
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
-	public static final float HERO_SPAMMING_TIME_LIMIT = 1;
+	public static final float HERO_SPAMMING_TIME_LIMIT = 10;
 	public static final float DEATH_TIMEOUT = 2;
 
 	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
