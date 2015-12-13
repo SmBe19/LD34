@@ -21,7 +21,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	private World world;
 	private Texture texture;
-	private Animation activeAnimation, walk, axeSwing, throwPlant, fall, climbing;
+	private Animation activeAnimation, walk, axeSwingOld, axeSwing, throwPlant, fall, climbing;
 	private Set<Plant> climbingPlants;
 	private Plant climbingPlant;
 	private float lives;
@@ -55,7 +55,8 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	private void initAnimations() {
 		walk = createAnimation(texture, 1, 2, 0, 6, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.1f, Animation.PlayMode.LOOP);
-		axeSwing = createAnimation(texture, 5, 6, 0, 8, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
+		axeSwingOld = createAnimation(texture, 5, 6, 0, 8, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
+		axeSwing = createAnimation(texture, 7, 8, 0, 8, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
 		throwPlant = createAnimation(texture, 2, 3, 0, 5, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
 		fall = createAnimation(texture, 6, 7, 0, 4, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.15f, Animation.PlayMode.LOOP);
 		climbing = createAnimation(texture, 3, 4, 0, 4, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.2f, Animation.PlayMode.LOOP);
@@ -153,6 +154,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			spawnAttackSystem();
 		}
 		if (MathUtils.randomBoolean(0.01f + (float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
+			setAnimation(axeSwingOld);
 			spawnBloodInDaFaceSystem();
 		}
 

@@ -8,31 +8,30 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.smeanox.games.ld34.screens.GameScreen;
+import com.smeanox.games.ld34.screens.MenuScreen;
 
 public class LD34 extends Game {
 
-	GameScreen gameScreen;
+	private MenuScreen menuScreen;
+	private GameScreen gameScreen;
 
 	@Override
 	public void create() {
-		gameScreen = new GameScreen(this);
-		setScreen(gameScreen);
+		Textures.get().finishLoading();
+		showMenu();
 	}
 
+	public void showMenu(){
+		if(menuScreen == null){
+			menuScreen = new MenuScreen(this);
+		}
+		setScreen(menuScreen);
+	}
 
-//
-//	@Override
-//	public void create () {
-//		batch = new SpriteBatch();
-//		img = new Texture("badlogic.jpg");
-//	}
-//
-//	@Override
-//	public void render () {
-//		Gdx.gl.glClearColor(1, 0, 0, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-//		batch.draw(img, 0, 0);
-//		batch.end();
-//	}
+	public void showGame(boolean restart){
+		if(gameScreen == null || restart){
+			gameScreen = new GameScreen(this);
+		}
+		setScreen(gameScreen);
+	}
 }
