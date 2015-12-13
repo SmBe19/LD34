@@ -12,6 +12,7 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 		this.world = world;
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_ENEMY, this);
+		world.getPhysics().addRigidbody(this);
 		world.getPhysics().addCollidable(this);
 		this.x = x;
 		this.y = y;

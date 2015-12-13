@@ -24,6 +24,7 @@ public class Consts {
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
 	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
@@ -37,6 +38,7 @@ public class Consts {
 	public static final float HERO_VELO = 150;
 	public static final float HERO_CLIMB_VELO = 60f;
 	public static final float HERO_START_LIVES = 10;
+	public static final long HERO_START_MONEY = 100;
 	public static final float HERO_DAMAGE = 2;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
@@ -68,6 +70,9 @@ public class Consts {
 	public static final int PLANT_MIN_DIST = 400;
 	public static final int PLANT_MAX_DIST = 800;
 	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
+	public static final int COIN_MIN_DIST = 200;
+	public static final int COIN_MAX_DIST = 800;
+	public static final float COIN_ON_ROOF_CHANCE = 0.8f;
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
@@ -80,4 +85,10 @@ public class Consts {
 	public static final int THORN_TEX_HEIGHT = 32;
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
 	public static final float THORN_START_LIVES = 1;
+
+	public static final int COIN_TEX_WIDTH = 16;
+	public static final int COIN_TEX_HEIGHT = 16;
+	public static final float COIN_START_LIVES = 1;
+	public static final float COIN_OFFSET_Y = 2;
+	public static final int COIN_LOG_ADD_PER_DIST = 1000;
 }

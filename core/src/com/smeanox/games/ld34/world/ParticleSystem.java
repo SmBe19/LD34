@@ -55,6 +55,11 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloXRand = startVeloXRand;
 		this.startVeloYRand = startVeloYRand;
 
+		if(rate <= 0 || rate - rateRand <= 0){
+			System.err.println(rate + "/" + rateRand);
+			throw new RuntimeException("Fuck that shit, I'm out!");
+		}
+
 		if(this.particleFactory == null){
 			this.particleFactory = new ParticleFactory() {
 				@Override

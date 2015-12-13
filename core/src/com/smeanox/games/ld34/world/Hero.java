@@ -50,59 +50,26 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	private void initAnimations() {
-		Array<TextureRegion> regions;
-
-		// walk
-		regions = new Array<TextureRegion>();
-		for (int y = 1; y < 2; y++) {
-			for (int x = 0; x < 6; x++) {
-				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
-			}
-		}
-		walk = new Animation(0.1f, regions);
-		walk.setPlayMode(Animation.PlayMode.LOOP);
-
-		// axeSwing
-		regions = new Array<TextureRegion>();
-		for (int y = 5; y < 6; y++) {
-			for (int x = 0; x < 8; x++) {
-				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
-			}
-		}
-		axeSwing = new Animation(0.08f, regions);
-		axeSwing.setPlayMode(Animation.PlayMode.LOOP);
-
-		// throwPlant
-		regions = new Array<TextureRegion>();
-		for (int y = 2; y < 3; y++) {
-			for (int x = 0; x < 5; x++) {
-				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
-			}
-		}
-		throwPlant = new Animation(0.08f, regions);
-		throwPlant.setPlayMode(Animation.PlayMode.LOOP);
-
-		// fall
-		regions = new Array<TextureRegion>();
-		for (int y = 6; y < 7; y++) {
-			for (int x = 0; x < 4; x++) {
-				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
-			}
-		}
-		fall = new Animation(0.15f, regions);
-		fall.setPlayMode(Animation.PlayMode.LOOP);
-
-		// climbing
-		regions = new Array<TextureRegion>();
-		for (int y = 3; y < 4; y++) {
-			for (int x = 0; x < 4; x++) {
-				regions.add(new TextureRegion(texture, Consts.HERO_TEX_WIDTH * x, Consts.HERO_TEX_HEIGHT * y, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT));
-			}
-		}
-		climbing = new Animation(0.2f, regions);
-		climbing.setPlayMode(Animation.PlayMode.LOOP);
+		walk = createAnimation(texture, 1, 2, 0, 6, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.1f, Animation.PlayMode.LOOP);
+		axeSwing = createAnimation(texture, 5, 6, 0, 8, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
+		throwPlant = createAnimation(texture, 2, 3, 0, 5, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.08f, Animation.PlayMode.LOOP);
+		fall = createAnimation(texture, 6, 7, 0, 4, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.15f, Animation.PlayMode.LOOP);
+		climbing = createAnimation(texture, 3, 4, 0, 4, Consts.HERO_TEX_WIDTH, Consts.HERO_TEX_HEIGHT, 0.2f, Animation.PlayMode.LOOP);
 
 		activeAnimation = walk;
+	}
+
+	public static Animation createAnimation(Texture texture, int startY, int endY, int startX, int endX, int texWidth, int texHeight, float duration, Animation.PlayMode playMode){
+		Array<TextureRegion> regions;
+		regions = new Array<TextureRegion>();
+		for (int y = startY; y < endY; y++) {
+			for (int x = startX; x < endX; x++) {
+				regions.add(new TextureRegion(texture, texWidth * x, texHeight * y, texWidth, texHeight));
+			}
+		}
+		Animation animation = new Animation(duration, regions);
+		animation.setPlayMode(playMode);
+		return animation;
 	}
 
 	private void initParticles() {
