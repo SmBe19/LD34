@@ -45,7 +45,7 @@ public class Consts {
 	public static final float HERO_DAMAGE = 2;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
-	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 75;
+	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
 	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;

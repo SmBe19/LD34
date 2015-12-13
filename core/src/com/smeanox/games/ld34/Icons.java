@@ -1,4 +1,4 @@
-package com.smeanox.game.ld34;
+package com.smeanox.games.ld34;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
