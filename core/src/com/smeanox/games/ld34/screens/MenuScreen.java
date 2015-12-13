@@ -1,14 +1,17 @@
 package com.smeanox.games.ld34.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
+import com.smeanox.games.ld34.world.ConstsMenu;
+import com.smeanox.games.ld34.world.GameState;
 
 /**
  * Comment
@@ -17,18 +20,28 @@ public class MenuScreen implements Screen {
 
 	private LD34 game;
 
+	private OrthographicCamera camera;
+
 	private boolean wasSpacePressed, wasPlantActionPressed, wasAttackActionPressed;
 
 	private int activeMenuItem;
-	private String[] menuItems = {"More Lives", "More Damage", "More Lives", "More Bridges", "Play"};
+	private String[] menuItems = {"Upgrade Lives", "Upgrade Damage", "Buy Rose", "Buy Bridge", "Play (Space)"};
 	private Font font;
+
+	private float screenRatio;
+
+	private SpriteBatch spriteBatch;
 
 	public MenuScreen(LD34 game) {
 		this.game = game;
 
-		font = new Font(Textures.get().font);
+		camera = new OrthographicCamera(Consts.DEV_WIDTH, Consts.DEV_HEIGHT);
+		camera.setToOrtho(false);
 
-		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = false;
+		font = new Font(Textures.get().font);
+		spriteBatch = new SpriteBatch();
+
+		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = true;
 	}
 
 	@Override
@@ -43,9 +56,21 @@ public class MenuScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		for (int i = 0; i < menuItems.length; i++) {
-			
+		camera.update();
+		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.begin();
+		for (int i = 0; i < ConstsMenu.GAME_TITLE_SPLIT.length; i++) {
+			font.draw(spriteBatch, ConstsMenu.GAME_TITLE_SPLIT[i].toLowerCase(), ConstsMenu.TITLE_OFFSET_X,
+					(int) (Consts.HEIGHT - (ConstsMenu.TITLE_OFFSET_Y + i * ConstsMenu.ITEMS_SPACING_Y)), ConstsMenu.FONT_SIZE, ConstsMenu.TITLE_COLOR);
 		}
+		font.draw(spriteBatch, "$ " + GameState.get().getMoney(), ConstsMenu.ITEMS_OFFSET_X,
+				(int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y)), ConstsMenu.FONT_SIZE);
+		for (int i = 0; i < menuItems.length; i++) {
+			font.draw(spriteBatch, menuItems[i].toLowerCase(), ConstsMenu.ITEMS_OFFSET_X,
+					(int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y + (i+1) * ConstsMenu.ITEMS_SPACING_Y)),
+					ConstsMenu.FONT_SIZE, (i == activeMenuItem ? ConstsMenu.ACTIVE_ITEM_COLOR : ConstsMenu.INACTIVE_ITEM_COLOR));
+		}
+		spriteBatch.end();
 	}
 
 	private void handleInput(float delta){
@@ -75,11 +100,21 @@ public class MenuScreen implements Screen {
 	}
 
 	private void chooseItem(){
+		if(activeMenuItem == 4){
+			game.showGame(true);
+		}
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		screenRatio = (float)width / height;
 
+		Consts.WIDTH = screenRatio * Consts.DEV_HEIGHT;
+		camera.viewportWidth = Consts.WIDTH;
+		camera.viewportHeight = Consts.HEIGHT;
+		camera.setToOrtho(false);
+		camera.update();
+		spriteBatch.setProjectionMatrix(camera.combined);
 	}
 
 	@Override

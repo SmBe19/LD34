@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
 
 		background = Textures.get().background;
 
-		wasAttackActionPressed = wasPlantActionPressed = false;
+		wasAttackActionPressed = wasPlantActionPressed = true;
 
 		deathTimeout = Consts.DEATH_TIMEOUT;
 	}
@@ -148,8 +148,6 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		System.out.println("new size: " + width + " / " + height);
-
 		screenRatio = (float)width / height;
 
 		Consts.WIDTH = screenRatio * Consts.DEV_HEIGHT;
