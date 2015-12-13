@@ -25,6 +25,7 @@ public class Vine extends Plant {
 	public Vine(World world, float x0, float y0, float targetHeight) {
 		super(world, x0, y0);
 		this.targetHeight = targetHeight;
+		lives = Consts.VINE_START_LIVES;
 		vineTexture = Textures.get().vine;
 		growRegions = new TextureRegion[4];
 		for (int i=0; i<4; i++) {
@@ -41,14 +42,18 @@ public class Vine extends Plant {
 
 
 	public void grow(float delta) {
-
 		height += delta * Consts.VINE_GROW_RATE;
 
-		if( height > targetHeight) height = targetHeight;
-
-
+		if( height > targetHeight) {
+			height = targetHeight;
+		}
 	}
-	
+
+	@Override
+	public float getWidth() {
+		return Consts.VINE_TEXTURE_WIDTH;
+	}
+
 	public void render(float delta, SpriteBatch batch) {
 		batch.draw(base, x0 - Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM/2, y0, Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, Consts.VINE_TEXTURE_HEIGHT * Consts.VINE_TEX_ZOOM);
 		for (int y = 0; y < height; y += Consts.VINE_STEP * Consts.VINE_TEX_ZOOM) {
@@ -68,7 +73,7 @@ public class Vine extends Plant {
 	}
 
 	@Override
-	public boolean onCollision(Collidable collidable) {
+	public boolean onCollision(Collidable collidable, float delta) {
 		return true;
 	}
 

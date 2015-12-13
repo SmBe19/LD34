@@ -326,7 +326,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		}
 
 		@Override
-		public boolean onCollision(Collidable collidable) {
+		public boolean onCollision(Collidable collidable, float delta) {
 			if(collidable instanceof GroundPart) {
 				return true;
 			}
@@ -339,10 +339,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public boolean collidesWith(Collidable collidable) {
-			if(collidable instanceof Building && !"snow".equals(particleSystem.tag)){
-				return false;
+			if(collidable instanceof Building && "snow".equals(particleSystem.tag)){
+				return true;
 			}
-			return true;
+			if(collidable instanceof GroundPart){
+				return true;
+			}
+			return false;
 		}
 
 		@Override

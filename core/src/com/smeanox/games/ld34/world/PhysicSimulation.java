@@ -81,8 +81,8 @@ public class PhysicSimulation implements Updatable {
 					collision = true;
 				}
 				if(collision) {
-					boolean acceptCollision = rigidbody.onCollision(collidable);
-					collidable.onCollision(rigidbody);
+					boolean acceptCollision = rigidbody.onCollision(collidable, delta);
+					collidable.onCollision(rigidbody, delta);
 
 					if(acceptCollision){
 						if(Math.abs(diffY) > 0.1e-10){
