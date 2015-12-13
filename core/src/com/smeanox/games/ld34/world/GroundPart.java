@@ -76,6 +76,14 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 		});
 
 		// enemies
+		distributeThing(Consts.ENEMY_MIN_DIST, Consts.ENEMY_MAX_DIST, false, 0f, new ThingFactory() {
+			@Override
+			public float createThing(World world, float x, float y) {
+				GroundEnemy enemy = new GroundEnemy(world, x, y);
+				enemies.add(enemy);
+				return Consts.ENEMY_TEX_WIDTH;
+			}
+		});
 
 		// coins
 		final int logVal = x / Consts.COIN_LOG_ADD_PER_DIST;
@@ -119,7 +127,6 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 			lastThing += thingFactory.createThing(world, x + lastThing, y);
 		}
 
-		new GroundEnemy(world, x + 100, Consts.GROUND_HEIGHT);
 
 		// enemies
 	}
