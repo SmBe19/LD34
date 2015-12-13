@@ -95,7 +95,6 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 				float rand = MathUtils.random(0f, 1);
 				for (int i = 0; i < CoinPlant.colors.length; i++) {
 					rand -= Consts.COIN_PROBABILITIES[i];
-					System.out.println(rand);
 					if (rand <= 0) {
 						coinNum = i;
 						break;
