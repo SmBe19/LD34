@@ -30,7 +30,7 @@ public class GroundEnemy extends Enemy {
 	}
 
 	public float getDamage() {
-		return Consts.ENEMY_DAMAGE_PER_SECOND;
+		return Consts.ENEMY_DAMAGE_PER_SECOND + x * Consts.ENEMY_DAMAGE_PER_DIST;
 	}
 
 	@Override

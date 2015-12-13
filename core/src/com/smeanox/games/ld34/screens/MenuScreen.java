@@ -45,6 +45,8 @@ public class MenuScreen implements Screen {
 		font = new Font(Textures.get().font);
 		spriteBatch = new SpriteBatch();
 
+		activeMenuItem = 4;
+
 		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = true;
 	}
 
