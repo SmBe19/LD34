@@ -19,10 +19,13 @@ public class Consts {
 	public static final int BUILDING_TEX_HEIGHT = 32;
 	public static final int VINE_TEXTURE_HEIGHT = 16;
 	public static final int VINE_TEXTURE_WIDTH = 16;
+	public static final int BRIDGE_TEXTURE_HEIGHT = 16;
+	public static final int BRIDGE_TEXTURE_WIDTH = 16;
 
 	public static final float HERO_TEX_ZOOM = 2.5f;
 	public static final float BUILDING_TEX_ZOOM = HERO_TEX_ZOOM * 0.75f;
 	public static final float VINE_TEX_ZOOM = HERO_TEX_ZOOM;
+	public static final float BRIDGE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
@@ -42,7 +45,7 @@ public class Consts {
 	public static final float HERO_DAMAGE = 2;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
-	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 75;
+	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
 	public static final float HERO_ATTACK_RANGE_Y = HERO_TEX_HEIGHT * HERO_TEX_ZOOM;
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
@@ -79,6 +82,9 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
+	public static final int BRIDGE_STEP = 8;
+	public static final float BRIDGE_GROW_RATE = 200;
+	public static final float BRIDGE_START_LIVES = Float.POSITIVE_INFINITY;
 
 	public static final int ENEMY_TEX_HEIGHT = 24;
 	public static final int ENEMY_TEX_WIDTH = 24;
@@ -121,4 +127,22 @@ public class Consts {
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float ROSE_HP_BONUS = 10;
 	public static final float ROSE_START_LIVES = 1;
+
+	public static final float UPGRADE_HEALTH_BONUS = 1.5f;
+	public static final float UPGRADE_DAMAGE_BONUS = 1.5f;
+	public static final float UPGRADE_HEALTH_COST = 1.5f;
+	public static final float UPGRADE_DAMAGE_COST = 1.5f;
+
+	public static final int UI_MONEY_X = 10;
+	public static final int UI_MONEY_Y = 10;
+	public static final int UI_MONEY_ICON_OFFSET_X = -50;
+	public static final int UI_MONEY_ICON_OFFSET_Y = 0;
+	public static final int UI_MONEY_FONT_SIZE = 3;
+	public static final int UI_MONEY_ICON_SIZE = 4;
+	public static final int UI_LIVES_X = 100;
+	public static final int UI_LIVES_Y = 10;
+	public static final int UI_LIVES_ICON_OFFSET_X = -50;
+	public static final int UI_LIVES_ICON_OFFSET_Y = 0;
+	public static final int UI_LIVES_FONT_SIZE = 4;
+	public static final int UI_LIVES_ICON_SIZE = 4;
 }

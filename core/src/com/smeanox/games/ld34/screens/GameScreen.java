@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Font;
+import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
+import com.smeanox.games.ld34.world.GameState;
 import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;
 import com.smeanox.games.ld34.world.World;
@@ -26,6 +29,7 @@ public class GameScreen implements Screen {
 
 	private LD34 game;
 	private OrthographicCamera camera;
+	private OrthographicCamera uicamera;
 	private OrthographicCamera backgroundCamera;
 	private SpriteBatch spriteBatch;
 	private float screenRatio;
@@ -33,6 +37,7 @@ public class GameScreen implements Screen {
 	private float deathTimeout;
 
 	private Texture background;
+	private Font font;
 
 	private World world;
 
@@ -46,6 +51,7 @@ public class GameScreen implements Screen {
 		screenRatio = Consts.DEV_WIDTH / Consts.DEV_HEIGHT;
 
 		camera = new OrthographicCamera(Consts.DEV_WIDTH, Consts.DEV_HEIGHT);
+		uicamera = new OrthographicCamera(Consts.DEV_WIDTH, Consts.DEV_HEIGHT);
 		backgroundCamera = new OrthographicCamera(Consts.DEV_WIDTH, Consts.DEV_HEIGHT);
 
 		spriteBatch = new SpriteBatch();
@@ -54,7 +60,9 @@ public class GameScreen implements Screen {
 
 		background = Textures.get().background;
 
-		wasAttackActionPressed = wasPlantActionPressed = false;
+		font = new Font(Textures.get().font);
+
+		wasAttackActionPressed = wasPlantActionPressed = true;
 
 		deathTimeout = Consts.DEATH_TIMEOUT;
 	}
@@ -110,6 +118,15 @@ public class GameScreen implements Screen {
 			}
 		}
 		spriteBatch.end();
+
+		spriteBatch.setProjectionMatrix(uicamera.combined);
+
+		spriteBatch.begin();
+		font.draw(spriteBatch, "$ " + GameState.get().getMoney(), Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
+
+		font.draw(spriteBatch, "" + MathUtils.ceil(world.getHero().getLives()), (int) (Consts.WIDTH - Consts.UI_LIVES_X), Consts.UI_LIVES_Y, Consts.UI_LIVES_FONT_SIZE);
+		Icons.HEART.draw(spriteBatch, Consts.UI_LIVES_ICON_SIZE, Consts.WIDTH - Consts.UI_LIVES_X + Consts.UI_LIVES_ICON_OFFSET_X, Consts.UI_LIVES_Y + Consts.UI_LIVES_ICON_OFFSET_Y);
+		spriteBatch.end();
 	}
 
 	private void shake(float delta){
@@ -148,16 +165,19 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		System.out.println("new size: " + width + " / " + height);
-
 		screenRatio = (float)width / height;
 
 		Consts.WIDTH = screenRatio * Consts.DEV_HEIGHT;
 
 		camera.viewportWidth = Consts.WIDTH;
 		camera.viewportHeight = Consts.HEIGHT;
+		uicamera.viewportWidth = Consts.WIDTH;
+		uicamera.viewportHeight = Consts.HEIGHT;
 		backgroundCamera.viewportWidth = Consts.WIDTH;
 		backgroundCamera.viewportHeight = Consts.HEIGHT;
+
+		uicamera.position.set(Consts.WIDTH / 2, Consts.HEIGHT / 2, 0);
+		uicamera.update();
 	}
 
 	@Override

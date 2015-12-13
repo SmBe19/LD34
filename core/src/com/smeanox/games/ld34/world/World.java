@@ -95,6 +95,20 @@ public class World implements Updatable, Renderable {
 		return null;
 	}
 
+	public GroundPart getPrevGroundPart(float x){
+		GroundPart ret = null;
+		for (GroundPart gp : getGroundParts()){
+			if (gp.getX() < x) ret = gp;
+		}
+		return ret;
+	}
+	public GroundPart getNextGroundPart(float x){
+		for (GroundPart gp : getGroundParts()){
+			if ( gp.getX()  > x) return gp;
+		}
+		return null;
+	}
+
 	public void addRenderable(int layer, Renderable renderable){
 		while(renderables.size() <= layer){
 			renderables.add(new ArrayList<Renderable>());
