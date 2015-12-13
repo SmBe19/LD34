@@ -8,11 +8,13 @@ import com.smeanox.games.ld34.Consts;
 public abstract class Enemy extends Rigidbody implements Updatable, Renderable, Destroyable {
 	protected World world;
 
-	public Enemy(World world){
+	public Enemy(World world, float x, float y){
 		this.world = world;
 		world.getUpdatables().add(this);
 		world.addRenderable(Consts.LAYER_ENEMY, this);
 		world.getPhysics().addCollidable(this);
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override

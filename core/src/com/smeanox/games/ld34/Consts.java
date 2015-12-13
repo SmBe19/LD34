@@ -71,6 +71,10 @@ public class Consts {
 	public static final int VINE_STEP = 8;
 	public static final float VINE_GROW_RATE = 70;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
+	public static final int ENEMY_TEX_HEIGHT = 24;
+	public static final int ENEMY_TEX_WIDTH = 24;
+	public static final float ENEMY_TEX_ZOOM = HERO_TEX_ZOOM;
+	
 
 	public static final int THORN_TEX_WIDTH = 32;
 	public static final int THORN_TEX_HEIGHT = 32;

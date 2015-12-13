@@ -89,6 +89,8 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 			lastPlant += plant.getWidth();
 		}
 
+		new GroundEnemy(world, x + 100, Consts.GROUND_HEIGHT);
+
 		// enemies
 	}
 
