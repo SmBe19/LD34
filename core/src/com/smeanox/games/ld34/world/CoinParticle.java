@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.smeanox.games.ld34.Consts;
 
@@ -39,7 +40,7 @@ public class CoinParticle extends ParticleSystem.Particle {
             Vector2 heroPos = new Vector2(world.getHero().getX() + world.getHero().getWidth() / 2,world.getHero().getY()+ + world.getHero().getHeight() / 2);
             Vector2 pos = new Vector2(getX(), getY());
             heroPos.sub(pos);
-            if(heroPos.len() < world.getHero().getWidth() / 2){
+            if(heroPos.len() < world.getHero().getWidth() / 2 && MathUtils.randomBoolean(0.2f)){
                 return true;
             }
         }
