@@ -27,6 +27,7 @@ public class Textures {
 	public Texture rose;
 	public Texture font;
 	public Texture icons;
+	public Texture mike;
 
 	private Textures(){
 		manager = new AssetManager();
@@ -58,6 +59,7 @@ public class Textures {
 		manager.load("textures/rose.png", Texture.class);
 		manager.load("textures/font.png", Texture.class);
 		manager.load("textures/icons.png", Texture.class);
+		manager.load("textures/mike.png", Texture.class);
 	}
 
 	public boolean update(){
@@ -88,6 +90,7 @@ public class Textures {
 		rose = manager.get("textures/rose.png", Texture.class);
 		font = manager.get("textures/font.png", Texture.class);
 		icons = manager.get("textures/icons.png", Texture.class);
+		mike = manager.get("textures/mike.png", Texture.class);
 	}
 
 	public void clear(){
