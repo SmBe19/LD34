@@ -99,9 +99,6 @@ public class MenuScreen implements Screen {
 
 		for (int i = 0; i < menuItems.length; i++) {
 			int y = (int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y + (i + 1) * ConstsMenu.ITEMS_SPACING_Y));
-			Icons.values()[i].draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, y);
-			font.draw(spriteBatch, menuItemsInfo.get(i).toLowerCase(), ConstsMenu.ITEMS_OFFSET_X, y,
-					ConstsMenu.FONT_SIZE, (i == activeMenuItem ? ConstsMenu.ACTIVE_ITEM_COLOR : ConstsMenu.INACTIVE_ITEM_COLOR));
 			if(prices.get(i).length() > 0) {
 				font.draw(spriteBatch, prices.get(i).toLowerCase(),
 						(int) (Consts.WIDTH - ConstsMenu.ITEMS_PRICE_OFFSET_X - prices.get(i).length()
@@ -109,6 +106,9 @@ public class MenuScreen implements Screen {
 						(canBuy.get(i) ? ConstsMenu.CAN_BUY_ITEM_COLOR : ConstsMenu.CANNOT_BUT_ITEM_COLOR));
 				Icons.COIN.draw(spriteBatch, ConstsMenu.ICON_SIZE, Consts.WIDTH - ConstsMenu.ITEMS_PRICE_ICON_OFFSET_X, y);
 			}
+			Icons.values()[i].draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, y);
+			font.draw(spriteBatch, menuItemsInfo.get(i).toLowerCase(), ConstsMenu.ITEMS_OFFSET_X, y,
+					ConstsMenu.FONT_SIZE, (i == activeMenuItem ? ConstsMenu.ACTIVE_ITEM_COLOR : ConstsMenu.INACTIVE_ITEM_COLOR));
 		}
 
 		drawKeyHelp(spriteBatch, font);
