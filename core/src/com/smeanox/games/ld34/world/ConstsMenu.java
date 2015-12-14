@@ -36,7 +36,7 @@ public class ConstsMenu {
 	public static final int KEY_PLANT_X = 10;
 	public static final int KEY_PLANT_Y = 42;
 	public static final int KEY_SECOND_ICON_OFFSET_X = 42;
-	public static final float SHOW_KEYS_DURATION = 10;
+	public static final float SHOW_KEYS_DURATION = 30;
 
 	static {
 		GAME_TITLE_SPLIT = GAME_TITLE.split("\n");

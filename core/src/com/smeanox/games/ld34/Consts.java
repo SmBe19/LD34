@@ -95,7 +95,8 @@ public class Consts {
 	public static final int BUILDING_MIN_WIDTH = 3;
 	public static final int BUILDING_MAX_WIDTH = 9;
 	public static final int BUILDING_MIN_HEIGHT = 2;
-	public static final int BUILDING_MAX_HEIGHT = 14;
+	public static final int BUILDING_MIN_HEIGHT_LAST = 10;
+	public static final int BUILDING_MAX_HEIGHT = 17;
 	public static final int PLANT_MIN_DIST = 400;
 	public static final int PLANT_MAX_DIST = 800;
 	public static final float PLANT_ON_ROOF_CHANCE = 0.5f;
