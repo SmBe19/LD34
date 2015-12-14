@@ -1,5 +1,7 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
 
@@ -8,6 +10,11 @@ import com.smeanox.games.ld34.Consts;
  */
 public class GameState {
 	private static GameState singleton;
+
+	private Preferences preferences;
+
+	private static final String PREF_MONEY = "money", PREF_BRIDGES = "bridges", PREF_ROSES = "roses",
+			PREF_HEALTH_UPGRADES = "healthupgrades", PREF_DAMAGE_UPGRADES = "damageupgrades";
 
 	private long money;
 	private long bridges;
@@ -21,16 +28,18 @@ public class GameState {
 	private long knownMoney;
 
 	private GameState(){
+		moneyGrowth = 1;
+		lastMoneyTime = 0;
+		lastMoney = money;
+		knownMoney = money;
+
+		preferences = Gdx.app.getPreferences(Consts.PREFERENCES_NAME);
+
 		money = Consts.HERO_START_MONEY;
 		roses = Consts.HERO_START_ROSES;
 		bridges = Consts.HERO_START_BRIDGES;
 		healthUpgrades = 0;
 		damageUpgrades = 0;
-
-		moneyGrowth = 1;
-		lastMoneyTime = 0;
-		lastMoney = money;
-		knownMoney = money;
 	}
 
 	public static GameState get(){
@@ -38,6 +47,35 @@ public class GameState {
 			singleton = new GameState();
 		}
 		return singleton;
+	}
+
+	public void reset(){
+		money = Consts.HERO_START_MONEY;
+		roses = Consts.HERO_START_ROSES;
+		bridges = Consts.HERO_START_BRIDGES;
+		healthUpgrades = 0;
+		damageUpgrades = 0;
+
+		preferences.clear();
+		preferences.flush();
+	}
+
+	public void load() {
+		money = preferences.getLong(PREF_MONEY, Consts.HERO_START_MONEY);
+		bridges = preferences.getLong(PREF_BRIDGES, Consts.HERO_START_BRIDGES);
+		roses = preferences.getLong(PREF_ROSES, Consts.HERO_START_ROSES);
+		healthUpgrades = preferences.getLong(PREF_HEALTH_UPGRADES, 0);
+		damageUpgrades = preferences.getLong(PREF_DAMAGE_UPGRADES, 0);
+	}
+
+	public void save() {
+		preferences.putLong(PREF_MONEY, money);
+		preferences.putLong(PREF_BRIDGES, bridges);
+		preferences.putLong(PREF_ROSES, roses);
+		preferences.putLong(PREF_HEALTH_UPGRADES, healthUpgrades);
+		preferences.putLong(PREF_DAMAGE_UPGRADES, damageUpgrades);
+
+		preferences.flush();
 	}
 
 	public float getHeroHealth(){

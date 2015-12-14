@@ -138,6 +138,11 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			world.getTauntManager().setRandomTaunt(TauntManager.falling);
 			lives = 0;
 		}
+
+		if(!isAlive()){
+			vx = 0;
+			animationTime = 0;
+		}
 	}
 
 	@Override
@@ -148,6 +153,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	public void attack() {
+		if(!isAlive()){
+			return;
+		}
 		if (activeAnimation == climbing) {
 			setAnimation(fall);
 			vy = Consts.HERO_JUMP_VELO;
@@ -223,6 +231,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 	}
 
 	public void plant() {
+		if(!isAlive()){
+			return;
+		}
 		if(activeAnimation == climbing){
 			setAnimation(walk);
 			plantOnePlant();
@@ -237,7 +248,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		spawnPlantSystem();
 	}
 
-	private void plantOnePlant(){
+	private boolean plantOnePlant(){
 		GroundPart groundPart = world.getGroundPart(x);
 		if(groundPart != null){
 			float newX = x + Consts.VINE_ON_CLIMBING_OFFSET_X;
@@ -250,8 +261,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			}
 			if (height > 0) {
 				groundPart.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, newX, newY, height - newY));
+				return true;
 			}
 		}
+		return false;
 	}
 
 	private void setAnimation(Animation animation) {

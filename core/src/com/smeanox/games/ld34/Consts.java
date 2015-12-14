@@ -11,7 +11,7 @@ public class Consts {
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
 	public static final float PARTICLES_NON_DESKTOP_REDUCE = 2;
-	public static final boolean IS_DEFAULT_MUTED = true;
+	public static final boolean IS_DEFAULT_MUTED = false;
 
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;
@@ -55,7 +55,7 @@ public class Consts {
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
-	public static final float GRAVITY = -350;
+	public static final float GRAVITY = -300;
 	public static final float LANDING_VELO = -100;
 	public static final float FRICTION = 0.8f;
 	public static final float BOUNCINESS_MIN_Y = 40;
@@ -63,7 +63,7 @@ public class Consts {
 	public static final float BOUNCINESS = 0.25f;
 	public static final float FALLING_FOR_LIMIT = 0.2f;
 	public static final float HERO_VELO = 150;
-	public static final float HERO_CLIMB_VELO = 60f;
+	public static final float HERO_CLIMB_VELO = 90;
 	public static final float HERO_JUMP_VELO = 300;
 	public static final float PLANT_TOP_MARGIN = 10;
 	public static final float HERO_DEATH_HEIGHT = -2000;
@@ -86,7 +86,7 @@ public class Consts {
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 200;
-	public static final int GROUNDPART_MAX_DIST = 250;
+	public static final int GROUNDPART_MAX_DIST = 1000;
 	public static final int GROUNDPART_MIN_WIDTH = 900;
 	public static final int GROUNDPART_MAX_WIDTH = 3000;
 	public static final int GROUNDPART_END_MIN_WIDTH = 25;
@@ -110,7 +110,7 @@ public class Consts {
 	public static final int COIN_MAX_DIST = 800;
 	public static final float COIN_ON_ROOF_CHANCE = 0.8f;
 	public static final int VINE_STEP = 8;
-	public static final float VINE_GROW_RATE = 70;
+	public static final float VINE_GROW_RATE = 90;
 	public static final float VINE_START_LIVES = Float.POSITIVE_INFINITY;
 	public static final int BRIDGE_STEP = 16;
 	public static final float BRIDGE_GROW_RATE = 200;
@@ -153,7 +153,7 @@ public class Consts {
 	public static final float COIN_DUST_VELOCITY = 80f;
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
-	public static final int HERO_SPAMMING_LIMIT = 100;
+	public static final int HERO_SPAMMING_LIMIT = 50;
 	public static final int HERO_SPAMMING_DAMAGE = 2;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 2;
 	public static final float DEATH_TIMEOUT = 3;
@@ -183,6 +183,10 @@ public class Consts {
 	public static final float ROSE_BASE_COST = 20;
 	public static final float BRIDGE_COST_MULT = 1.4f;
 	public static final float ROSE_COST_MULT = 1.4f;
+
+	public static final String PREFERENCES_NAME = "com.smeanox.games.ld34";
+	public static final float RESET_PREFERENCES_HITS = 10;
+	public static final float RESET_PREFERENCES_TIME = 10;
 
 	public static final int UI_MONEY_X = 100;
 	public static final int UI_MONEY_Y = 10;

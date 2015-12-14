@@ -35,6 +35,8 @@ public class MenuScreen implements Screen {
 	private String[] menuItems = {"Upgrade Lives", "Upgrade Damage", "Buy Rose", "Buy Bridge", "Play", "Mute Game"};
 	private Font font;
 
+	private float resetCounter;
+
 	private float screenRatio;
 
 	private SpriteBatch spriteBatch;
@@ -49,7 +51,11 @@ public class MenuScreen implements Screen {
 
 		activeMenuItem = 4;
 
+		resetCounter = 0;
+
 		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = wasBackToMenuPressed = true;
+
+		GameState.get().load();
 	}
 
 	@Override
@@ -60,6 +66,10 @@ public class MenuScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		MusicManager.get().update(delta);
+
+		if(resetCounter > 0){
+			resetCounter -= delta / Consts.RESET_PREFERENCES_TIME;
+		}
 
 		handleInput(delta);
 
@@ -163,8 +173,8 @@ public class MenuScreen implements Screen {
 			nextItem();
 		}
 		if(!wasSpacePressed && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-			game.showGame(true);
-			Sounds.get().play(Sounds.get().start);
+			activeMenuItem = 4;
+			chooseItem();
 		}
 		if(!wasBackToMenuPressed && (Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK))){
 			Gdx.app.exit();
@@ -217,8 +227,16 @@ public class MenuScreen implements Screen {
 				Sounds.get().setMuted(!Sounds.get().isMuted());
 				MusicManager.get().setPlaying(!Sounds.get().isMuted());
 				Sounds.get().play(Sounds.get().coin);
+
+				resetCounter++;
+
+				if(resetCounter > Consts.RESET_PREFERENCES_HITS){
+					GameState.get().reset();
+				}
 				break;
 		}
+
+		GameState.get().save();
 	}
 
 	@Override

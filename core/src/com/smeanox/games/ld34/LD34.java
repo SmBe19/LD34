@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.smeanox.games.ld34.screens.GameScreen;
 import com.smeanox.games.ld34.screens.MenuScreen;
+import com.smeanox.games.ld34.world.GameState;
 
 public class LD34 extends Game {
 
@@ -29,6 +30,8 @@ public class LD34 extends Game {
 		if(menuScreen == null){
 			menuScreen = new MenuScreen(this);
 		}
+		GameState.get().save();
+
 		setScreen(menuScreen);
 	}
 
@@ -36,6 +39,8 @@ public class LD34 extends Game {
 		if(gameScreen == null || restart){
 			gameScreen = new GameScreen(this);
 		}
+		GameState.get().save();
+
 		setScreen(gameScreen);
 	}
 }
