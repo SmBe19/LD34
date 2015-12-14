@@ -22,6 +22,8 @@ public class Bridge extends Plant {
 	
 	private TextureRegion base;
 
+	private Rectangle collisionBox;
+
 	public Bridge(World world, float x0, float y0, float targetWidth) {
 		super(world, x0, y0, Consts.BRIDGE_START_LIVES);
 		this.targetWidth = targetWidth;
@@ -36,6 +38,8 @@ public class Bridge extends Plant {
 			regions[i] = new TextureRegion(bridgeTexture, 0, iy * Consts.BRIDGE_TEXTURE_HEIGHT, Consts.BRIDGE_TEXTURE_WIDTH, Consts.BRIDGE_TEXTURE_HEIGHT);
 		}
 		base = new TextureRegion(bridgeTexture, 0, 4 * Consts.BRIDGE_TEXTURE_HEIGHT, Consts.BRIDGE_TEXTURE_WIDTH, Consts.BRIDGE_TEXTURE_HEIGHT);
+
+		collisionBox = new Rectangle();
 	}
 	
 
@@ -67,7 +71,7 @@ public class Bridge extends Plant {
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX(), getY()- Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM / 2, width, Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM);
+		return collisionBox.set(getX(), getY() - Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM / 2, width, Consts.BRIDGE_TEXTURE_HEIGHT * Consts.BRIDGE_TEX_ZOOM);
 	}
 
 	@Override

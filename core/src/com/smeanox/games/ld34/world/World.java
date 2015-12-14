@@ -3,6 +3,7 @@ package com.smeanox.games.ld34.world;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class World implements Updatable, Renderable {
 	private PhysicSimulation physics;
 	private WeatherSimulation weatherSimulation;
 	private Camera camera;
+	private Rectangle currentViewport;
 
 	private float cameraShake;
 
@@ -32,6 +34,7 @@ public class World implements Updatable, Renderable {
 		renderables = new ArrayList<List<Renderable> >();
 
 		cameraShake = 0;
+		currentViewport = new Rectangle();
 
 		physics = new PhysicSimulation(this);
 
@@ -172,5 +175,9 @@ public class World implements Updatable, Renderable {
 		} else {
 			this.cameraShake = Math.max(this.cameraShake, cameraShake);
 		}
+	}
+
+	public Rectangle getCurrentViewport() {
+		return currentViewport;
 	}
 }

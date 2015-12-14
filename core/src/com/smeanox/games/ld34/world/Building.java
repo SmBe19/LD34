@@ -24,6 +24,8 @@ public class Building implements Renderable, Collidable, Destroyable {
 	private Texture walls;
 	private Texture plants;
 
+	private Rectangle collisionBox;
+
 	public Building(World world, float x0, float y0, int vertSegments, int horSegments) {
 		this.x0 = x0;
 		this.y0 = y0;
@@ -48,6 +50,8 @@ public class Building implements Renderable, Collidable, Destroyable {
 				overgrow[y][x] = MathUtils.randomBoolean(((float)(vSegments-y))/vSegments) ? new TextureRegion(plants, Consts.BUILDING_TEX_WIDTH * ix, 0, Consts.BUILDING_TEX_WIDTH, Consts.BUILDING_TEX_HEIGHT) : null;
 			}
 		}
+
+		collisionBox = new Rectangle();
 	}
 
 	public float getHeight(){
@@ -80,7 +84,7 @@ public class Building implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX(), getY(), hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
+		return collisionBox.set(getX(), getY(), hSegments * Consts.BUILDING_TEX_WIDTH * Consts.BUILDING_TEX_ZOOM,
 				vSegments * Consts.BUILDING_TEX_HEIGHT * Consts.BUILDING_TEX_ZOOM);
 	}
 

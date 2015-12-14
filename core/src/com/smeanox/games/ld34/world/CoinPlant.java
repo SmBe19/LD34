@@ -23,6 +23,8 @@ public class CoinPlant extends Plant {
 	private Color color;
 	private boolean didGiveMoney;
 
+	private Rectangle collisionBox;
+
 	public static final Color[] colors = {new Color(0.5f, 0.3f, 0.1f, 1), new Color(0.8f, 0.4f, 0.1f, 1), new Color(0.6f, 0.7f, 0.8f, 1), new Color(0.9f, 0.9f, 0, 1), new Color(0.4f, 0, 0.9f, 1)};
 
 	public CoinPlant(World world, float x0, float y0, int moneyLog, int colorNum) {
@@ -33,6 +35,8 @@ public class CoinPlant extends Plant {
 		lives = Consts.COIN_START_LIVES;
 		didGiveMoney = false;
 		initAnimation();
+
+		collisionBox = new Rectangle();
 	}
 
 	private void initAnimation(){
@@ -59,7 +63,7 @@ public class CoinPlant extends Plant {
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX() - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, getY(), Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM, Consts.COIN_TEX_HEIGHT * Consts.COIN_TEX_ZOOM);
+		return collisionBox.set(getX() - Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM / 2, getY(), Consts.COIN_TEX_WIDTH * Consts.COIN_TEX_ZOOM, Consts.COIN_TEX_HEIGHT * Consts.COIN_TEX_ZOOM);
 	}
 
 	@Override
@@ -92,7 +96,7 @@ public class CoinPlant extends Plant {
 	private void spawnDestroySystem(){
 
 		if(didGiveMoney) {
-			destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
+			destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
 					0.2f / (colorNum + 1) * 1f / 128,
 					0.2f / (colorNum + 1) * 1f / 256,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
@@ -102,7 +106,7 @@ public class CoinPlant extends Plant {
 			Color pcolor = new Color(color);
 			pcolor = pcolor.lerp(Color.BLACK, 0.3f);
 			pcolor.a = 50;
-			destroySystem = new ParticleSystem(world, "coinDestroy", new CoinDustParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, pcolor, 0.5f, 5f, 0.2f,
+			destroySystem = new ParticleSystem(world, new CoinDustParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, pcolor, 0.5f, 5f, 0.2f,
 					0.2f / (colorNum + 1) * 1f / 32,
 					0.2f / (colorNum + 1) * 1f / 64,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_DUST_VELOCITY, Consts.COIN_DUST_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);

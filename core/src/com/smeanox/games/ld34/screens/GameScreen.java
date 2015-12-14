@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
+import com.smeanox.games.ld34.world.Collidable;
 import com.smeanox.games.ld34.world.ConstsMenu;
 import com.smeanox.games.ld34.world.GameState;
 import com.smeanox.games.ld34.world.Renderable;
@@ -98,6 +100,9 @@ public class GameScreen implements Screen {
 
 		spriteBatch.setProjectionMatrix(backgroundCamera.combined);
 
+		world.getCurrentViewport().set(camera.position.x - camera.viewportWidth / 2,
+				camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+
 		spriteBatch.begin();
 
 		float bgWidth = background.getWidth() * Consts.HEIGHT * 2 / background.getHeight();
@@ -113,6 +118,11 @@ public class GameScreen implements Screen {
 		spriteBatch.begin();
 		for(List<Renderable> list : world.getRenderables()) {
 			for (Renderable renderable : list) {
+				if(renderable instanceof Collidable){
+					if(!world.getCurrentViewport().overlaps(((Collidable) renderable).getCollisionBox())){
+						continue;
+					}
+				}
 				renderable.render(delta, spriteBatch);
 			}
 		}

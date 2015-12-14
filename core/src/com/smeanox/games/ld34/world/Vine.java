@@ -22,6 +22,8 @@ public class Vine extends Plant {
 	
 	private TextureRegion base;
 
+	private Rectangle collisionBox;
+
 	public Vine(World world, float x0, float y0, float targetHeight) {
 		super(world, x0, y0, Consts.VINE_START_LIVES);
 		this.targetHeight = targetHeight;
@@ -36,9 +38,9 @@ public class Vine extends Plant {
 			regions[i] = new TextureRegion(vineTexture, 0, ix * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
 		}
 		base = new TextureRegion(vineTexture, 0, 4 * Consts.VINE_TEXTURE_HEIGHT, Consts.VINE_TEXTURE_WIDTH, Consts.VINE_TEXTURE_HEIGHT);
-	}
-	
 
+		collisionBox = new Rectangle();
+	}
 
 	public void grow(float delta) {
 		height += delta * Consts.VINE_GROW_RATE;
@@ -68,7 +70,7 @@ public class Vine extends Plant {
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX() - Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM / 2, getY(), Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, height);
+		return collisionBox.set(getX() - Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM / 2, getY(), Consts.VINE_TEXTURE_WIDTH * Consts.VINE_TEX_ZOOM, height);
 	}
 
 	@Override

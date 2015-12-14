@@ -10,13 +10,17 @@ public class Thorn extends Plant {
 
 	private ParticleSystem destroySystem;
 
+	private Rectangle collisionBox;
+
 	public Thorn(World world, float x0, float y0) {
 		super(world, x0, y0,Consts.THORN_START_LIVES + x0 * Consts.THORN_LIVES_PER_DIST);
 		initParticles();
+
+		collisionBox = new Rectangle();
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "thornDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.4f, 0.3f, 0.2f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, getX(), getY() + getHeight() / 2, 2, 2, 0, 0, 400, 400);
+		destroySystem = new ParticleSystem(world, null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.4f, 0.3f, 0.2f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, getX(), getY() + getHeight() / 2, 2, 2, 0, 0, 400, 400);
 	}
 
 	public void grow(float delta) {
@@ -38,7 +42,7 @@ public class Thorn extends Plant {
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX() - Consts.THORN_TEX_WIDTH * Consts.THORN_TEX_ZOOM / 2, getY(), Consts.THORN_TEX_WIDTH * Consts.THORN_TEX_ZOOM, Consts.THORN_TEX_HEIGHT * Consts.THORN_TEX_ZOOM);
+		return collisionBox.set(getX() - Consts.THORN_TEX_WIDTH * Consts.THORN_TEX_ZOOM / 2, getY(), Consts.THORN_TEX_WIDTH * Consts.THORN_TEX_ZOOM, Consts.THORN_TEX_HEIGHT * Consts.THORN_TEX_ZOOM);
 	}
 
 	@Override

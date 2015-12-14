@@ -11,8 +11,6 @@ import com.smeanox.games.ld34.Textures;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.soap.Text;
-
 /**
  * Comment
  */
@@ -34,6 +32,8 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 	private TextureRegion[] centre;
 
 	private float maxGap = 0;
+
+	private Rectangle collisionBox;
 
 	public GroundPart(World world, int x, int width) {
 		this.world = world;
@@ -58,6 +58,8 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 		world.addRenderable(Consts.LAYER_GROUND, this);
 		world.getPhysics().addCollidable(this);
+
+		collisionBox = new Rectangle();
 	}
 
 
@@ -158,7 +160,7 @@ public class GroundPart implements Renderable, Collidable, Destroyable {
 
 	@Override
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x, Consts.GROUND_HEIGHT - Consts.GROUND_THICKNESS, width, Consts.GROUND_THICKNESS);
+		return collisionBox.set(x, Consts.GROUND_HEIGHT - Consts.GROUND_THICKNESS, width, Consts.GROUND_THICKNESS);
 	}
 
 	@Override

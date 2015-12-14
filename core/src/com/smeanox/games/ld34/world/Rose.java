@@ -12,13 +12,17 @@ import com.smeanox.games.ld34.Textures;
 public class Rose extends Plant {
 	private boolean destroyed = false;
 
+	private Rectangle collisionBox;
+
 	public Rose(World world, float x, float y){
 		super(world, x, y, Consts.ROSE_START_LIVES);
+
+		collisionBox = new Rectangle();
 
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(getX() - Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM / 2, getY(), Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM, Consts.ROSE_TEX_HEIGHT * Consts.ROSE_TEX_ZOOM);
+		return collisionBox.set(getX() - Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM / 2, getY(), Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM, Consts.ROSE_TEX_HEIGHT * Consts.ROSE_TEX_ZOOM);
 	}
 
 	@Override

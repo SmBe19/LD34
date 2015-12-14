@@ -7,6 +7,9 @@ import com.badlogic.gdx.Input;
  */
 public class Consts {
 	public static final boolean IS_DEV = true;
+	public static final boolean DISABLE_WEATHER = false;
+	public static final boolean DISABLE_PARTICLES = false;
+	public static final float PARTICLELS_NON_DESKTOP_REDUCE = 10;
 
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;

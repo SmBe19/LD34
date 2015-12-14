@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.smeanox.games.ld34.Consts;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -32,14 +33,12 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	private float passedTime;
 	private boolean generating;
 	private float timeout, autoDisable, oneParticleTimeout;
-	private String tag;
 
-	public ParticleSystem(World world, String tag, ParticleFactory particleFactory, int layer,
+	public ParticleSystem(World world, ParticleFactory particleFactory, int layer,
 	                      Texture texture, Color color, float zoom, float lifeTime, float lifeTimeRand, float rate,
 	                      float rateRand, float startX, float startY, float startXRand, float startYRand,
 	                      float startVeloX, float startVeloY, float startVeloXRand, float startVeloYRand) {
 		this.world = world;
-		this.tag = tag;
 		this.particleFactory = particleFactory;
 		this.layer = layer;
 		this.texture = texture;
@@ -59,8 +58,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloYRand = startVeloYRand;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= 10;
-			this.rateRand *= 10;
+			this.rate *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
+			this.rateRand *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
 		}
 
 		if(rate <= 0 || rate - rateRand <= 0){
@@ -158,6 +157,10 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void update(float delta) {
+		if(Consts.DISABLE_PARTICLES){
+			return;
+		}
+
 		for(int i = getParticles().size()-1; i >= 0; i--){
 			getParticles().get(i).update(delta);
 		}
@@ -234,7 +237,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.rate = rate;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= 10;
+			this.rate *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
 		}
 	}
 
@@ -246,7 +249,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.rateRand = rateRand;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rateRand *= 10;
+			this.rateRand *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
 		}
 	}
 
@@ -337,6 +340,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		private int collisions;
 		private ParticleSystem particleSystem;
 
+		private Rectangle collisionBox;
+
 		public Particle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
 			particleSystem.world.getPhysics().addRigidbody(this);
 
@@ -350,11 +355,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 			particleSystem.getParticles().add(this);
 			this.particleSystem = particleSystem;
+
+			collisionBox = new Rectangle();
 		}
 
 		@Override
 		public Rectangle getCollisionBox() {
-			return new Rectangle(x, y, particleSystem.texture.getWidth() * particleSystem.zoom, particleSystem.texture.getHeight() * particleSystem.zoom);
+			return collisionBox.set(x, y, particleSystem.texture.getWidth() * particleSystem.zoom, particleSystem.texture.getHeight() * particleSystem.zoom);
 		}
 
 		@Override
@@ -371,9 +378,6 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 		@Override
 		public boolean collidesWith(Collidable collidable) {
-			if(collidable instanceof Building && "snow".equals(particleSystem.tag)){
-				return true;
-			}
 			if(collidable instanceof GroundPart){
 				return true;
 			}

@@ -43,16 +43,22 @@ public class PhysicSimulation implements Updatable {
 		for (Rigidbody rigidbody : rigidbodies) {
 			rigidbody.doPhysics(delta);
 		}
+		Rectangle collisionBoxY = new Rectangle();
+		Rectangle collisionBoxX = new Rectangle();
 		for (Rigidbody rigidbody : new ArrayList<Rigidbody>(rigidbodies)) {
 			for (Collidable collidable : new ArrayList<Collidable>(collidables)) {
+				Rectangle collisionBox = rigidbody.getCollisionBox();
+				Rectangle collisionBoxCollidable = collidable.getCollisionBox();
+
+				if(!collisionBoxCollidable.overlaps(collisionBoxCollidable)){
+					continue;
+				}
+
 				if (collidable == rigidbody || !rigidbody.collidesWith(collidable)) {
 					continue;
 				}
-				Rectangle collisionBox = rigidbody.getCollisionBox();
-				Rectangle collisionBoxY = new Rectangle(collisionBox.getX() + collisionBox.getWidth() / 4,
+				collisionBoxY.set(collisionBox.getX() + collisionBox.getWidth() / 4,
 						collisionBox.getY(), collisionBox.getWidth() / 2, collisionBox.getHeight());
-
-				Rectangle collisionBoxCollidable = collidable.getCollisionBox();
 
 				boolean collision = false;
 				float diffY = 0;
@@ -67,7 +73,7 @@ public class PhysicSimulation implements Updatable {
 					collision = true;
 				}
 
-				Rectangle collisionBoxX = new Rectangle(collisionBox.getX(),
+				collisionBoxX.set(collisionBox.getX(),
 						collisionBox.getY() + collisionBox.getHeight() / 4 - diffY, collisionBox.getWidth(),
 						collisionBox.getHeight() / 2);
 

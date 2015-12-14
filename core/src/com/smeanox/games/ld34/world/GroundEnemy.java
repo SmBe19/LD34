@@ -16,17 +16,21 @@ public class GroundEnemy extends Enemy {
 
 	private ParticleSystem destroySystem, bloodSystem;
 
+	private Rectangle collisionBox;
+
 	public GroundEnemy(World world, float x, float y) {
 		super(world, x, y);
 		Texture texture = Textures.get().enemy;
 		int type = MathUtils.random(0,3);
 		animation = Hero.createAnimation(texture, type, type+1, 0, 4, Consts.ENEMY_TEX_WIDTH, Consts.ENEMY_TEX_HEIGHT, 0.1f, Animation.PlayMode.LOOP);
 		initParticles();
+
+		collisionBox = new Rectangle();
 	}
 
 	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "groundEnemyDestroy", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.7f, 0.4f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 600);
-		bloodSystem = new ParticleSystem(world, "groundEnemyBlood", null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.4f, 0.3f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 400);
+		destroySystem = new ParticleSystem(world, null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.7f, 0.4f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 600);
+		bloodSystem = new ParticleSystem(world, null, Consts.LAYER_PLANT, Textures.get().particle, new Color(0.8f, 0.4f, 0.3f, 0.5f), 0.5f, 1f, 0.2f, 0.001f, 0.0005f, 0, 0, 2, 2, 0, 0, 400, 400);
 	}
 
 	public float getDamage() {
@@ -60,7 +64,7 @@ public class GroundEnemy extends Enemy {
 	}
 
 	public Rectangle getCollisionBox() {
-		return new Rectangle(x,y,32,32);
+		return collisionBox.set(x,y,32,32);
 	}
 
 	public boolean collidesWith(Collidable collidable) {
