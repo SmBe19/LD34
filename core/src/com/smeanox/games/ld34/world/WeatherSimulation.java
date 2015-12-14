@@ -1,5 +1,7 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
@@ -117,6 +119,10 @@ public class WeatherSimulation implements Updatable {
 	}
 
 	private void snowStorm(){
+		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
+			return;
+		}
+
 		System.out.println("snow storm");
 		initSystem(snowSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
 	}
@@ -127,6 +133,10 @@ public class WeatherSimulation implements Updatable {
 	}
 
 	private void rainStorm(){
+		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
+			return;
+		}
+
 		System.out.println("rain storm");
 		initSystem(rainSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
 	}

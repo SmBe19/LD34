@@ -9,7 +9,7 @@ public class Consts {
 	public static final boolean IS_DEV = true;
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
-	public static final float PARTICLELS_NON_DESKTOP_REDUCE = 10;
+	public static final float PARTICLELS_NON_DESKTOP_REDUCE = 2;
 
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;
@@ -41,11 +41,12 @@ public class Consts {
 	public static final float WEATHER_STORM_PROBABILITY = 0.05f;
 	public static final float WEATHER_STORM_MAX_VELO = 700;
 	public static final float WEATHER_NORMAL_MAX_VELO = 200;
-	public static final float WEATHER_STORM_MIN_RATE = 0.00005f;
-	public static final float WEATHER_STORM_MAX_RATE = 0.001f;
+	public static final float WEATHER_STORM_MIN_RATE = 0.001f;
+	public static final float WEATHER_STORM_MAX_RATE = 0.005f;
 	public static final float WEATHER_NORMAL_MIN_RATE = 0.005f;
 	public static final float WEATHER_NORMAL_MAX_RATE = 0.05f;
 
+	public static final int VIEWPORT_MARGIN = 10;
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
@@ -106,6 +107,7 @@ public class Consts {
 	public static final int BRIDGE_STEP = 16;
 	public static final float BRIDGE_GROW_RATE = 200;
 	public static final float BRIDGE_START_LIVES = Float.POSITIVE_INFINITY;
+	public static final float COINS_COUNT_DURATION = 1;
 
 	public static final int ENEMY_TEX_HEIGHT = 24;
 	public static final int ENEMY_TEX_WIDTH = 24;
