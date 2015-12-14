@@ -18,6 +18,13 @@ public class WeatherSimulation implements Updatable {
 	private float passedTime;
 	private int season, oldSeason;
 
+	private static final Color normalColor = new Color(0.5f, 0.8f, 1f, 1);
+	private static final Color rainColor = new Color(0.6f, 0.7f, 0.9f, 1);
+	private static final Color rainStormColor = new Color(0.4f, 0.5f, 0.7f, 1);
+	private static final Color snowColor = new Color(0.9f, 0.9f, 1, 1);
+	private static final Color snowStormColor = new Color(0.6f, 0.6f, 0.8f, 1);
+	private Color currentColor, nextColor;
+
 	public WeatherSimulation(World world) {
 		this.world = world;
 		world.getUpdatables().add(this);
@@ -27,12 +34,15 @@ public class WeatherSimulation implements Updatable {
 		season = -1;
 		oldSeason = -1;
 
+		currentColor = new Color(normalColor);
+		nextColor = normalColor;
+
 		initParticles();
 	}
 
 	private void initParticles(){
-		snowSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(1, 1, 1, 0.8f), 6f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
-		rainSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(0, 0, 1, 0.5f), 4f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
+		snowSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(1, 1, 1, 0.8f), 6f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH, 10, 0, 0, 100, 100);
+		rainSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(0, 0, 1, 0.5f), 4f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH, 10, 0, 0, 100, 100);
 	}
 
 	@Override
@@ -43,10 +53,12 @@ public class WeatherSimulation implements Updatable {
 		passedTime += delta;
 		passedTime %= Consts.WEATHER_YEAR_LENGTH;
 
-		snowSystem.setStartX(world.getHero().getX());
+		snowSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X);
 		snowSystem.setStartY(world.getHero().getY() + Consts.WEATHER_OFFSET_Y);
-		rainSystem.setStartX(world.getHero().getX());
+		rainSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X);
 		rainSystem.setStartY(world.getHero().getY() + Consts.WEATHER_OFFSET_Y);
+
+		currentColor = currentColor.lerp(nextColor, delta);
 
 		season = MathUtils.floor(passedTime / Consts.WEATHER_YEAR_LENGTH * 4);
 		if (season != oldSeason) {
@@ -55,6 +67,8 @@ public class WeatherSimulation implements Updatable {
 		}
 
 		if(!snowSystem.isGenerating() && !rainSystem.isGenerating()) {
+			nextColor = normalColor;
+
 			// Winter
 			switch (season) {
 				case 0:
@@ -73,6 +87,10 @@ public class WeatherSimulation implements Updatable {
 		}
 
 		oldSeason = season;
+	}
+
+	public Color getCurrentColor(){
+		return currentColor;
 	}
 
 	private void endSeason() {
@@ -125,11 +143,13 @@ public class WeatherSimulation implements Updatable {
 
 		System.out.println("snow storm");
 		initSystem(snowSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
+		nextColor = snowStormColor;
 	}
 
 	private void snowNormal(){
 		System.out.println("snow normal");
 		initSystem(snowSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
+		nextColor = snowColor;
 	}
 
 	private void rainStorm(){
@@ -139,11 +159,13 @@ public class WeatherSimulation implements Updatable {
 
 		System.out.println("rain storm");
 		initSystem(rainSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
+		nextColor = rainStormColor;
 	}
 
 	private void rainNormal(){
 		System.out.println("rain normal");
 		initSystem(rainSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
+		nextColor = rainColor;
 	}
 
 	private void initSystem(ParticleSystem system, float maxVelo, float minRate, float maxRate){

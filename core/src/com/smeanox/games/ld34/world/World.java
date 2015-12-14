@@ -180,4 +180,8 @@ public class World implements Updatable, Renderable {
 	public Rectangle getCurrentViewport() {
 		return currentViewport;
 	}
+
+	public WeatherSimulation getWeatherSimulation() {
+		return weatherSimulation;
+	}
 }

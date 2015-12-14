@@ -16,6 +16,8 @@ public class Consts {
 	public static float WIDTH = DEV_WIDTH;
 	public static float HEIGHT = DEV_HEIGHT;
 
+	public static final int PARALLAX = 10;
+
 	public static final int GROUNDPART_TEX_OFFSET_Y = 16;
 	public static final int HERO_TEX_WIDTH = 24;
 	public static final int HERO_TEX_HEIGHT = 24;
@@ -33,15 +35,16 @@ public class Consts {
 	public static final float THORN_TEX_ZOOM = HERO_TEX_ZOOM;
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
-	public static final float WEATHER_OFFSET_Y = 500;
+	public static final float WEATHER_OFFSET_X = 250;
+	public static final float WEATHER_OFFSET_Y = 400;
 	public static final float WEATHER_YEAR_LENGTH = 600;
-	public static final float WEATHER_MIN_DURATION = 10;
-	public static final float WEATHER_MAX_DURATION = 40;
+	public static final float WEATHER_MIN_DURATION = 20;
+	public static final float WEATHER_MAX_DURATION = 60;
 	public static final float WEATHER_NORMAL_PROBABILITY = 0.1f;
 	public static final float WEATHER_STORM_PROBABILITY = 0.05f;
 	public static final float WEATHER_STORM_MAX_VELO = 700;
 	public static final float WEATHER_NORMAL_MAX_VELO = 200;
-	public static final float WEATHER_STORM_MIN_RATE = 0.001f;
+	public static final float WEATHER_STORM_MIN_RATE = 0.0005f;
 	public static final float WEATHER_STORM_MAX_RATE = 0.005f;
 	public static final float WEATHER_NORMAL_MIN_RATE = 0.005f;
 	public static final float WEATHER_NORMAL_MAX_RATE = 0.05f;

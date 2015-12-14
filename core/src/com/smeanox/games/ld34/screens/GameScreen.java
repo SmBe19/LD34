@@ -3,6 +3,7 @@ package com.smeanox.games.ld34.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -93,7 +94,7 @@ public class GameScreen implements Screen {
 		camera.position.set(MathUtils.roundPositive(world.getHero().getX() + Consts.CAMERA_OFFSET_X),
 				MathUtils.roundPositive(Math.max(world.getHero().getY() - Consts.GROUND_HEIGHT, -Consts.HEIGHT * 5)), 0);
 		shake(delta);
-		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / 10), MathUtils.roundPositive(camera.position.y / 10), 0);
+		backgroundCamera.position.set(MathUtils.roundPositive(camera.position.x / Consts.PARALLAX), MathUtils.roundPositive(camera.position.y / Consts.PARALLAX), 0);
 
 		camera.update();
 		backgroundCamera.update();
@@ -104,6 +105,7 @@ public class GameScreen implements Screen {
 				camera.position.y - camera.viewportHeight / 2 - Consts.VIEWPORT_MARGIN / 2,
 				camera.viewportWidth + Consts.VIEWPORT_MARGIN, camera.viewportHeight + Consts.VIEWPORT_MARGIN);
 
+		spriteBatch.setColor(world.getWeatherSimulation().getCurrentColor());
 		spriteBatch.begin();
 
 		float bgWidth = background.getWidth() * Consts.HEIGHT * 2 / background.getHeight();
@@ -113,6 +115,7 @@ public class GameScreen implements Screen {
 			spriteBatch.draw(background, i * bgWidth, -Consts.HEIGHT, bgWidth, Consts.HEIGHT * 2);
 		}
 		spriteBatch.end();
+		spriteBatch.setColor(Color.WHITE);
 
 		spriteBatch.setProjectionMatrix(camera.combined);
 
