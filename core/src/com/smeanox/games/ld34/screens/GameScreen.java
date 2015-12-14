@@ -1,6 +1,5 @@
 package com.smeanox.games.ld34.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -10,14 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
 import com.smeanox.games.ld34.Textures;
 import com.smeanox.games.ld34.world.Collidable;
-import com.smeanox.games.ld34.world.ConstsMenu;
+import com.smeanox.games.ld34.ConstsMenu;
 import com.smeanox.games.ld34.world.GameState;
 import com.smeanox.games.ld34.world.Renderable;
 import com.smeanox.games.ld34.world.Updatable;

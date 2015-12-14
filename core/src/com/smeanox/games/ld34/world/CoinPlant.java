@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
 
 /**
@@ -90,11 +91,10 @@ public class CoinPlant extends Plant {
 			return;
 		}
 		super.destroy();
-			spawnDestroySystem();
+		spawnDestroySystem();
 	}
 
 	private void spawnDestroySystem(){
-
 		if(didGiveMoney) {
 			destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 4f, 5f, 0.2f,
 					0.2f / (colorNum + 1) * 1f / 128,
@@ -102,7 +102,9 @@ public class CoinPlant extends Plant {
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 
 			GameState.get().addMoney((1 << moneyLog));
-		}else{
+
+			Sounds.get().coin.play();
+		} else {
 			Color pcolor = new Color(color);
 			pcolor = pcolor.lerp(Color.BLACK, 0.3f);
 			pcolor.a = 50;
@@ -111,7 +113,7 @@ public class CoinPlant extends Plant {
 					0.2f / (colorNum + 1) * 1f / 64,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_DUST_VELOCITY, Consts.COIN_DUST_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 
-
+			Sounds.get().destroyCoin.play();
 		}
 		destroySystem.setGenerating(true);
 		destroySystem.setAutoDisable(0.2f);

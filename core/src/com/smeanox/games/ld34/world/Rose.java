@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
 
 /**
@@ -42,6 +43,9 @@ public class Rose extends Plant {
 		if(collidable instanceof Hero){
 			//maybe spawn fancy particles
 			world.getHero().addLives(Consts.ROSE_HP_BONUS * GameState.get().getHeroHealth());
+
+			Sounds.get().rose.play();
+
 			spawnDestroySystem();
 			destroy();
 		}

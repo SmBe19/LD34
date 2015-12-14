@@ -1,4 +1,4 @@
-package com.smeanox.games.ld34.world;
+package com.smeanox.games.ld34;
 
 import com.badlogic.gdx.graphics.Color;
 

@@ -1,7 +1,9 @@
 package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -53,6 +55,9 @@ public class Thorn extends Plant {
 				destroy();
 			} else {
 				((Hero) collidable).addLives(-(Consts.THORN_DAMAGE_PER_SECOND + getX() * Consts.THORN_DAMAGE_PER_DIST) * delta);
+			}
+			if(MathUtils.randomBoolean(Consts.SOUND_HURTS_PROBABILITY)) {
+				Sounds.get().hurt.play();
 			}
 		}
 		return true;

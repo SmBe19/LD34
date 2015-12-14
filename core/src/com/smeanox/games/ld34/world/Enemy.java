@@ -1,6 +1,8 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 
 /**
  * Comment
@@ -60,6 +62,9 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 				destroy();
 			} else {
 				((Hero) collidable).addLives(-getDamage() * delta);
+			}
+			if(MathUtils.randomBoolean(Consts.SOUND_HURTS_PROBABILITY)) {
+				Sounds.get().hurt.play();
 			}
 		}
 		return true;

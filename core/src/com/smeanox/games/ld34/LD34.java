@@ -18,6 +18,7 @@ public class LD34 extends Game {
 	@Override
 	public void create() {
 		Textures.get().finishLoading();
+		Sounds.get().load();
 		showMenu();
 	}
 

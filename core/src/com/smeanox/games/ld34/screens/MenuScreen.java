@@ -11,8 +11,9 @@ import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
+import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
-import com.smeanox.games.ld34.world.ConstsMenu;
+import com.smeanox.games.ld34.ConstsMenu;
 import com.smeanox.games.ld34.world.GameState;
 
 import java.util.ArrayList;
@@ -144,6 +145,7 @@ public class MenuScreen implements Screen {
 		}
 		if(!wasSpacePressed && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			game.showGame(true);
+			Sounds.get().start.play();
 		}
 
 		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1;
@@ -154,24 +156,31 @@ public class MenuScreen implements Screen {
 	private void nextItem(){
 		activeMenuItem++;
 		activeMenuItem %= menuItems.length;
+
+		Sounds.get().blub.play();
 	}
 
 	private void chooseItem(){
 		switch (activeMenuItem){
 			case 0:
 				GameState.get().upgradeHealth();
+				Sounds.get().coin.play();
 				break;
 			case 1:
 				GameState.get().upgradeDamage();
+				Sounds.get().coin.play();
 				break;
 			case 2:
 				GameState.get().buyRose();
+				Sounds.get().coin.play();
 				break;
 			case 3:
 				GameState.get().buyBridge();
+				Sounds.get().coin.play();
 				break;
 			case 4:
 				game.showGame(true);
+				Sounds.get().start.play();
 				break;
 		}
 	}

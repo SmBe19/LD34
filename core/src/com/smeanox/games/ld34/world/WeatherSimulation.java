@@ -18,7 +18,7 @@ public class WeatherSimulation implements Updatable {
 	private float passedTime;
 	private int season, oldSeason;
 
-	private static final Color normalColor = new Color(0.5f, 0.8f, 1f, 1);
+	private static final Color normalColor = new Color(0.7f, 0.9f, 1f, 1);
 	private static final Color rainColor = new Color(0.6f, 0.7f, 0.9f, 1);
 	private static final Color rainStormColor = new Color(0.4f, 0.5f, 0.7f, 1);
 	private static final Color snowColor = new Color(0.9f, 0.9f, 1, 1);

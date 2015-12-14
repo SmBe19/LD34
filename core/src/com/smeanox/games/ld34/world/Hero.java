@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
 
 import java.util.HashSet;
@@ -152,15 +153,20 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if (activeAnimation != walk) {
 			return;
 		}
-		setAnimation(axeSwing);
 
 		if (MathUtils.randomBoolean(0.5f)) {
 			spawnAttackSystem();
 		}
-		if (MathUtils.randomBoolean((float)spammingCount / Consts.HERO_SPAMMING_LIMIT)) {
+
+		boolean selfHit = MathUtils.randomBoolean((float)spammingCount / Consts.HERO_SPAMMING_LIMIT);
+		if (selfHit) {
 			setAnimation(axeSwingOld);
 			addLives(-Consts.HERO_SPAMMING_DAMAGE);
 			spawnBloodInDaFaceSystem();
+
+			Sounds.get().selfhit.play();
+		} else {
+			setAnimation(axeSwing);
 		}
 
 		GroundPart groundPart = world.getGroundPart(x);
@@ -191,6 +197,14 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 						damaged = true;
 						break;
 					}
+				}
+			}
+
+			if(!selfHit){
+				if(damaged){
+					Sounds.get().axeswing.play();
+				} else {
+					Sounds.get().miss.play();
 				}
 			}
 		}
@@ -332,8 +346,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if (collidable instanceof GroundPart){
 			climbingPlants.clear();
 		}
-		if(vy < Consts.GRAVITY * 0.1f){
+		if(vy < Consts.LANDING_VELO){
 			spawnLandingSystem();
+
+			Sounds.get().land.play();
 
 			world.setCameraShake(Consts.CAMERA_SHAKE_LANDING_PER_VELO_Y * vy * vy);
 		}
