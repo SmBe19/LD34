@@ -9,9 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 
-import java.util.ArrayDeque;
+import java.util.LinkedList;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	private float lifeTime, lifeTimeRand, rate, rateRand, startX, startY, startXRand, startYRand, startVeloX, startVeloY, startVeloXRand, startVeloYRand;
 	private float zoom;
-	private Deque<Float> nextParticles;
+	private LinkedList<Float> nextParticles;
 	private Color color;
 	private float passedTime;
 	private boolean generating;
@@ -77,7 +76,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		}
 
 		particles = new ArrayList<Particle>();
-		nextParticles = new ArrayDeque<Float>();
+		nextParticles = new LinkedList<Float>();
 
 		world.getUpdatables().add(this);
 		world.addRenderable(layer, this);
