@@ -16,7 +16,7 @@ public class Font {
 		for (int i=0; i<order.length(); i++) {
 			int x = i % 8;
 			int y = i / 8;
-			regions[i] = new TextureRegion(fontTexture, 8*x, 8*y, 8,8);
+			regions[i] = new TextureRegion(fontTexture, 8*x, 8*y, 7, 7);
 		}
 	}
 
