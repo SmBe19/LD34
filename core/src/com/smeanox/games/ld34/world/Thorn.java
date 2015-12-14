@@ -50,6 +50,7 @@ public class Thorn extends Plant {
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
+			world.getTauntManager().setRandomTaunt(TauntManager.thorn);
 			if(((Hero) collidable).getY() > getY() + getHeight() / 2){
 				((Hero) collidable).addLives(-Consts.THORN_DAMAGE_ON_TOP);
 				destroy();

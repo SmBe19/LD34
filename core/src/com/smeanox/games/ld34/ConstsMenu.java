@@ -13,6 +13,11 @@ public class ConstsMenu {
 	public static final Color TITLE_COLOR = new Color(0.2f, 0.8f, 0.2f, 1);
 	public static final Color TITLE_COLOR_SHADOW = new Color(0.6f, 1f, 0.6f, 1);
 
+	public static final int MIKE_OFFSET_X = 275;
+	public static final int MIKE_OFFSET_Y = 150;
+	public static final int MIKE_WIDTH = 128;
+	public static final int MIKE_HEIGHT = 128;
+
 	public static final int FONT_SIZE = 3;
 	public static final int ICON_SIZE = 4;
 	public static final int ITEMS_OFFSET_X = 100;

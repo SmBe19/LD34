@@ -173,6 +173,19 @@ public class GameScreen implements Screen {
 			MenuScreen.drawKeyHelp(spriteBatch, font);
 		}
 
+		if(!world.getHero().isAlive()){
+			String[] tauntSplit = world.getTauntManager().getCurrentTaunt().split("\n");
+			int tauntHeight = Consts.UI_TAUNT_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
+			for (int i = 0; i < tauntSplit.length; i++) {
+				int tauntWidth = tauntSplit[i].length() * tauntHeight;
+
+				font.draw(spriteBatch, tauntSplit[i], ((int) ((Consts.WIDTH - tauntWidth) / 2)) + 2,
+						((int) ((Consts.HEIGHT - tauntHeight) / 2)) - i * Consts.UI_TAUNT_SPACING_Y - 2, Consts.UI_TAUNT_FONT_SIZE, Consts.UI_TAUNT_COLOR_SHADOW);
+				font.draw(spriteBatch, tauntSplit[i], ((int) ((Consts.WIDTH - tauntWidth) / 2)),
+						((int) ((Consts.HEIGHT - tauntHeight) / 2)) - i * Consts.UI_TAUNT_SPACING_Y, Consts.UI_TAUNT_FONT_SIZE, Consts.UI_TAUNT_COLOR);
+			}
+		}
+
 		spriteBatch.end();
 	}
 

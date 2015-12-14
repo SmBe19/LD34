@@ -21,6 +21,7 @@ public class MusicManager implements Updatable {
 	private MusicManager(){
 		songs = new ArrayList<Music>();
 		activeSong = null;
+		playing = !Consts.IS_DEFAULT_MUTED;
 	}
 
 	public static MusicManager get(){

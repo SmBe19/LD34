@@ -41,7 +41,6 @@ public class Rose extends Plant {
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
-			//maybe spawn fancy particles
 			world.getHero().addLives(Consts.ROSE_HP_BONUS * GameState.get().getHeroHealth());
 
 			Sounds.get().play(Sounds.get().rose);

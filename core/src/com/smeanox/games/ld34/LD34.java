@@ -21,7 +21,7 @@ public class LD34 extends Game {
 		Textures.get().finishLoading();
 		Sounds.get().load();
 		MusicManager.get().load();
-		MusicManager.get().setPlaying(true);
+		MusicManager.get().setPlaying(!Consts.IS_DEFAULT_MUTED);
 		showMenu();
 	}
 

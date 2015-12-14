@@ -57,6 +57,11 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 	@Override
 	public boolean onCollision(Collidable collidable, float delta) {
 		if(collidable instanceof Hero){
+			if(this instanceof GroundEnemy) {
+				world.getTauntManager().setRandomTaunt(TauntManager.groundEnemy);
+			} else {
+				world.getTauntManager().setRandomTaunt(TauntManager.unknown);
+			}
 			if(((Hero) collidable).getY() > y + getHeight() / 2){
 				((Hero) collidable).addLives(-getDamageOnTop());
 				destroy();

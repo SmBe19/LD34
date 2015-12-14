@@ -23,6 +23,7 @@ public class WeatherSimulation implements Updatable {
 	private static final Color rainStormColor = new Color(0.4f, 0.5f, 0.7f, 1);
 	private static final Color snowColor = new Color(0.9f, 0.9f, 1, 1);
 	private static final Color snowStormColor = new Color(0.6f, 0.6f, 0.8f, 1);
+	private static final Color deadColor = new Color(0.7f, 0.3f, 0.3f, 1);
 	private Color currentColor, nextColor;
 
 	public WeatherSimulation(World world) {
@@ -87,6 +88,10 @@ public class WeatherSimulation implements Updatable {
 		}
 
 		oldSeason = season;
+
+		if(!world.getHero().isAlive()){
+			nextColor = deadColor;
+		}
 	}
 
 	public Color getCurrentColor(){

@@ -11,8 +11,6 @@ import com.smeanox.games.ld34.Consts;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,8 +58,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloYRand = startVeloYRand;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
-			this.rateRand *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
+			this.rate *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
+			this.rateRand *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
 		}
 
 		if(rate <= 0 || rate - rateRand <= 0){
@@ -148,6 +146,10 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	private void fillNextParticles(){
+		if(Consts.DISABLE_PARTICLES){
+			return;
+		}
+
 		float last = passedTime;
 		if(!nextParticles.isEmpty()){
 			last = nextParticles.getLast();
@@ -160,10 +162,6 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 
 	@Override
 	public void update(float delta) {
-		if(Consts.DISABLE_PARTICLES){
-			return;
-		}
-
 		for(Particle particle : new HashSet<Particle>(particles)){
 			particle.update(delta);
 		}
@@ -176,7 +174,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			}
 			fillNextParticles();
 
-			while (nextParticles.getFirst() < passedTime) {
+			while (!nextParticles.isEmpty() && nextParticles.getFirst() < passedTime) {
 				nextParticles.removeFirst();
 				addOneParticle();
 			}
@@ -249,7 +247,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.rate = rate;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
+			this.rate *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
 		}
 	}
 
@@ -261,7 +259,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.rateRand = rateRand;
 
 		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rateRand *= Consts.PARTICLELS_NON_DESKTOP_REDUCE;
+			this.rateRand *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
 		}
 	}
 

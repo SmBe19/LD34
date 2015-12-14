@@ -1,6 +1,7 @@
 package com.smeanox.games.ld34;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 
 /**
  * Comment
@@ -9,7 +10,8 @@ public class Consts {
 	public static final boolean IS_DEV = false;
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
-	public static final float PARTICLELS_NON_DESKTOP_REDUCE = 2;
+	public static final float PARTICLES_NON_DESKTOP_REDUCE = 2;
+	public static final boolean IS_DEFAULT_MUTED = true;
 
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;
@@ -154,7 +156,7 @@ public class Consts {
 	public static final int HERO_SPAMMING_LIMIT = 100;
 	public static final int HERO_SPAMMING_DAMAGE = 2;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 2;
-	public static final float DEATH_TIMEOUT = 2;
+	public static final float DEATH_TIMEOUT = 3;
 
 	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
 	public static final float CAMERA_SHAKE_ATTACK_PER_DAMAGE = 30;
@@ -199,5 +201,9 @@ public class Consts {
 	public static final int UI_LIVES_ICON_SIZE = 4;
 	public static final int UI_ROSES_OFFSET_Y = 100;
 	public static final int UI_BRIDGES_OFFSET_Y = 50;
+	public static final int UI_TAUNT_FONT_SIZE = 3;
+	public static final int UI_TAUNT_SPACING_Y = 42;
+	public static final Color UI_TAUNT_COLOR = Color.WHITE;
+	public static final Color UI_TAUNT_COLOR_SHADOW = Color.BLACK;
 	public static final int UI_FONT_WIDTH_PER_SIZE_AND_CHAR = 8;
 }

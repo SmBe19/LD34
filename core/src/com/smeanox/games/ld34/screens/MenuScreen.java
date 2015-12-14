@@ -79,6 +79,17 @@ public class MenuScreen implements Screen {
 		font.draw(spriteBatch, "" + GameState.get().getMoney(), ConstsMenu.ITEMS_OFFSET_X,
 				(int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y)), ConstsMenu.FONT_SIZE);
 
+		spriteBatch.draw(Textures.get().mike, Consts.WIDTH - ConstsMenu.MIKE_OFFSET_X, Consts.HEIGHT - ConstsMenu.MIKE_OFFSET_Y,
+				ConstsMenu.MIKE_WIDTH, ConstsMenu.MIKE_HEIGHT);
+
+		drawMenu();
+
+		drawKeyHelp(spriteBatch, font);
+
+		spriteBatch.end();
+	}
+
+	private void drawMenu() {
 		ArrayList<String> menuItemsInfo = new ArrayList<String>(Arrays.asList(menuItems));
 		ArrayList<String> prices = new ArrayList<String>();
 		ArrayList<Boolean> canBuy = new ArrayList<Boolean>();
@@ -123,10 +134,6 @@ public class MenuScreen implements Screen {
 			font.draw(spriteBatch, menuItemsInfo.get(i).toLowerCase(), ConstsMenu.ITEMS_OFFSET_X, y,
 					ConstsMenu.FONT_SIZE, (i == activeMenuItem ? ConstsMenu.ACTIVE_ITEM_COLOR : ConstsMenu.INACTIVE_ITEM_COLOR));
 		}
-
-		drawKeyHelp(spriteBatch, font);
-
-		spriteBatch.end();
 	}
 
 	public static void drawKeyHelp(SpriteBatch spriteBatch, Font font){

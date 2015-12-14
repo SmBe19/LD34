@@ -135,6 +135,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		}
 
 		if (y < Consts.HERO_DEATH_HEIGHT) {
+			world.getTauntManager().setRandomTaunt(TauntManager.falling);
 			lives = 0;
 		}
 	}
@@ -171,6 +172,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		boolean selfHit = MathUtils.randomBoolean((float)spammingCount / Consts.HERO_SPAMMING_LIMIT);
 		if (selfHit) {
 			setAnimation(axeSwingOld);
+			world.getTauntManager().setRandomTaunt(TauntManager.selfHit);
 			addLives(-Consts.HERO_SPAMMING_DAMAGE);
 			spawnBloodInDaFaceSystem();
 
@@ -320,6 +322,10 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 	public void addLives(float lives){
 		this.lives += lives;
+
+		if(lives > 0){
+			System.out.println(lives);
+		}
 
 		if(lives < 0){
 			spawnAttackedSystem();

@@ -35,7 +35,7 @@ public class Sounds {
 	private boolean muted;
 
 	private Sounds(){
-		muted = false;
+		muted = Consts.IS_DEFAULT_MUTED;
 		sounds = new ArrayList<Sound>();
 		lastPlayTime = new HashMap<Sound, Long>();
 	}

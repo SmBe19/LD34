@@ -18,6 +18,7 @@ public class World implements Updatable, Renderable {
 	private List<GroundPart> groundParts;
 	private PhysicSimulation physics;
 	private WeatherSimulation weatherSimulation;
+	private TauntManager tauntManager;
 	private Camera camera;
 	private Rectangle currentViewport;
 
@@ -49,6 +50,7 @@ public class World implements Updatable, Renderable {
 		generateWorldPart();
 
 		weatherSimulation = new WeatherSimulation(this);
+		tauntManager = new TauntManager(this);
 	}
 
 	public void generateWorldPart(){
@@ -184,5 +186,9 @@ public class World implements Updatable, Renderable {
 
 	public WeatherSimulation getWeatherSimulation() {
 		return weatherSimulation;
+	}
+
+	public TauntManager getTauntManager() {
+		return tauntManager;
 	}
 }
