@@ -17,8 +17,11 @@ public class LD34 extends Game {
 
 	@Override
 	public void create() {
+		Gdx.input.setCatchBackKey(true);
 		Textures.get().finishLoading();
 		Sounds.get().load();
+		MusicManager.get().load();
+		MusicManager.get().setPlaying(true);
 		showMenu();
 	}
 

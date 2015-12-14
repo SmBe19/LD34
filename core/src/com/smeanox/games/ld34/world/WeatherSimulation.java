@@ -62,7 +62,7 @@ public class WeatherSimulation implements Updatable {
 
 		season = MathUtils.floor(passedTime / Consts.WEATHER_YEAR_LENGTH * 4);
 		if (season != oldSeason) {
-			System.out.println("new season: " + season);
+			//System.out.println("new season: " + season);
 			endSeason();
 		}
 
@@ -141,13 +141,13 @@ public class WeatherSimulation implements Updatable {
 			return;
 		}
 
-		System.out.println("snow storm");
+		//System.out.println("snow storm");
 		initSystem(snowSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
 		nextColor = snowStormColor;
 	}
 
 	private void snowNormal(){
-		System.out.println("snow normal");
+		//System.out.println("snow normal");
 		initSystem(snowSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
 		nextColor = snowColor;
 	}
@@ -157,13 +157,13 @@ public class WeatherSimulation implements Updatable {
 			return;
 		}
 
-		System.out.println("rain storm");
+		//System.out.println("rain storm");
 		initSystem(rainSystem, Consts.WEATHER_STORM_MAX_VELO, Consts.WEATHER_STORM_MIN_RATE, Consts.WEATHER_STORM_MAX_RATE);
 		nextColor = rainStormColor;
 	}
 
 	private void rainNormal(){
-		System.out.println("rain normal");
+		//System.out.println("rain normal");
 		initSystem(rainSystem, Consts.WEATHER_NORMAL_MAX_VELO, Consts.WEATHER_NORMAL_MIN_RATE, Consts.WEATHER_NORMAL_MAX_RATE);
 		nextColor = rainColor;
 	}

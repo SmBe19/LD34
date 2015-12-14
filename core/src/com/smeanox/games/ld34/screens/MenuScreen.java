@@ -11,6 +11,7 @@ import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
+import com.smeanox.games.ld34.MusicManager;
 import com.smeanox.games.ld34.Sounds;
 import com.smeanox.games.ld34.Textures;
 import com.smeanox.games.ld34.ConstsMenu;
@@ -28,10 +29,10 @@ public class MenuScreen implements Screen {
 
 	private OrthographicCamera camera;
 
-	private boolean wasSpacePressed, wasPlantActionPressed, wasAttackActionPressed;
+	private boolean wasSpacePressed, wasPlantActionPressed, wasAttackActionPressed, wasBackToMenuPressed;
 
 	private int activeMenuItem;
-	private String[] menuItems = {"Upgrade Lives", "Upgrade Damage", "Buy Rose", "Buy Bridge", "Play (press Space)"};
+	private String[] menuItems = {"Upgrade Lives", "Upgrade Damage", "Buy Rose", "Buy Bridge", "Play", "Mute Game"};
 	private Font font;
 
 	private float screenRatio;
@@ -48,16 +49,18 @@ public class MenuScreen implements Screen {
 
 		activeMenuItem = 4;
 
-		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = true;
+		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = wasBackToMenuPressed = true;
 	}
 
 	@Override
 	public void show() {
-
+		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = wasBackToMenuPressed = true;
 	}
 
 	@Override
 	public void render(float delta) {
+		MusicManager.get().update(delta);
+
 		handleInput(delta);
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -79,17 +82,20 @@ public class MenuScreen implements Screen {
 		ArrayList<String> menuItemsInfo = new ArrayList<String>(Arrays.asList(menuItems));
 		ArrayList<String> prices = new ArrayList<String>();
 		ArrayList<Boolean> canBuy = new ArrayList<Boolean>();
+		ArrayList<Icons> icons = new ArrayList<Icons>();
 
-		// lives
 		menuItemsInfo.set(0, menuItems[0] + " (" + MathUtils.ceil(GameState.get().getHeroHealth()) + ")");
 		menuItemsInfo.set(1, menuItems[1] + " (" + MathUtils.ceil(GameState.get().getHeroDamage()) + ")");
 		menuItemsInfo.set(2, menuItems[2] + " (" + GameState.get().getRoses() + ")");
 		menuItemsInfo.set(3, menuItems[3] + " (" + GameState.get().getBridges() + ")");
 
+		menuItemsInfo.set(5, Sounds.get().isMuted() ? "unmute game" : "mute game");
+
 		prices.add("" + GameState.get().getHeroHealthUpgradeCost());
 		prices.add("" + GameState.get().getHeroDamageUpgradeCost());
 		prices.add("" + GameState.get().getRoseCost());
 		prices.add("" + GameState.get().getBridgeCost());
+		prices.add("");
 		prices.add("");
 
 		canBuy.add(GameState.get().isAbleToUpgradeHealth());
@@ -97,6 +103,12 @@ public class MenuScreen implements Screen {
 		canBuy.add(GameState.get().isAbleToBuyRose());
 		canBuy.add(GameState.get().isAbleToBuyBridge());
 		canBuy.add(false);
+		canBuy.add(false);
+
+		for(int i = 0; i < 5; i++){
+			icons.add(Icons.values()[i]);
+		}
+		icons.add(Icons.KEY);
 
 		for (int i = 0; i < menuItems.length; i++) {
 			int y = (int) (Consts.HEIGHT - (ConstsMenu.ITEMS_OFFSET_Y + (i + 1) * ConstsMenu.ITEMS_SPACING_Y));
@@ -107,7 +119,7 @@ public class MenuScreen implements Screen {
 						(canBuy.get(i) ? ConstsMenu.CAN_BUY_ITEM_COLOR : ConstsMenu.CANNOT_BUT_ITEM_COLOR));
 				Icons.COIN.draw(spriteBatch, ConstsMenu.ICON_SIZE, Consts.WIDTH - ConstsMenu.ITEMS_PRICE_ICON_OFFSET_X, y);
 			}
-			Icons.values()[i].draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, y);
+			icons.get(i).draw(spriteBatch, ConstsMenu.ICON_SIZE, ConstsMenu.ITEMS_ICON_OFFSET_X, y);
 			font.draw(spriteBatch, menuItemsInfo.get(i).toLowerCase(), ConstsMenu.ITEMS_OFFSET_X, y,
 					ConstsMenu.FONT_SIZE, (i == activeMenuItem ? ConstsMenu.ACTIVE_ITEM_COLOR : ConstsMenu.INACTIVE_ITEM_COLOR));
 		}
@@ -147,9 +159,13 @@ public class MenuScreen implements Screen {
 			game.showGame(true);
 			Sounds.get().play(Sounds.get().start);
 		}
+		if(!wasBackToMenuPressed && (Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK))){
+			Gdx.app.exit();
+		}
 
 		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1;
 		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1;
+		wasBackToMenuPressed = Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK);
 		wasSpacePressed = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 	}
 
@@ -189,6 +205,11 @@ public class MenuScreen implements Screen {
 			case 4:
 				game.showGame(true);
 				Sounds.get().play(Sounds.get().start);
+				break;
+			case 5:
+				Sounds.get().setMuted(!Sounds.get().isMuted());
+				MusicManager.get().setPlaying(!Sounds.get().isMuted());
+				Sounds.get().play(Sounds.get().coin);
 				break;
 		}
 	}

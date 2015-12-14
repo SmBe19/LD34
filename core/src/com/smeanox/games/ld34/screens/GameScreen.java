@@ -1,6 +1,7 @@
 package com.smeanox.games.ld34.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -13,6 +14,7 @@ import com.smeanox.games.ld34.Consts;
 import com.smeanox.games.ld34.Font;
 import com.smeanox.games.ld34.Icons;
 import com.smeanox.games.ld34.LD34;
+import com.smeanox.games.ld34.MusicManager;
 import com.smeanox.games.ld34.Textures;
 import com.smeanox.games.ld34.world.Collidable;
 import com.smeanox.games.ld34.ConstsMenu;
@@ -43,7 +45,7 @@ public class GameScreen implements Screen {
 
 	private World world;
 
-	private boolean wasPlantActionPressed, wasAttackActionPressed;
+	private boolean wasPlantActionPressed, wasAttackActionPressed, wasBackToMenuPressed;
 
 	private FPSLogger fpsLogger = new FPSLogger();
 
@@ -63,7 +65,7 @@ public class GameScreen implements Screen {
 		background = Textures.get().background;
 		font = new Font(Textures.get().font);
 
-		wasAttackActionPressed = wasPlantActionPressed = true;
+		wasAttackActionPressed = wasPlantActionPressed = wasBackToMenuPressed = true;
 		deathTimeout = Consts.DEATH_TIMEOUT;
 	}
 
@@ -74,7 +76,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		fpsLogger.log();
+		//fpsLogger.log();
+
+		MusicManager.get().update(delta);
 
 		if(!world.getHero().isAlive()){
 			deathTimeout -= delta;
@@ -201,9 +205,13 @@ public class GameScreen implements Screen {
 		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1)){
 			world.getHero().plant();
 		}
+		if(!wasBackToMenuPressed && (Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK))){
+			game.showMenu();
+		}
 
 		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1;
 		wasPlantActionPressed = Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1;
+		wasBackToMenuPressed = Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK);
 	}
 
 	@Override

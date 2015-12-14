@@ -6,7 +6,7 @@ import com.badlogic.gdx.Input;
  * Comment
  */
 public class Consts {
-	public static final boolean IS_DEV = true;
+	public static final boolean IS_DEV = false;
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
 	public static final float PARTICLELS_NON_DESKTOP_REDUCE = 2;
@@ -70,6 +70,7 @@ public class Consts {
 
 	public static final int KEY_PLANT_ACTION = Input.Keys.A;
 	public static final int KEY_ATTACK_ACTION = Input.Keys.D;
+	public static final int KEY_BACK_TO_MENU = Input.Keys.ESCAPE;
 	public static final String KEY_PLANT_ACTION_STRING = "A";
 	public static final String KEY_ATTACK_ACTION_STRING = "D";
 
@@ -116,6 +117,7 @@ public class Consts {
 
 	public static final long SOUND_DURATION = 400;
 	public static final float SOUND_EFFECT_VOLUME = 1;
+	public static final float SOUND_MUSIC_VOLUME = 0.5f;
 
 	public static final int ENEMY_TEX_HEIGHT = 24;
 	public static final int ENEMY_TEX_WIDTH = 24;
@@ -150,13 +152,12 @@ public class Consts {
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
-	public static final int HERO_SPAMMING_DAMAGE = 1;
+	public static final int HERO_SPAMMING_DAMAGE = 2;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 2;
 	public static final float DEATH_TIMEOUT = 2;
 
 	public static final float CAMERA_SHAKE_LANDING_PER_VELO_Y = 0.0001f;
 	public static final float CAMERA_SHAKE_ATTACK_PER_DAMAGE = 30;
-
 
 	public static final int ROSE_TEX_HEIGHT = 24;
 	public static final int ROSE_TEX_WIDTH = 24;
@@ -178,8 +179,8 @@ public class Consts {
 	public static final float UPGRADE_DAMAGE_COST = 1000;
 	public static final float BRIDGE_BASE_COST = 50;
 	public static final float ROSE_BASE_COST = 20;
-	public static final float BRIDGE_COST_MULT = 1.1f;
-	public static final float ROSE_COST_MULT = 1.1f;
+	public static final float BRIDGE_COST_MULT = 1.4f;
+	public static final float ROSE_COST_MULT = 1.4f;
 
 	public static final int UI_MONEY_X = 100;
 	public static final int UI_MONEY_Y = 10;
