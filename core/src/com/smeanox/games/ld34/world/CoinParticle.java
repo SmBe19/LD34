@@ -9,12 +9,10 @@ import com.smeanox.games.ld34.Consts;
  */
 public class CoinParticle extends ParticleSystem.Particle {
 
-    private int moneyLog;
     private World world;
 
-    public CoinParticle(World world, ParticleSystem particleSystem, float time, float x, float y, float vx, float vy, int moneyLog) {
+    public CoinParticle(World world, ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
         super(particleSystem, time, x, y, vx, vy);
-        this.moneyLog = moneyLog;
         this.world = world;
     }
 

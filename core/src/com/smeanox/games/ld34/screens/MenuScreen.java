@@ -133,7 +133,7 @@ public class MenuScreen implements Screen {
 	private void handleInput(float delta){
 		int touchInp = 0;
 		if(Gdx.input.isTouched()){
-			touchInp = (int) Math.signum(Gdx.input.getX() - Consts.WIDTH / 2);
+			touchInp = (int) Math.signum(Gdx.input.getX() - Gdx.graphics.getWidth() / 2);
 		}
 
 		if(!wasAttackActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1)){

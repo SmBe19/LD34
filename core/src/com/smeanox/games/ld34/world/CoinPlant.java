@@ -96,7 +96,7 @@ public class CoinPlant extends Plant {
 	private void spawnDestroySystem(){
 
 		if(didGiveMoney) {
-			destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
+			destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 4f, 5f, 0.2f,
 					0.2f / (colorNum + 1) * 1f / 128,
 					0.2f / (colorNum + 1) * 1f / 256,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
@@ -106,7 +106,7 @@ public class CoinPlant extends Plant {
 			Color pcolor = new Color(color);
 			pcolor = pcolor.lerp(Color.BLACK, 0.3f);
 			pcolor.a = 50;
-			destroySystem = new ParticleSystem(world, new CoinDustParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, pcolor, 0.5f, 5f, 0.2f,
+			destroySystem = new ParticleSystem(world, new CoinDustParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, pcolor, 4f, 5f, 0.2f,
 					0.2f / (colorNum + 1) * 1f / 32,
 					0.2f / (colorNum + 1) * 1f / 64,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_DUST_VELOCITY, Consts.COIN_DUST_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
@@ -121,7 +121,7 @@ public class CoinPlant extends Plant {
 
 		@Override
 		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
-			return new CoinParticle(world, ps, time, x, y, vx, vy, moneyLog);
+			return new CoinParticle(world, ps, time, x, y, vx, vy);
 		}
 	}
 

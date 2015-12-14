@@ -29,8 +29,8 @@ public class WeatherSimulation implements Updatable {
 	}
 
 	private void initParticles(){
-		snowSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(1, 1, 1, 0.8f), 0.75f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
-		rainSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(0, 0, 1, 0.5f), 0.5f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
+		snowSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(1, 1, 1, 0.8f), 6f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
+		rainSystem = new ParticleSystem(world, null, Consts.LAYER_WEATHER, Textures.get().particle, new Color(0, 0, 1, 0.5f), 4f, 10, 1, 0.01f, 0.001f, 0, 0, Consts.WIDTH*2, 10, 0, 0, 100, 100);
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class Rose extends Plant {
 	}
 
 	private void spawnDestroySystem() {
-		destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, new Color(1, 0, 0, 1), 0.5f, 5f, 0.2f,
+		destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, new Color(1, 0, 0, 1), 4f, 5f, 0.2f,
 				0.1f * 1f / 128,
 				0.1f * 1f / 256,
 				getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
@@ -78,7 +78,7 @@ public class Rose extends Plant {
 
 		@Override
 		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
-			return new CoinParticle(world, ps, time, x, y, vx, vy, 2);
+			return new CoinParticle(world, ps, time, x, y, vx, vy);
 		}
 	}
 }
