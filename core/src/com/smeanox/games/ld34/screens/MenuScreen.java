@@ -145,7 +145,7 @@ public class MenuScreen implements Screen {
 		}
 		if(!wasSpacePressed && Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 			game.showGame(true);
-			Sounds.get().start.play();
+			Sounds.get().play(Sounds.get().start);
 		}
 
 		wasAttackActionPressed = Gdx.input.isKeyPressed(Consts.KEY_ATTACK_ACTION) || touchInp == 1;
@@ -157,30 +157,38 @@ public class MenuScreen implements Screen {
 		activeMenuItem++;
 		activeMenuItem %= menuItems.length;
 
-		Sounds.get().blub.play();
+		Sounds.get().play(Sounds.get().blub);
 	}
 
 	private void chooseItem(){
 		switch (activeMenuItem){
 			case 0:
-				GameState.get().upgradeHealth();
-				Sounds.get().coin.play();
+				if(GameState.get().isAbleToUpgradeHealth()) {
+					GameState.get().upgradeHealth();
+					Sounds.get().play(Sounds.get().coin);
+				}
 				break;
 			case 1:
-				GameState.get().upgradeDamage();
-				Sounds.get().coin.play();
+				if(GameState.get().isAbleToUpgradeDamage()){
+					GameState.get().upgradeDamage();
+					Sounds.get().play(Sounds.get().coin);
+				}
 				break;
 			case 2:
-				GameState.get().buyRose();
-				Sounds.get().coin.play();
+				if(GameState.get().isAbleToBuyRose()) {
+					GameState.get().buyRose();
+					Sounds.get().play(Sounds.get().coin);
+				}
 				break;
 			case 3:
-				GameState.get().buyBridge();
-				Sounds.get().coin.play();
+				if(GameState.get().isAbleToBuyBridge()) {
+					GameState.get().buyBridge();
+					Sounds.get().play(Sounds.get().coin);
+				}
 				break;
 			case 4:
 				game.showGame(true);
-				Sounds.get().start.play();
+				Sounds.get().play(Sounds.get().start);
 				break;
 		}
 	}

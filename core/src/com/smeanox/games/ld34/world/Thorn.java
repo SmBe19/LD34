@@ -56,9 +56,7 @@ public class Thorn extends Plant {
 			} else {
 				((Hero) collidable).addLives(-(Consts.THORN_DAMAGE_PER_SECOND + getX() * Consts.THORN_DAMAGE_PER_DIST) * delta);
 			}
-			if(MathUtils.randomBoolean(Consts.SOUND_HURTS_PROBABILITY)) {
-				Sounds.get().hurt.play();
-			}
+			Sounds.get().playOne(Sounds.get().hurt);
 		}
 		return true;
 	}

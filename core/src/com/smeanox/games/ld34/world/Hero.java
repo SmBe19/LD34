@@ -124,6 +124,16 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		walkSystem.setStartX(x + 8 * Consts.HERO_TEX_ZOOM);
 		walkSystem.setStartY(y + 2 * Consts.HERO_TEX_ZOOM);
 
+		if(activeAnimation == walk){
+			Sounds.get().playOne(Sounds.get().walk);
+			Sounds.get().stop(Sounds.get().fall);
+		} else if (activeAnimation == climbing){
+			Sounds.get().playOne(Sounds.get().climb);
+			Sounds.get().stop(Sounds.get().fall);
+		} else if (activeAnimation == fall){
+			Sounds.get().playOne(Sounds.get().fall, 2000);
+		}
+
 		if (y < Consts.HERO_DEATH_HEIGHT) {
 			lives = 0;
 		}
@@ -164,7 +174,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 			addLives(-Consts.HERO_SPAMMING_DAMAGE);
 			spawnBloodInDaFaceSystem();
 
-			Sounds.get().selfhit.play();
+			Sounds.get().play(Sounds.get().selfhit);
 		} else {
 			setAnimation(axeSwing);
 		}
@@ -202,9 +212,9 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 
 			if(!selfHit){
 				if(damaged){
-					Sounds.get().axeswing.play();
+					Sounds.get().play(Sounds.get().axeswing);
 				} else {
-					Sounds.get().miss.play();
+					Sounds.get().play(Sounds.get().miss);
 				}
 			}
 		}
@@ -349,7 +359,7 @@ public class Hero extends Rigidbody implements Updatable, Renderable {
 		if(vy < Consts.LANDING_VELO){
 			spawnLandingSystem();
 
-			Sounds.get().land.play();
+			Sounds.get().play(Sounds.get().land);
 
 			world.setCameraShake(Consts.CAMERA_SHAKE_LANDING_PER_VELO_Y * vy * vy);
 		}

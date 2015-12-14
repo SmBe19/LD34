@@ -54,7 +54,7 @@ public class Consts {
 	public static final int GROUND_HEIGHT = -150;
 	public static final int GROUND_THICKNESS = 500;
 	public static final float GRAVITY = -350;
-	public static final float LANDING_VELO = -50;
+	public static final float LANDING_VELO = -100;
 	public static final float FRICTION = 0.8f;
 	public static final float BOUNCINESS_MIN_Y = 40;
 	public static final float BOUNCINESS_MIN_X = 10;
@@ -113,7 +113,9 @@ public class Consts {
 	public static final float BRIDGE_GROW_RATE = 200;
 	public static final float BRIDGE_START_LIVES = Float.POSITIVE_INFINITY;
 	public static final float COINS_COUNT_DURATION = 1;
-	public static final float SOUND_HURTS_PROBABILITY = 0.25f;
+
+	public static final long SOUND_DURATION = 400;
+	public static final float SOUND_EFFECT_VOLUME = 1;
 
 	public static final int ENEMY_TEX_HEIGHT = 24;
 	public static final int ENEMY_TEX_WIDTH = 24;

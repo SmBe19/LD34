@@ -44,7 +44,7 @@ public class Rose extends Plant {
 			//maybe spawn fancy particles
 			world.getHero().addLives(Consts.ROSE_HP_BONUS * GameState.get().getHeroHealth());
 
-			Sounds.get().rose.play();
+			Sounds.get().play(Sounds.get().rose);
 
 			spawnDestroySystem();
 			destroy();

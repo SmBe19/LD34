@@ -1,0 +1,11 @@
+Mike's Garden Simulator 2015 Platinum Edition
+=============================================
+Mike is a nature friend and loves his garden. Unfortunately the apocalypse occurred and there are now bad thorn bushes and zombie gardeners everywhere. However this doesn't stop Mike from enjoying the few hours of sunlight he has in northern Canada. Help him enjoy nature in this post apocalyptic world in peace.
+
+Controls
+--------
+There are two buttons: `Plant` and `Attack`. On Desktop they are mapped to `A` and `D`, on mobile on the left and right half of the screen. In menus you can use `Plant` to select an option and `Attack` to confirm it.
+
+Gameplay
+--------
+Destroy the bad thorn bushes and zombie gardeners (`Attack`). Pick up coins along the way to purchase upgrades and buy awesome new seeds. You can plant climbing vines in front of buildings to get on the roof. While climbing you can plant a new vine next to you (`Plant`) or jump of (`Attack`). You can plant a rose in between buildings to restore some health or plant a bridge plant by throwing seeds in a gap. However you have to purchase one time use seeds for those two plants. If you progress more to the right, your coin multiplier will be increased.

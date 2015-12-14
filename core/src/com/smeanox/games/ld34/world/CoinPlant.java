@@ -103,7 +103,7 @@ public class CoinPlant extends Plant {
 
 			GameState.get().addMoney((1 << moneyLog));
 
-			Sounds.get().coin.play();
+			Sounds.get().play(Sounds.get().coin);
 		} else {
 			Color pcolor = new Color(color);
 			pcolor = pcolor.lerp(Color.BLACK, 0.3f);
@@ -113,7 +113,9 @@ public class CoinPlant extends Plant {
 					0.2f / (colorNum + 1) * 1f / 64,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_DUST_VELOCITY, Consts.COIN_DUST_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 
-			Sounds.get().destroyCoin.play();
+			if(!isAlive()) {
+				Sounds.get().play(Sounds.get().destroyCoin);
+			}
 		}
 		destroySystem.setGenerating(true);
 		destroySystem.setAutoDisable(0.2f);

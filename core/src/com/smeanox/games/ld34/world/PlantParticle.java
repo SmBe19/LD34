@@ -1,6 +1,7 @@
 package com.smeanox.games.ld34.world;
 
 import com.smeanox.games.ld34.Consts;
+import com.smeanox.games.ld34.Sounds;
 
 /**
  * Comment
@@ -35,6 +36,7 @@ public class PlantParticle extends ParticleSystem.Particle {
 			float left = getX() - prevgp.getX() + prevgp.getWidth();
 			float right = gp.getX() - getX();
 			gp.getPlants().add(new Bridge(world, prevgp.getX() + prevgp.getWidth(), getY(), gp.getX() - prevgp.getX() - prevgp.getWidth()));
+			Sounds.get().play(Sounds.get().plant);
 			destroy();
 		}
 	}
@@ -52,10 +54,11 @@ public class PlantParticle extends ParticleSystem.Particle {
 			}
 			if (height > 0) {
 				gp.getPlants().add(PlantFactory.justGimmeTheFrikkinNoicePlantPlox(world, getX(), Consts.GROUND_HEIGHT, height));
+				Sounds.get().play(Sounds.get().plant);
 			}else if (  GameState.get().getRoses() > 0){
 				GameState.get().setRoses(GameState.get().getRoses() - 1);
 				gp.getPlants().add(new Rose(world, getX(), Consts.GROUND_HEIGHT));
-
+				Sounds.get().play(Sounds.get().plant);
 			}
 			destroy();
 

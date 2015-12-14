@@ -63,9 +63,7 @@ public abstract class Enemy extends Rigidbody implements Updatable, Renderable, 
 			} else {
 				((Hero) collidable).addLives(-getDamage() * delta);
 			}
-			if(MathUtils.randomBoolean(Consts.SOUND_HURTS_PROBABILITY)) {
-				Sounds.get().hurt.play();
-			}
+			Sounds.get().playOne(Sounds.get().hurt);
 		}
 		return true;
 	}
