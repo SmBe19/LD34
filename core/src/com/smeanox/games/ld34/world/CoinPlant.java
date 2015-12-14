@@ -33,7 +33,6 @@ public class CoinPlant extends Plant {
 		lives = Consts.COIN_START_LIVES;
 		didGiveMoney = false;
 		initAnimation();
-		initParticles();
 	}
 
 	private void initAnimation(){
@@ -43,12 +42,6 @@ public class CoinPlant extends Plant {
 		animationTime = MathUtils.random(0, animation.getAnimationDuration());
 	}
 
-	private void initParticles(){
-		destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
-				0.2f / (colorNum + 1) * 1f / 128,
-				0.2f / (colorNum + 1) * 1f / 256,
-				getX(), getY() + getHeight() / 2, 2, 2, 0,0 ,Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
-	}
 
 	@Override
 	public void grow(float delta) {
@@ -93,13 +86,29 @@ public class CoinPlant extends Plant {
 			return;
 		}
 		super.destroy();
-		if(didGiveMoney) {
 			spawnDestroySystem();
-		}
 	}
 
 	private void spawnDestroySystem(){
-		GameState.get().addMoney((1 << moneyLog));
+
+		if(didGiveMoney) {
+			destroySystem = new ParticleSystem(world, "coinDestroy", new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, color, 0.5f, 5f, 0.2f,
+					0.2f / (colorNum + 1) * 1f / 128,
+					0.2f / (colorNum + 1) * 1f / 256,
+					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
+
+			GameState.get().addMoney((1 << moneyLog));
+		}else{
+			Color pcolor = new Color(color);
+			pcolor = pcolor.lerp(Color.BLACK, 0.3f);
+			pcolor.a = 50;
+			destroySystem = new ParticleSystem(world, "coinDestroy", new CoinDustParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, pcolor, 0.5f, 5f, 0.2f,
+					0.2f / (colorNum + 1) * 1f / 32,
+					0.2f / (colorNum + 1) * 1f / 64,
+					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_DUST_VELOCITY, Consts.COIN_DUST_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
+
+
+		}
 		destroySystem.setGenerating(true);
 		destroySystem.setAutoDisable(0.2f);
 	}
@@ -110,6 +119,13 @@ public class CoinPlant extends Plant {
 		@Override
 		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
 			return new CoinParticle(world, ps, time, x, y, vx, vy, moneyLog);
+		}
+	}
+	public class CoinDustParticleFactory implements ParticleSystem.ParticleFactory {
+
+		@Override
+		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
+			return new ParticleSystem.Particle( ps, time, x, y, vx, vy);
 		}
 	}
 }

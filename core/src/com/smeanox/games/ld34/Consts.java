@@ -31,11 +31,17 @@ public class Consts {
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
 	public static final float WEATHER_OFFSET_Y = 500;
-	public static final float WEATHER_YEAR_LENGTH = 120;
-	public static final float WEATHER_MIN_DURATION = 5;
-	public static final float WEATHER_MAX_DURATION = 20;
-	public static final float WEATHER_NORMAL_PROBABILITY = 0.2f;
-	public static final float WEATHER_STORM_PROBABILITY = 0.01f;
+	public static final float WEATHER_YEAR_LENGTH = 600;
+	public static final float WEATHER_MIN_DURATION = 10;
+	public static final float WEATHER_MAX_DURATION = 40;
+	public static final float WEATHER_NORMAL_PROBABILITY = 0.1f;
+	public static final float WEATHER_STORM_PROBABILITY = 0.05f;
+	public static final float WEATHER_STORM_MAX_VELO = 700;
+	public static final float WEATHER_NORMAL_MAX_VELO = 200;
+	public static final float WEATHER_STORM_MIN_RATE = 0.00005f;
+	public static final float WEATHER_STORM_MAX_RATE = 0.001f;
+	public static final float WEATHER_NORMAL_MIN_RATE = 0.005f;
+	public static final float WEATHER_NORMAL_MAX_RATE = 0.05f;
 
 	public static final int CAMERA_OFFSET_X = 250;
 	public static final int GROUND_HEIGHT = -150;
@@ -62,10 +68,10 @@ public class Consts {
 	public static final int LAYER_WORLD = 0;
 	public static final int LAYER_BUILDING = 1;
 	public static final int LAYER_GROUND = 2;
-	public static final int LAYER_ROSE = 3;
+	public static final int LAYER_WEATHER = 3;
 	public static final int LAYER_PLANT = 4;
 	public static final int LAYER_ENEMY = 5;
-	public static final int LAYER_WEATHER = 9;
+	public static final int LAYER_PARTICLES = 9;
 	public static final int LAYER_HERO = 10;
 
 	public static final int GROUNDPART_MIN_DIST = 200;
@@ -127,6 +133,7 @@ public class Consts {
 	public static final int COIN_LOG_ADD_PER_DIST = 2000;
 	public static final float COIN_ATTRACTION = -130000f;
 	public static final float COIN_VELOCITY = 800f;
+	public static final float COIN_DUST_VELOCITY = 80f;
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
 	public static final int HERO_SPAMMING_LIMIT = 100;
