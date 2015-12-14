@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.smeanox.games.ld34.Consts;
 
 /**
@@ -9,15 +10,27 @@ public class GameState {
 	private static GameState singleton;
 
 	private long money;
-	private long bridges = 0;
-	private long roses = 0;
-	private long healthUpgrades = 0;
-	private long damageUpgrades = 0;
+	private long bridges;
+	private long roses;
+	private long healthUpgrades;
+	private long damageUpgrades;
+
+	private long lastMoney;
+	private float lastMoneyTime;
+	private float moneyGrowth;
+	private long knownMoney;
 
 	private GameState(){
 		money = Consts.HERO_START_MONEY;
 		roses = Consts.HERO_START_ROSES;
 		bridges = Consts.HERO_START_BRIDGES;
+		healthUpgrades = 0;
+		damageUpgrades = 0;
+
+		moneyGrowth = 1;
+		lastMoneyTime = 0;
+		lastMoney = money;
+		knownMoney = money;
 	}
 
 	public static GameState get(){
@@ -80,8 +93,6 @@ public class GameState {
 		money -= getHeroDamageUpgradeCost();
 	}
 
-
-
 	public void buyRose(){
 		if (!isAbleToBuyRose()) return;
 		setRoses(getRoses() + 1);
@@ -122,23 +133,38 @@ public class GameState {
 		this.roses = roses;
 	}
 
-	double visibleMoney = 0;
-
-	long lastT = System.currentTimeMillis();
-
-	float moneyGrowth =  1;
-
 	public float getMoneyGrowth(){
-		return Math.min(1.5f,moneyGrowth);
+		return Math.max(Math.min(1.5f, moneyGrowth), 0.5f);
 	}
 
-	public long getVisibleMoney() {
-		float delta = 0.001f*(System.currentTimeMillis() - lastT);
-		lastT = System.currentTimeMillis();
-		double fac = 1e-323d;
-		fac = Math.pow(fac, delta);
-		moneyGrowth = (float)Math.pow(((((2 - fac) * visibleMoney + fac * money) / 2) - visibleMoney)*delta + 1, 50);
-		visibleMoney = ((2-fac) * visibleMoney + fac * money) / 2;
-		return (long)visibleMoney;
+	public long getVisibleMoney(float totalTime) {
+		float delta = totalTime - lastMoneyTime;
+		if(knownMoney != money){
+			lastMoneyTime = totalTime;
+			if(delta > 0.1e-5 && delta < 1){
+				lastMoney += delta * (knownMoney - lastMoney) / Consts.COINS_COUNT_DURATION;
+			} else {
+				lastMoney = knownMoney;
+			}
+			moneyGrowth = 1;
+			delta = 0;
+			knownMoney = money;
+		}
+		if(lastMoney == money){
+			return money;
+		}
+		if(delta < 0.1e-5){
+			moneyGrowth = 1;
+			return lastMoney;
+		}
+		if(delta > 1){
+			moneyGrowth = 1;
+			lastMoney = money;
+			return money;
+		}
+
+		moneyGrowth = 1 + 2 * (delta - delta*delta);
+
+		return MathUtils.round(lastMoney + delta * (money - lastMoney) / Consts.COINS_COUNT_DURATION);
 	}
 }

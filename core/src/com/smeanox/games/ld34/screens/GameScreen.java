@@ -100,8 +100,9 @@ public class GameScreen implements Screen {
 
 		spriteBatch.setProjectionMatrix(backgroundCamera.combined);
 
-		world.getCurrentViewport().set(camera.position.x - camera.viewportWidth / 2,
-				camera.position.y - camera.viewportHeight / 2, camera.viewportWidth, camera.viewportHeight);
+		world.getCurrentViewport().set(camera.position.x - camera.viewportWidth / 2 - Consts.VIEWPORT_MARGIN / 2,
+				camera.position.y - camera.viewportHeight / 2 - Consts.VIEWPORT_MARGIN / 2,
+				camera.viewportWidth + Consts.VIEWPORT_MARGIN, camera.viewportHeight + Consts.VIEWPORT_MARGIN);
 
 		spriteBatch.begin();
 
@@ -137,11 +138,13 @@ public class GameScreen implements Screen {
 		String text = "";
 		int textWidth = 0;
 
-		text = "" + GameState.get().getVisibleMoney();
+		text = "" + GameState.get().getVisibleMoney(world.getTotalTime());
 		textWidth = text.length() * Consts.UI_MONEY_FONT_SIZE * Consts.UI_FONT_WIDTH_PER_SIZE_AND_CHAR;
 		font.draw(spriteBatch, text, Consts.UI_MONEY_X, Consts.UI_MONEY_Y, Consts.UI_MONEY_FONT_SIZE);
-		float w =  8*  Consts.UI_MONEY_ICON_SIZE * GameState.get().getMoneyGrowth();
-		Icons.COIN.draw(spriteBatch, Consts.UI_MONEY_ICON_SIZE * GameState.get().getMoneyGrowth(), Consts.UI_MONEY_X + Consts.UI_MONEY_ICON_OFFSET_X - w/2 + Consts.UI_MONEY_ICON_SIZE*4, Consts.UI_MONEY_Y + Consts.UI_MONEY_ICON_OFFSET_Y - w/2 + Consts.UI_MONEY_ICON_SIZE*4 );
+		float iconWidth =  8 * Consts.UI_MONEY_ICON_SIZE * GameState.get().getMoneyGrowth();
+		Icons.COIN.draw(spriteBatch, Consts.UI_MONEY_ICON_SIZE * GameState.get().getMoneyGrowth(),
+				Consts.UI_MONEY_X + Consts.UI_MONEY_ICON_OFFSET_X - iconWidth/2 + Consts.UI_MONEY_ICON_SIZE*4,
+				Consts.UI_MONEY_Y + Consts.UI_MONEY_ICON_OFFSET_Y - iconWidth/2 + Consts.UI_MONEY_ICON_SIZE*4 );
 
 		text = "x" + (1 << (((int) world.getHero().getX()) / Consts.COIN_LOG_ADD_PER_DIST));
 		font.draw(spriteBatch, text, Consts.UI_MONEY_MULTIPLIER_X, Consts.UI_MONEY_MULTIPLIER_Y, Consts.UI_MONEY_MULTIPLIER_FONT_SIZE);

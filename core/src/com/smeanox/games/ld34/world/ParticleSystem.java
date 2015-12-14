@@ -9,9 +9,11 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Comment
@@ -22,7 +24,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	private World world;
 	private int layer;
 	private Texture texture;
-	private List<Particle> particles;
+	private Set<Particle> particles;
+	private LinkedList<Particle> deadParticles;
 	private ParticleFactory particleFactory;
 
 	private float lifeTime, lifeTimeRand, rate, rateRand, startX, startY, startXRand, startYRand, startVeloX, startVeloY, startVeloXRand, startVeloYRand;
@@ -75,7 +78,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			};
 		}
 
-		particles = new ArrayList<Particle>();
+		particles = new HashSet<Particle>();
+		deadParticles = new LinkedList<Particle>();
 		nextParticles = new LinkedList<Float>();
 
 		world.getUpdatables().add(this);
@@ -160,8 +164,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			return;
 		}
 
-		for(int i = getParticles().size()-1; i >= 0; i--){
-			getParticles().get(i).update(delta);
+		for(Particle particle : new HashSet<Particle>(particles)){
+			particle.update(delta);
 		}
 		if(generating) {
 			passedTime += delta;
@@ -191,15 +195,24 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public void addOneParticle(){
-		Particle p = particleFactory.createParticle(this, getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
-				getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+		if(!deadParticles.isEmpty()){
+			deadParticles.removeFirst().reset(getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+					getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+		} else {
+			particleFactory.createParticle(this, getRand(lifeTime, lifeTimeRand), getRand(startX, startXRand),
+					getRand(startY, startYRand), getRand(startVeloX, startVeloXRand), getRand(startVeloY, startVeloYRand));
+		}
 	}
 
 	@Override
 	public void render(float delta, SpriteBatch spriteBatch) {
 		spriteBatch.setColor(color);
-		for(int i = getParticles().size()-1; i >= 0; i--) {
-			getParticles().get(i).render(delta, spriteBatch);
+		Rectangle currentViewport = world.getCurrentViewport();
+		for(Particle particle : particles){
+			if(!currentViewport.contains(particle.getX(), particle.getY())){
+				continue;
+			}
+			particle.render(delta, spriteBatch);
 		}
 		spriteBatch.setColor(Color.WHITE);
 	}
@@ -324,8 +337,12 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.particleFactory = particleFactory;
 	}
 
-	public List<Particle> getParticles() {
+	public Set<Particle> getParticles() {
 		return particles;
+	}
+
+	public LinkedList<Particle> getDeadParticles(){
+		return deadParticles;
 	}
 
 	public interface ParticleFactory {
@@ -342,20 +359,25 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		private Rectangle collisionBox;
 
 		public Particle(ParticleSystem particleSystem, float time, float x, float y, float vx, float vy) {
-			particleSystem.world.getPhysics().addRigidbody(this);
+			this.particleSystem = particleSystem;
 
+			reset(time, x, y, vx, vy);
+
+			collisionBox = new Rectangle();
+		}
+
+		public void reset(float time, float x, float y, float vx, float vy){
 			this.time = time;
 			this.x = x;
 			this.y = y;
 			this.vx = vx;
 			this.vy = vy;
-
 			this.collisions = 10;
 
-			particleSystem.getParticles().add(this);
-			this.particleSystem = particleSystem;
+			destroyed = false;
 
-			collisionBox = new Rectangle();
+			particleSystem.world.getPhysics().addRigidbody(this);
+			particleSystem.getParticles().add(this);
 		}
 
 		@Override
@@ -404,6 +426,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			destroyed = true;
 			particleSystem.world.getPhysics().removeRigidbody(this);
 			particleSystem.getParticles().remove(this);
+			particleSystem.getDeadParticles().addLast(this);
 		}
 
 		@Override
