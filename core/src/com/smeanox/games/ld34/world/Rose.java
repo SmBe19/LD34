@@ -1,6 +1,7 @@
 package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
@@ -12,13 +13,14 @@ import com.smeanox.games.ld34.Textures;
 public class Rose extends Plant {
 	private boolean destroyed = false;
 
+	private ParticleSystem destroySystem;
+
 	private Rectangle collisionBox;
 
 	public Rose(World world, float x, float y){
 		super(world, x, y, Consts.ROSE_START_LIVES);
 
 		collisionBox = new Rectangle();
-
 	}
 
 	public Rectangle getCollisionBox() {
@@ -40,12 +42,20 @@ public class Rose extends Plant {
 		if(collidable instanceof Hero){
 			//maybe spawn fancy particles
 			world.getHero().addLives(Consts.ROSE_HP_BONUS * GameState.get().getHeroHealth());
+			spawnDestroySystem();
 			destroy();
 		}
 		return true;
 	}
 
-
+	private void spawnDestroySystem() {
+		destroySystem = new ParticleSystem(world, new CoinParticleFactory(), Consts.LAYER_PLANT, Textures.get().particle, new Color(1, 0, 0, 1), 0.5f, 5f, 0.2f,
+				0.1f * 1f / 128,
+				0.1f * 1f / 256,
+				getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
+		destroySystem.setGenerating(true);
+		destroySystem.setAutoDisable(0.2f);
+	}
 
 	public float getWidth() {
 		return Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM;
@@ -61,8 +71,14 @@ public class Rose extends Plant {
 				Consts.ROSE_TEX_WIDTH * Consts.ROSE_TEX_ZOOM, Consts.ROSE_TEX_HEIGHT * Consts.ROSE_TEX_ZOOM);
 	}
 
-
 	public void grow(float delta) {
 	}
 
+	public class CoinParticleFactory implements ParticleSystem.ParticleFactory {
+
+		@Override
+		public ParticleSystem.Particle createParticle(ParticleSystem ps, float time, float x, float y, float vx, float vy) {
+			return new CoinParticle(world, ps, time, x, y, vx, vy, 2);
+		}
+	}
 }

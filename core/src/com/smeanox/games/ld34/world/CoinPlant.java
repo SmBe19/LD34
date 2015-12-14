@@ -117,7 +117,6 @@ public class CoinPlant extends Plant {
 		destroySystem.setAutoDisable(0.2f);
 	}
 
-
 	public class CoinParticleFactory implements ParticleSystem.ParticleFactory {
 
 		@Override
@@ -125,6 +124,7 @@ public class CoinPlant extends Plant {
 			return new CoinParticle(world, ps, time, x, y, vx, vy, moneyLog);
 		}
 	}
+
 	public class CoinDustParticleFactory implements ParticleSystem.ParticleFactory {
 
 		@Override
