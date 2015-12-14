@@ -33,6 +33,7 @@ public class MusicManager implements Updatable {
 
 	public void load(){
 		songs.add(Gdx.audio.newMusic(Gdx.files.internal("music/blub3.0.mp3")));
+		songs.add(Gdx.audio.newMusic(Gdx.files.internal("music/LD34_001.mp3")));
 
 		for(Music song : songs){
 			song.setVolume(Consts.SOUND_MUSIC_VOLUME);
@@ -69,7 +70,10 @@ public class MusicManager implements Updatable {
 		if(activeSong != null){
 			activeSong.stop();
 		}
-		activeSong = songs.get(MathUtils.random(songs.size() - 1));
+		Music lastSong = songs.size() > 1 ? activeSong : null;
+		do {
+			activeSong = songs.get(MathUtils.random(songs.size() - 1));
+		} while(lastSong == activeSong);
 		activeSong.play();
 	}
 
