@@ -14,7 +14,7 @@ public class GameState {
 	private Preferences preferences;
 
 	private static final String PREF_MONEY = "money", PREF_BRIDGES = "bridges", PREF_ROSES = "roses",
-			PREF_HEALTH_UPGRADES = "healthupgrades", PREF_DAMAGE_UPGRADES = "damageupgrades";
+			PREF_HEALTH_UPGRADES = "healthupgrades", PREF_DAMAGE_UPGRADES = "damageupgrades", PREF_PARTICLE_RATE = "particleRate";
 
 	private long money;
 	private long bridges;
@@ -75,6 +75,7 @@ public class GameState {
 		roses = preferences.getLong(PREF_ROSES, Consts.HERO_START_ROSES);
 		healthUpgrades = preferences.getLong(PREF_HEALTH_UPGRADES, 0);
 		damageUpgrades = preferences.getLong(PREF_DAMAGE_UPGRADES, 0);
+		particleRate = preferences.getFloat(PREF_PARTICLE_RATE, 1f);
 	}
 
 	public void save() {
@@ -83,6 +84,7 @@ public class GameState {
 		preferences.putLong(PREF_ROSES, roses);
 		preferences.putLong(PREF_HEALTH_UPGRADES, healthUpgrades);
 		preferences.putLong(PREF_DAMAGE_UPGRADES, damageUpgrades);
+		preferences.putFloat(PREF_PARTICLE_RATE, particleRate);
 
 		preferences.flush();
 	}
