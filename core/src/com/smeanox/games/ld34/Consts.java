@@ -38,7 +38,7 @@ public class Consts {
 	public static final float COIN_TEX_ZOOM = HERO_TEX_ZOOM;
 
 	public static final float WEATHER_OFFSET_X = 250;
-	public static final float WEATHER_OFFSET_Y = 400;
+	public static final float WEATHER_OFFSET_Y = 500;
 	public static final float WEATHER_YEAR_LENGTH = 600;
 	public static final float WEATHER_MIN_DURATION = 20;
 	public static final float WEATHER_MAX_DURATION = 60;
@@ -65,6 +65,7 @@ public class Consts {
 	public static final float HERO_VELO = 150;
 	public static final float HERO_CLIMB_VELO = 90;
 	public static final float HERO_JUMP_VELO = 300;
+	public static final float HERO_PLANT_THROW_VELO = Consts.HERO_VELO * 1.75f;
 	public static final float PLANT_TOP_MARGIN = 10;
 	public static final float HERO_DEATH_HEIGHT = -2000;
 	public static final float HERO_ATTACK_RANGE_X = HERO_TEX_WIDTH * HERO_TEX_ZOOM + 50;
@@ -177,16 +178,16 @@ public class Consts {
 	public static final float UPGRADE_DAMAGE_AMOUNT = 2;
 	public static final float UPGRADE_HEALTH_BONUS = 1.1f;
 	public static final float UPGRADE_DAMAGE_BONUS = 1.1f;
-	public static final float UPGRADE_HEALTH_COST = 700;
-	public static final float UPGRADE_DAMAGE_COST = 1000;
-	public static final float BRIDGE_BASE_COST = 50;
-	public static final float ROSE_BASE_COST = 20;
+	public static final long UPGRADE_HEALTH_COST = 700;
+	public static final long UPGRADE_DAMAGE_COST = 1000;
+	public static final long BRIDGE_BASE_COST = 50;
+	public static final long ROSE_BASE_COST = 20;
 	public static final float BRIDGE_COST_MULT = 1.4f;
 	public static final float ROSE_COST_MULT = 1.4f;
 
 	public static final String PREFERENCES_NAME = "com.smeanox.games.ld34";
 	public static final float RESET_PREFERENCES_HITS = 10;
-	public static final float RESET_PREFERENCES_TIME = 10;
+	public static final float RESET_PREFERENCES_TIME = 0.5f;
 
 	public static final int UI_MONEY_X = 100;
 	public static final int UI_MONEY_Y = 10;

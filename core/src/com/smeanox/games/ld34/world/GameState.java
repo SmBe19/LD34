@@ -120,27 +120,35 @@ public class GameState {
 	
 	
 	public void upgradeHealth(){
-		if (!isAbleToUpgradeHealth()) return;
-		healthUpgrades++;
+		if (!isAbleToUpgradeHealth()){
+			return;
+		}
 		money -= getHeroHealthUpgradeCost();
+		healthUpgrades++;
 	}
 
 	public void upgradeDamage(){
-		if (!isAbleToUpgradeDamage()) return;
-		damageUpgrades++;
+		if (!isAbleToUpgradeDamage()){
+			return;
+		}
 		money -= getHeroDamageUpgradeCost();
+		damageUpgrades++;
 	}
 
 	public void buyRose(){
-		if (!isAbleToBuyRose()) return;
-		setRoses(getRoses() + 1);
+		if (!isAbleToBuyRose()) {
+			return;
+		}
 		money -= getRoseCost();
+		setRoses(getRoses() + 1);
 	}
 
 	public void buyBridge(){
-		if (!isAbleToBuyBridge()) return;
-		setBridges(getBridges() + 1);
+		if (!isAbleToBuyBridge()){
+			return;
+		}
 		money -= getBridgeCost();
+		setBridges(getBridges() + 1);
 	}
 
 	public long getMoney() {

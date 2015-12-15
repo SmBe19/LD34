@@ -61,6 +61,7 @@ public class MenuScreen implements Screen {
 	@Override
 	public void show() {
 		wasSpacePressed = wasAttackActionPressed = wasPlantActionPressed = wasBackToMenuPressed = true;
+		resetCounter = 0;
 	}
 
 	@Override

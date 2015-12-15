@@ -54,9 +54,9 @@ public class WeatherSimulation implements Updatable {
 		passedTime += delta;
 		passedTime %= Consts.WEATHER_YEAR_LENGTH;
 
-		snowSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X);
+		snowSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X + getXOffset(snowSystem.getStartVeloX()));
 		snowSystem.setStartY(world.getHero().getY() + Consts.WEATHER_OFFSET_Y);
-		rainSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X);
+		rainSystem.setStartX(world.getHero().getX() + Consts.WEATHER_OFFSET_X + getXOffset(rainSystem.getStartVeloX()));
 		rainSystem.setStartY(world.getHero().getY() + Consts.WEATHER_OFFSET_Y);
 
 		currentColor = currentColor.lerp(nextColor, delta);
@@ -92,6 +92,10 @@ public class WeatherSimulation implements Updatable {
 		if(!world.getHero().isAlive()){
 			nextColor = deadColor;
 		}
+	}
+
+	private float getXOffset(float xVelo){
+		return (float) -(xVelo * Math.sqrt(2*Consts.WEATHER_OFFSET_Y/-Consts.GRAVITY));
 	}
 
 	public Color getCurrentColor(){
