@@ -26,6 +26,7 @@ public class GameState {
 	private float lastMoneyTime;
 	private float moneyGrowth;
 	private long knownMoney;
+	private float particleRate = 1f;
 
 	private GameState(){
 		moneyGrowth = 1;
@@ -47,6 +48,14 @@ public class GameState {
 			singleton = new GameState();
 		}
 		return singleton;
+	}
+
+	public float getParticleRate(){
+		return particleRate;
+	}
+
+	public void setParticleRate(float particleRate){
+		this.particleRate = particleRate;
 	}
 
 	public void reset(){

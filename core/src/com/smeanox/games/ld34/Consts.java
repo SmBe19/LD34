@@ -10,7 +10,12 @@ public class Consts {
 	public static final boolean IS_DEV = false;
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
-	public static final float PARTICLES_NON_DESKTOP_REDUCE = 2;
+	public static final float PARTICLES_WEB_REDUCE = 1;
+	public static final float PARTICLES_MOBILE_REDUCE = 100;
+	public static final float PHYSICS_TICKRATE = 1 / 70f; //== 1 / ticks per second
+	public static final float PHYSICS_TICKRATE_MOBILE = 1 / 70f;
+	public static final int TARGET_UPS = 52;
+	public static final int TARGET_UPS_MOBILE = 32;
 	public static final boolean IS_DEFAULT_MUTED = false;
 
 	public static final int DEV_WIDTH = 800;
@@ -40,6 +45,8 @@ public class Consts {
 	public static final float WEATHER_OFFSET_X = 250;
 	public static final float WEATHER_OFFSET_Y = 500;
 	public static final float WEATHER_YEAR_LENGTH = 600;
+	public static final float WEATHER_PARTICLE_LIFETIME = 10;
+	public static final float WEATHER_PARTICLE_LIFETIME_MOBILE = 4;
 	public static final float WEATHER_MIN_DURATION = 20;
 	public static final float WEATHER_MAX_DURATION = 60;
 	public static final float WEATHER_NORMAL_PROBABILITY = 0.1f;

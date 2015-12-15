@@ -1,6 +1,9 @@
 package com.smeanox.games.ld34.world;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.smeanox.games.ld34.Consts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +17,18 @@ public class PhysicSimulation implements Updatable {
 
 	private List<Rigidbody> rigidbodies;
 	private List<Collidable> collidables;
+	private float totalDelta = 0;
+	private float tickRate = Consts.PHYSICS_TICKRATE;
 
 	public PhysicSimulation(World world) {
 		this.world = world;
 
 		rigidbodies = new ArrayList<Rigidbody>();
 		collidables = new ArrayList<Collidable>();
+		if (Gdx.app.getType() == Application.ApplicationType.Android){
+			tickRate = Consts.PHYSICS_TICKRATE_MOBILE;
+		}
+		particleRate = GameState.get().getParticleRate();
 	}
 
 	public void addRigidbody(Rigidbody rigidbody) {
@@ -38,8 +47,52 @@ public class PhysicSimulation implements Updatable {
 		collidables.remove(collidable);
 	}
 
+	private float upssum = 0;
+	private int upscnt = 0;
+	private float pupssum = 0;
+	private int pupscnt = 0;
+	private float avgups = 60f;
+	private float particleRate = 1f;
+
+	public float getUpdatesPerSecond(){
+		return avgups;
+	}
+
+	public float getParticleRateMultiplier(){
+		return particleRate;
+	}
+
 	@Override
 	public void update(float delta) {
+		upssum += delta;
+		upscnt ++;
+		if (upscnt > 300) {
+			avgups = 1f / (upssum / upscnt);
+			upscnt = 0;
+			upssum = 0;
+			int targetUPS = Consts.TARGET_UPS;
+			if (Gdx.app.getType() == Application.ApplicationType.Android){
+				targetUPS = Consts.TARGET_UPS_MOBILE;
+			}
+			//System.out.println(avgups + " ups / " + targetUPS);
+			if (avgups < targetUPS){
+				particleRate /= 4.5f;
+			}else{
+				particleRate *= 1.15f;
+			}
+			//System.out.println(particleRate);
+			GameState.get().setParticleRate(particleRate);
+		}
+		totalDelta += delta;
+		if (totalDelta < tickRate) return;
+		if (pupscnt > 120) {
+			pupscnt = 0;
+			pupssum = 0;
+		}
+		delta = totalDelta;
+		pupssum += delta;
+		pupscnt ++;
+		totalDelta = 0;
 		for (Rigidbody rigidbody : rigidbodies) {
 			rigidbody.doPhysics(delta);
 		}

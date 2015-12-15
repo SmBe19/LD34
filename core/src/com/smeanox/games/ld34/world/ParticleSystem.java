@@ -46,8 +46,6 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.zoom = zoom;
 		this.lifeTime = lifeTime;
 		this.lifeTimeRand = lifeTimeRand;
-		this.rate = rate;
-		this.rateRand = rateRand;
 		this.startX = startX;
 		this.startY = startY;
 		this.startXRand = startXRand;
@@ -57,10 +55,8 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 		this.startVeloXRand = startVeloXRand;
 		this.startVeloYRand = startVeloYRand;
 
-		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
-			this.rateRand *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
-		}
+		setRate(rate);
+		setRateRand(rateRand);
 
 		if(rate <= 0 || rate - rateRand <= 0){
 			System.err.println(rate + "/" + rateRand);
@@ -155,7 +151,7 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 			last = nextParticles.getLast();
 		}
 		while(nextParticles.isEmpty() || last < passedTime + 5){
-			last += getRand(rate, rateRand);
+			last += getRand(rate / world.getPhysics().getParticleRateMultiplier(), rateRand / world.getPhysics().getParticleRateMultiplier());
 			nextParticles.addLast(last);
 		}
 	}
@@ -246,9 +242,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	public void setRate(float rate) {
 		this.rate = rate;
 
-		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rate *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
+		/*
+		if(Gdx.app.getType() == Application.ApplicationType.Android){
+			this.rate *= Consts.PARTICLES_MOBILE_REDUCE;
 		}
+		if(Gdx.app.getType() == Application.ApplicationType.WebGL){
+			this.rate *= Consts.PARTICLES_WEB_REDUCE;
+		}*/
 	}
 
 	public float getRateRand() {
@@ -256,11 +256,13 @@ public class ParticleSystem implements Updatable, Renderable, Destroyable {
 	}
 
 	public void setRateRand(float rateRand) {
-		this.rateRand = rateRand;
-
-		if(Gdx.app.getType() != Application.ApplicationType.Desktop){
-			this.rateRand *= Consts.PARTICLES_NON_DESKTOP_REDUCE;
+		this.rateRand = rateRand;/*
+		if(Gdx.app.getType() == Application.ApplicationType.Android){
+			this.rateRand *= Consts.PARTICLES_MOBILE_REDUCE;
 		}
+		if(Gdx.app.getType() == Application.ApplicationType.WebGL){
+			this.rateRand *= Consts.PARTICLES_WEB_REDUCE;
+		}*/
 	}
 
 	public float getStartX() {
