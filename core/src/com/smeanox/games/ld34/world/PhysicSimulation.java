@@ -77,23 +77,28 @@ public class PhysicSimulation implements Updatable {
 		maxDelta = Math.max(delta, maxDelta);
 		upscnt ++;
 		if (upscnt > 300) {
-			avgups = (1f / (upssum / upscnt) + 1f / maxDelta) / 2f;
+			avgups = (1f / (upssum / upscnt)) / 1f;
 			upscnt = 0;
 			upssum = 0;
-			maxDelta = 0;
 			int targetUPS = Consts.TARGET_UPS;
 			if (Gdx.app.getType() == Application.ApplicationType.Android){
 				targetUPS = Consts.TARGET_UPS_MOBILE;
 			}
+			float targetStutter = Consts.TARGET_STUTTER;
+			if (Gdx.app.getType() == Application.ApplicationType.Android){
+				targetStutter = Consts.TARGET_STUTTER_MOBILE;
+			}
 			//System.out.println(avgups + " ups / " + targetUPS);
+			//System.out.println("stutter: " + maxDelta  + " / " + targetStutter);
 
 			getParticleRateMultiplier();
 			//System.out.println(Math.pow(rateAdjustments, 0.33f));
-			if (avgups < targetUPS){
+			if ((avgups < targetUPS || maxDelta > targetStutter) && rateAdjustments != 1 && rateAdjustments != 100){
 				particleRate /= 1f + 3.5f / Math.pow(rateAdjustments, 0.33f);
 			}else{
 				particleRate *= 1f + 0.15f / Math.pow(rateAdjustments, 0.33f);
 			}
+			maxDelta = 0;
 			//System.out.println(particleRate);
 			GameState.get().setParticleRate(particleRate);
 			rateAdjustments ++;

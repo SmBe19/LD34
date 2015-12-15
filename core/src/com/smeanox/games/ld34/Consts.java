@@ -16,6 +16,8 @@ public class Consts {
 	public static final float PHYSICS_TICKRATE_MOBILE = 1 / 70f;
 	public static final int TARGET_UPS = 52;
 	public static final int TARGET_UPS_MOBILE = 32;
+	public static final float TARGET_STUTTER = 1f / 25;
+	public static final float TARGET_STUTTER_MOBILE = 1f / 15;
 	public static final boolean IS_DEFAULT_MUTED = false;
 
 	public static final int DEV_WIDTH = 800;
