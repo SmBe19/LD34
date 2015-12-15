@@ -26,6 +26,7 @@ public class PhysicSimulation implements Updatable {
 	private int pupscnt = 0;
 	private float avgups = 60f;
 	private float particleRate = -1f;
+	private float maxDelta = 0f;
 
 	public PhysicSimulation(World world) {
 		this.world = world;
@@ -73,11 +74,13 @@ public class PhysicSimulation implements Updatable {
 	@Override
 	public void update(float delta) {
 		upssum += delta;
+		maxDelta = Math.max(delta, maxDelta);
 		upscnt ++;
 		if (upscnt > 300) {
-			avgups = 1f / (upssum / upscnt);
+			avgups = (1f / (upssum / upscnt) + 1f / maxDelta) / 2f;
 			upscnt = 0;
 			upssum = 0;
+			maxDelta = 0;
 			int targetUPS = Consts.TARGET_UPS;
 			if (Gdx.app.getType() == Application.ApplicationType.Android){
 				targetUPS = Consts.TARGET_UPS_MOBILE;
