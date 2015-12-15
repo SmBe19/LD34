@@ -19,6 +19,13 @@ public class PhysicSimulation implements Updatable {
 	private List<Collidable> collidables;
 	private float totalDelta = 0;
 	private float tickRate = Consts.PHYSICS_TICKRATE;
+	private float upssum = 0;
+	private int upscnt = 0;
+	private float pupssum = 0;
+	private int rateAdjustments = 1;
+	private int pupscnt = 0;
+	private float avgups = 60f;
+	private float particleRate = -1f;
 
 	public PhysicSimulation(World world) {
 		this.world = world;
@@ -28,7 +35,6 @@ public class PhysicSimulation implements Updatable {
 		if (Gdx.app.getType() == Application.ApplicationType.Android){
 			tickRate = Consts.PHYSICS_TICKRATE_MOBILE;
 		}
-		particleRate = GameState.get().getParticleRate();
 	}
 
 	public void addRigidbody(Rigidbody rigidbody) {
@@ -47,18 +53,20 @@ public class PhysicSimulation implements Updatable {
 		collidables.remove(collidable);
 	}
 
-	private float upssum = 0;
-	private int upscnt = 0;
-	private float pupssum = 0;
-	private int pupscnt = 0;
-	private float avgups = 60f;
-	private float particleRate = 1f;
 
 	public float getUpdatesPerSecond(){
 		return avgups;
 	}
 
 	public float getParticleRateMultiplier(){
+
+		if (particleRate < 0){
+			particleRate = GameState.get().getParticleRate();
+			System.out.println("Loaded particle rate multiplier of " + particleRate);
+			if (Math.abs(particleRate - 1) > 0.001f){
+				rateAdjustments = 100;
+			}
+		}
 		return particleRate;
 	}
 
@@ -66,7 +74,7 @@ public class PhysicSimulation implements Updatable {
 	public void update(float delta) {
 		upssum += delta;
 		upscnt ++;
-		if (upscnt > 300) {
+		if (upscnt > 30) {
 			avgups = 1f / (upssum / upscnt);
 			upscnt = 0;
 			upssum = 0;
@@ -75,13 +83,17 @@ public class PhysicSimulation implements Updatable {
 				targetUPS = Consts.TARGET_UPS_MOBILE;
 			}
 			//System.out.println(avgups + " ups / " + targetUPS);
+
+			getParticleRateMultiplier();
+			//System.out.println(Math.pow(rateAdjustments, 0.33f));
 			if (avgups < targetUPS){
-				particleRate /= 4.5f;
+				particleRate /= 1f + 3.5f / Math.pow(rateAdjustments, 0.33f);
 			}else{
-				particleRate *= 1.15f;
+				particleRate *= 1f + 0.15f / Math.pow(rateAdjustments, 0.33f);
 			}
 			//System.out.println(particleRate);
 			GameState.get().setParticleRate(particleRate);
+			rateAdjustments ++;
 		}
 		totalDelta += delta;
 		if (totalDelta < tickRate) return;
