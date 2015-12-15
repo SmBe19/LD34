@@ -74,7 +74,7 @@ public class PhysicSimulation implements Updatable {
 	public void update(float delta) {
 		upssum += delta;
 		upscnt ++;
-		if (upscnt > 30) {
+		if (upscnt > 300) {
 			avgups = 1f / (upssum / upscnt);
 			upscnt = 0;
 			upssum = 0;
