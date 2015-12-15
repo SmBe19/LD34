@@ -165,7 +165,7 @@ public class Consts {
 	public static final int ROSE_TEX_HEIGHT = 24;
 	public static final int ROSE_TEX_WIDTH = 24;
 	public static final float ROSE_TEX_ZOOM = HERO_TEX_ZOOM;
-	public static final float ROSE_HP_BONUS = 0.2f; //relative to full hp
+	public static final float ROSE_HP_BONUS = 0.5f; //relative to full hp
 	public static final float ROSE_START_LIVES = 1;
 
 	public static final long HERO_START_MONEY = IS_DEV ? 13371337 : 0;

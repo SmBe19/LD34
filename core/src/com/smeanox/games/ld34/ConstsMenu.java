@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 public class ConstsMenu {
 	public static final String GAME_TITLE = "Mike's Garden\nSimulator 2015\nPlatinum Edition";
 	public static final String[] GAME_TITLE_SPLIT;
+	public static final String GAME_TITLE_ONE_LINE;
 	public static final int TITLE_OFFSET_X = 100;
 	public static final int TITLE_OFFSET_Y = 50;
 	public static final Color TITLE_COLOR = new Color(0.2f, 0.8f, 0.2f, 1);
@@ -45,5 +46,6 @@ public class ConstsMenu {
 
 	static {
 		GAME_TITLE_SPLIT = GAME_TITLE.split("\n");
+		GAME_TITLE_ONE_LINE = GAME_TITLE.replace("\n", " ");
 	}
 }
