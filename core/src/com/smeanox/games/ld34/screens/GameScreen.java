@@ -1,5 +1,6 @@
 package com.smeanox.games.ld34.screens;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -218,7 +219,7 @@ public class GameScreen implements Screen {
 		if(!wasPlantActionPressed && (Gdx.input.isKeyPressed(Consts.KEY_PLANT_ACTION) || touchInp == -1)){
 			world.getHero().plant();
 		}
-		if(!wasBackToMenuPressed && (Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || Gdx.input.isKeyPressed(Input.Keys.BACK))){
+		if(!wasBackToMenuPressed && (Gdx.input.isKeyPressed(Consts.KEY_BACK_TO_MENU) || (Gdx.app.getType() == Application.ApplicationType.Android && Gdx.input.isKeyPressed(Input.Keys.BACK)))){
 			game.showMenu();
 		}
 

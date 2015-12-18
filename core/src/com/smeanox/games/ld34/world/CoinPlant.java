@@ -101,7 +101,9 @@ public class CoinPlant extends Plant {
 					0.2f / (colorNum + 1) * 1f / 256,
 					getX(), getY() + getHeight() / 2, 2, 2, 0, 0, Consts.COIN_VELOCITY, Consts.COIN_VELOCITY);//(1 + colorNum*colorNum) * Consts.COIN_VELOCITY, (1 + colorNum*colorNum)* Consts.COIN_VELOCITY);
 
-			GameState.get().addMoney((1 << moneyLog));
+			long money = 1L << moneyLog;
+			if (money >= 0)
+				GameState.get().addMoney((1l << moneyLog));
 
 			Sounds.get().play(Sounds.get().coin);
 		} else {

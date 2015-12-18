@@ -171,7 +171,11 @@ public class GameState {
 	}
 
 	public void addMoney(long money){
+		long previousMoney = this.money;
 		this.money += money;
+		if (money > 0 && previousMoney > 0 && money < 0) {
+			money = (1L<<63)-1L;
+		}
 	}
 
 	public long getBridges() {
