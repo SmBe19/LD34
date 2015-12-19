@@ -3,11 +3,8 @@ d:icon:0:application/unknown
 i:icon/mike_128.png:3753:image/png
 i:icon/mike_16.png:3084:image/png
 i:icon/mike_32.png:3380:image/png
+i:icon/Mike_512.png:5608:image/png
 i:icon/mike_64.png:3520:image/png
-i:icon/Promo001.jpg:149009:image/jpeg
-i:icon/Promo002.jpg:157788:image/jpeg
-i:icon/Promo003.jpg:127798:image/jpeg
-b:icon/Thumbs.db:35328:application/unknown
 d:music:0:application/unknown
 a:music/blub3.0.mp3:4353043:application/unknown
 a:music/LD34_001.mp3:9209916:application/unknown
