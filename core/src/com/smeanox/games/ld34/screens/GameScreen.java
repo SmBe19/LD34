@@ -81,6 +81,13 @@ public class GameScreen implements Screen {
 
 		MusicManager.get().update(delta);
 
+		if(Consts.SIMULATE_LOW_END >= 0){
+			try {
+				Thread.sleep(Consts.SIMULATE_LOW_END);
+			} catch (InterruptedException ignored) {
+			}
+		}
+
 		if(!world.getHero().isAlive()){
 			deathTimeout -= delta;
 			if(deathTimeout < 0) {

@@ -10,15 +10,19 @@ public class Consts {
 	public static final boolean IS_DEV = false;
 	public static final boolean DISABLE_WEATHER = false;
 	public static final boolean DISABLE_PARTICLES = false;
+	public static final boolean IS_DEFAULT_MUTED = false;
+	public static final long SIMULATE_LOW_END = -1;
+
 	public static final float PARTICLES_WEB_REDUCE = 1;
 	public static final float PARTICLES_MOBILE_REDUCE = 100;
 	public static final float PHYSICS_TICKRATE = 1 / 70f; //== 1 / ticks per second
 	public static final float PHYSICS_TICKRATE_MOBILE = 1 / 70f;
 	public static final int TARGET_UPS = 52;
 	public static final int TARGET_UPS_MOBILE = 32;
-	public static final float TARGET_STUTTER = 1f / 27;
-	public static final float TARGET_STUTTER_MOBILE = 1f / 25;
-	public static final boolean IS_DEFAULT_MUTED = false;
+	public static final float TARGET_STUTTER = 1f / 20;
+	public static final float TARGET_STUTTER_MOBILE = 1f / 18;
+	public static final float PARTICLE_MULTIPLIER_MIN = 0.01f;
+	public static final float PARTICLE_MULTIPLIER_MAX = 1f;
 
 	public static final int DEV_WIDTH = 800;
 	public static final int DEV_HEIGHT = 480;
@@ -142,7 +146,7 @@ public class Consts {
 	public static final float ENEMY_SPEED = 32;
 	public static final float ENEMY_DIST_TO_HERO = 500;
 	public static final float ENEMY_START_LIVES = 1;
-	public static final float ENEMY_LIVES_PER_DIST = 0.0002f;
+	public static final float ENEMY_LIVES_PER_DIST = 0.0003f;
 	public static final float ENEMY_DAMAGE_PER_DIST = 0.0004f;
 
 	public static final int THORN_TEX_WIDTH = 32;
@@ -150,19 +154,20 @@ public class Consts {
 	public static final float THORN_DAMAGE_PER_SECOND = 10;
 	public static final float THORN_DAMAGE_ON_TOP = 4;
 	public static final float THORN_START_LIVES = 1;
-	public static final float THORN_LIVES_PER_DIST = 0.0002f;
+	public static final float THORN_LIVES_PER_DIST = 0.0003f;
 	public static final float THORN_DAMAGE_PER_DIST = 0.0005f;
 
 	public static final int COIN_TEX_WIDTH = 16;
 	public static final int COIN_TEX_HEIGHT = 16;
 	public static final float COIN_START_LIVES = 1;
 	public static final float COIN_OFFSET_Y = 12;
-	public static final int COIN_LOG_ADD_PER_DIST = 2000;
+	public static final int COIN_LOG_ADD_PER_DIST = 2500;
 	public static final float COIN_ATTRACTION = -130000f;
 	public static final float COIN_VELOCITY = 800f;
 	public static final float COIN_DUST_VELOCITY = 80f;
 	public static final float[] COIN_PROBABILITIES = {0.5f, 0.25f, 0.125f, 0.1f, 0.025f};
 
+	public static final int HERO_SPAMMING_LIMIT_MIN = 25;
 	public static final int HERO_SPAMMING_LIMIT = 50;
 	public static final int HERO_SPAMMING_DAMAGE = 2;
 	public static final float HERO_SPAMMING_TIME_LIMIT = 2;
@@ -185,8 +190,8 @@ public class Consts {
 
 	public static final float UPGRADE_HEALTH_AMOUNT = 10;
 	public static final float UPGRADE_DAMAGE_AMOUNT = 2;
-	public static final float UPGRADE_HEALTH_BONUS = 1.1f;
-	public static final float UPGRADE_DAMAGE_BONUS = 1.1f;
+	public static final float UPGRADE_HEALTH_BONUS = 1.7f;
+	public static final float UPGRADE_DAMAGE_BONUS = 1.7f;
 	public static final long UPGRADE_HEALTH_COST = 700;
 	public static final long UPGRADE_DAMAGE_COST = 1000;
 	public static final long BRIDGE_BASE_COST = 50;
@@ -195,6 +200,7 @@ public class Consts {
 	public static final float ROSE_COST_MULT = 1.4f;
 
 	public static final String PREFERENCES_NAME = "com.smeanox.games.ld34";
+	public static final long PREFERENCES_SAVE_VERSION = 2;
 	public static final float RESET_PREFERENCES_HITS = 10;
 	public static final float RESET_PREFERENCES_TIME = 0.5f;
 

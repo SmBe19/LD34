@@ -2,6 +2,7 @@ package com.smeanox.games.ld34.world;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.smeanox.games.ld34.Consts;
 
@@ -23,7 +24,6 @@ public class PhysicSimulation implements Updatable {
 	private int upscnt = 0;
 	private float pupssum = 0;
 	private int rateAdjustments = 1;
-	private int pupscnt = 0;
 	private float avgups = 60f;
 	private float particleRate = -1f;
 	private float maxDelta = 0f;
@@ -60,10 +60,11 @@ public class PhysicSimulation implements Updatable {
 	}
 
 	public float getParticleRateMultiplier(){
-
 		if (particleRate < 0){
 			particleRate = GameState.get().getParticleRate();
-			System.out.println("Loaded particle rate multiplier of " + particleRate);
+
+//			 System.out.println("Loaded particle rate multiplier of " + particleRate);
+
 			if (Math.abs(particleRate - 1) > 0.001f){
 				rateAdjustments = 100;
 			}
@@ -73,46 +74,15 @@ public class PhysicSimulation implements Updatable {
 
 	@Override
 	public void update(float delta) {
-		upssum += delta;
-		maxDelta = Math.max(delta, maxDelta);
-		upscnt ++;
-		if (upscnt > 300) {
-			avgups = (1f / (upssum / upscnt)) / 1f;
-			upscnt = 0;
-			upssum = 0;
-			int targetUPS = Consts.TARGET_UPS;
-			if (Gdx.app.getType() == Application.ApplicationType.Android){
-				targetUPS = Consts.TARGET_UPS_MOBILE;
-			}
-			float targetStutter = Consts.TARGET_STUTTER;
-			if (Gdx.app.getType() == Application.ApplicationType.Android){
-				targetStutter = Consts.TARGET_STUTTER_MOBILE;
-			}
-			//System.out.println(avgups + " ups / " + targetUPS);
-			//System.out.println("stutter: " + maxDelta  + " / " + targetStutter);
+		adaptParticleRate(delta);
 
-			getParticleRateMultiplier();
-			//System.out.println(Math.pow(rateAdjustments, 0.33f));
-			if ((avgups < targetUPS || maxDelta > targetStutter) && rateAdjustments != 1 && rateAdjustments != 100){
-				particleRate /= 1f + 3.5f / Math.pow(rateAdjustments, 0.33f);
-			}else{
-				particleRate *= 1f + 0.15f / Math.pow(rateAdjustments, 0.33f);
-			}
-			maxDelta = 0;
-			//System.out.println(particleRate);
-			GameState.get().setParticleRate(particleRate);
-			rateAdjustments ++;
-		}
 		totalDelta += delta;
-		if (totalDelta < tickRate) return;
-		if (pupscnt > 120) {
-			pupscnt = 0;
-			pupssum = 0;
+		if (totalDelta < tickRate){
+			return;
 		}
 		delta = totalDelta;
-		pupssum += delta;
-		pupscnt ++;
 		totalDelta = 0;
+
 		for (Rigidbody rigidbody : rigidbodies) {
 			rigidbody.doPhysics(delta);
 		}
@@ -173,6 +143,41 @@ public class PhysicSimulation implements Updatable {
 					}
 				}
 			}
+		}
+	}
+
+	private void adaptParticleRate(float delta) {
+		upssum += delta;
+		maxDelta = Math.max(delta, maxDelta);
+		upscnt ++;
+		if (upscnt > 300) {
+			avgups = (1f / (upssum / upscnt)) / 1f;
+			upscnt = 0;
+			upssum = 0;
+			int targetUPS = Consts.TARGET_UPS;
+			if (Gdx.app.getType() == Application.ApplicationType.Android){
+				targetUPS = Consts.TARGET_UPS_MOBILE;
+			}
+			float targetStutter = Consts.TARGET_STUTTER;
+			if (Gdx.app.getType() == Application.ApplicationType.Android){
+				targetStutter = Consts.TARGET_STUTTER_MOBILE;
+			}
+
+//			System.out.println(avgups + " ups / " + targetUPS);
+//			System.out.println("stutter: " + maxDelta  + " / " + targetStutter);
+
+			getParticleRateMultiplier();
+//			System.out.println(Math.pow(rateAdjustments, 0.33f));
+			if ((avgups < targetUPS || maxDelta > targetStutter) && rateAdjustments != 1 && rateAdjustments != 100){
+				particleRate /= 1f + 3.5f / Math.pow(rateAdjustments, 0.33f);
+			}else{
+				particleRate *= 1f + 0.15f / Math.pow(rateAdjustments, 0.33f);
+			}
+			particleRate = MathUtils.clamp(particleRate, Consts.PARTICLE_MULTIPLIER_MIN, Consts.PARTICLE_MULTIPLIER_MAX);
+			maxDelta = 0;
+//			System.out.println(particleRate);
+			GameState.get().setParticleRate(particleRate);
+			rateAdjustments ++;
 		}
 	}
 }

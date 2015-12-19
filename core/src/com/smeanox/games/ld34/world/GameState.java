@@ -14,13 +14,15 @@ public class GameState {
 	private Preferences preferences;
 
 	private static final String PREF_MONEY = "money", PREF_BRIDGES = "bridges", PREF_ROSES = "roses",
-			PREF_HEALTH_UPGRADES = "healthupgrades", PREF_DAMAGE_UPGRADES = "damageupgrades", PREF_PARTICLE_RATE = "particleRate";
+			PREF_HEALTH_UPGRADES = "healthupgrades", PREF_DAMAGE_UPGRADES = "damageupgrades",
+			PREF_PARTICLE_RATE = "particlerate", PREF_SAVE_VERSION = "saveversion";
 
 	private long money;
 	private long bridges;
 	private long roses;
 	private long healthUpgrades;
 	private long damageUpgrades;
+	private long saveVersion;
 
 	private long lastMoney;
 	private float lastMoneyTime;
@@ -33,6 +35,7 @@ public class GameState {
 		lastMoneyTime = 0;
 		lastMoney = money;
 		knownMoney = money;
+		saveVersion = Consts.PREFERENCES_SAVE_VERSION;
 
 		preferences = Gdx.app.getPreferences(Consts.PREFERENCES_NAME);
 
@@ -64,6 +67,8 @@ public class GameState {
 		bridges = Consts.HERO_START_BRIDGES;
 		healthUpgrades = 0;
 		damageUpgrades = 0;
+		particleRate = 1;
+		saveVersion = Consts.PREFERENCES_SAVE_VERSION;
 
 		preferences.clear();
 		preferences.flush();
@@ -76,6 +81,11 @@ public class GameState {
 		healthUpgrades = preferences.getLong(PREF_HEALTH_UPGRADES, 0);
 		damageUpgrades = preferences.getLong(PREF_DAMAGE_UPGRADES, 0);
 		particleRate = preferences.getFloat(PREF_PARTICLE_RATE, 1f);
+		saveVersion = preferences.getLong(PREF_SAVE_VERSION, 1);
+
+		if(saveVersion < Consts.PREFERENCES_SAVE_VERSION){
+			reset();
+		}
 	}
 
 	public void save() {
@@ -85,6 +95,7 @@ public class GameState {
 		preferences.putLong(PREF_HEALTH_UPGRADES, healthUpgrades);
 		preferences.putLong(PREF_DAMAGE_UPGRADES, damageUpgrades);
 		preferences.putFloat(PREF_PARTICLE_RATE, particleRate);
+		preferences.putLong(PREF_SAVE_VERSION, saveVersion);
 
 		preferences.flush();
 	}
